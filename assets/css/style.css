@@ -317,8 +317,29 @@ h1, h2, h3, h4 {
   display: block;
   color: var(--c-ink);
   border-top: 1px solid var(--c-line);
-  padding-top: 22px;
+  padding: 22px 18px 28px;
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
 }
+.series-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  z-index: 0;
+  transition: opacity 0.7s var(--ease), transform 1.2s var(--ease);
+}
+.series-card:hover::before {
+  opacity: 0.30;
+  transform: scale(1.04);
+}
+.series-card > * { position: relative; z-index: 1; }
+.series-card--sea::before   { background-image: url('../img/work-umi-1994.jpg'); }
+.series-card--stone::before { background-image: url('../img/shiroiawa-2014.jpg'); }
+.series-card--foam::before  { background-image: url('../img/utakata-2024.jpg'); }
 .series-card__no {
   font-family: var(--f-serif-en);
   font-size: 0.8rem;
