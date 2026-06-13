@@ -316,7 +316,6 @@ h1, h2, h3, h4 {
 .series-card {
   display: block;
   color: var(--c-ink);
-  border-top: 1px solid var(--c-line);
   padding: 22px 18px 28px;
   position: relative;
   overflow: hidden;
