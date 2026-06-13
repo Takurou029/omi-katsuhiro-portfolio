@@ -651,18 +651,38 @@ body.lightbox-open { overflow: hidden; }
 /* ---------- レスポンシブ ---------- */
 @media (max-width: 880px) {
   .hero {
-    grid-template-columns: 1fr;
+    display: block;
+    position: relative;
     min-height: 100svh;
   }
   .hero__figure {
-    order: -1;
-    height: 65vw;
-    min-height: 280px;
+    position: absolute;
+    inset: 0;
+    height: auto;
+    min-height: unset;
+    order: unset;
+  }
+  .hero__figure img {
+    height: 100%;
   }
   .hero__copy {
+    position: relative;
+    z-index: 1;
+    min-height: 100svh;
     margin-left: 0;
-    padding: clamp(40px, 8vw, 64px) clamp(20px, 6vw, 64px);
+    max-width: none;
+    padding: 96px clamp(20px, 6vw, 40px) clamp(48px, 10vw, 72px);
+    justify-content: flex-end;
+    background: linear-gradient(to top,
+      rgba(26, 28, 30, 0.85) 0%,
+      rgba(26, 28, 30, 0.48) 48%,
+      transparent 100%);
+    color: #F4F2ED;
   }
+  .hero .hero__concept { color: #F4F2ED; }
+  .hero .hero__sub { color: rgba(244, 242, 237, 0.80); }
+  .hero .eyebrow { color: rgba(244, 242, 237, 0.65); }
+  .hero__caption { display: none; }
   .series-index { grid-template-columns: 1fr; gap: 4px; }
   .series-card { padding-block: 22px; }
 }
