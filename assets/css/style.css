@@ -193,12 +193,18 @@ h1, h2, h3, h4 {
 /* ---------- ヒーロー（トップ） ---------- */
 .hero {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  align-items: center;
-  gap: clamp(32px, 6vw, 88px);
-  padding-block: clamp(64px, 10vw, 140px);
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 100vh;
 }
-.hero__copy { max-width: 30em; }
+.hero__copy {
+  max-width: 30em;
+  margin-left: auto;
+  padding: clamp(96px, 12vw, 180px) clamp(40px, 5vw, 72px) clamp(64px, 8vw, 120px) clamp(24px, 6vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .hero__concept {
   font-size: clamp(1.9rem, 5vw, 3.1rem);
   line-height: 1.7;
@@ -210,15 +216,26 @@ h1, h2, h3, h4 {
   font-size: 1rem;
   line-height: 2.1;
 }
-.hero__figure { position: relative; }
+.hero__figure {
+  position: relative;
+  overflow: hidden;
+}
 .hero__figure img {
   width: 100%;
-  box-shadow: 0 18px 50px -28px rgba(38, 40, 43, 0.55);
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 .hero__caption {
-  margin-top: 14px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 24px 20px;
+  background: linear-gradient(to top, rgba(38,40,43,0.55), transparent);
+  color: rgba(244, 242, 237, 0.88);
   font-size: 0.78rem;
-  color: var(--c-ink-sub);
   letter-spacing: 0.04em;
 }
 
@@ -635,9 +652,17 @@ body.lightbox-open { overflow: hidden; }
 @media (max-width: 880px) {
   .hero {
     grid-template-columns: 1fr;
-    padding-block: clamp(40px, 9vw, 80px);
+    min-height: 100svh;
   }
-  .hero__figure { order: -1; }
+  .hero__figure {
+    order: -1;
+    height: 65vw;
+    min-height: 280px;
+  }
+  .hero__copy {
+    margin-left: 0;
+    padding: clamp(40px, 8vw, 64px) clamp(20px, 6vw, 64px);
+  }
   .series-index { grid-template-columns: 1fr; gap: 4px; }
   .series-card { padding-block: 22px; }
 }
