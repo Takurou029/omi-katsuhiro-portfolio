@@ -336,7 +336,7 @@ h1, h2, h3, h4 {
   transform: scale(1.04);
 }
 .series-card > * { position: relative; z-index: 1; }
-.series-card--sea::before   { background-image: url('../img/work-umi-1994.jpg'); background-position: center 80%; }
+.series-card--sea::before   { background-image: url('../img/work-umi-1994.jpg'); background-size: 220%; background-position: center bottom; }
 .series-card--stone::before { background-image: url('../img/shiroiawa-2014.jpg'); }
 .series-card--foam::before  { background-image: url('../img/utakata-2024.jpg'); }
 .series-card__no {
