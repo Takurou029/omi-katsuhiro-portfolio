@@ -335,7 +335,20 @@ h1, h2, h3, h4 {
   opacity: 0.70;
   transform: scale(1.04);
 }
-.series-card > * { position: relative; z-index: 1; }
+.series-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(244, 242, 237, 0.88) 0%,
+    rgba(244, 242, 237, 0.60) 50%,
+    rgba(244, 242, 237, 0.20) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+.series-card > * { position: relative; z-index: 2; }
 .series-card--sea::before   { background-image: url('../img/work-umi-1994.jpg'); background-size: 220%; background-position: center bottom; }
 .series-card--stone::before { background-image: url('../img/shiroiawa-2014.jpg'); }
 .series-card--foam::before  { background-image: url('../img/utakata-2024.jpg'); }
