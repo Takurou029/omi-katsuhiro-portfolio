@@ -218,13 +218,10 @@ h1, h2, h3, h4 {
 }
 .hero__figure {
   position: relative;
-  overflow: hidden;
 }
 .hero__figure img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  height: auto;
   display: block;
 }
 .hero__caption {
@@ -651,38 +648,30 @@ body.lightbox-open { overflow: hidden; }
 /* ---------- レスポンシブ ---------- */
 @media (max-width: 880px) {
   .hero {
-    display: block;
-    position: relative;
-    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
   }
   .hero__figure {
-    position: absolute;
-    inset: 0;
-    height: auto;
-    min-height: unset;
-    order: unset;
+    width: 100%;
+    order: -1;
   }
   .hero__figure img {
-    height: 100%;
+    width: 100%;
+    height: auto;
   }
   .hero__copy {
-    position: relative;
-    z-index: 1;
-    min-height: 100svh;
     margin-left: 0;
     max-width: none;
-    padding: 96px clamp(20px, 6vw, 40px) clamp(48px, 10vw, 72px);
-    justify-content: flex-end;
-    background: linear-gradient(to top,
-      rgba(26, 28, 30, 0.85) 0%,
-      rgba(26, 28, 30, 0.48) 48%,
-      transparent 100%);
-    color: #F4F2ED;
+    min-height: unset;
+    padding: clamp(36px, 8vw, 56px) clamp(20px, 6vw, 40px) clamp(48px, 10vw, 64px);
+    justify-content: flex-start;
+    background: none;
+    color: var(--c-ink);
   }
-  .hero .hero__concept { color: #F4F2ED; }
-  .hero .hero__sub { color: rgba(244, 242, 237, 0.80); }
-  .hero .eyebrow { color: rgba(244, 242, 237, 0.65); }
-  .hero__caption { display: none; }
+  .hero .hero__concept { color: var(--c-ink); }
+  .hero .hero__sub { color: var(--c-ink-sub); }
+  .hero .eyebrow { color: var(--c-accent); }
+  .hero__caption { display: block; }
   .series-index { grid-template-columns: 1fr; gap: 4px; }
   .series-card { padding-block: 22px; }
 }
