@@ -218,6 +218,7 @@ h1, h2, h3, h4 {
 }
 .hero__figure {
   position: relative;
+  margin: 0;
 }
 .hero__figure img {
   width: 100%;
