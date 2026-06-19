@@ -1,22 +1,24 @@
 /* =========================================================
-   Lucca Leather — Design System
-   Concept: 革と対話する、丁寧な手仕事。
-   Warm artisan palette · Elegant serif · Intentional space
+   Lucca — Leather Works from Japan
+   Concept: 世代を超えて愛される、ものづくり。
+   Inspired by the artisan town of Lucca, Tuscany, Italy.
+   Palette: warm stone · natural leather · aged brass
    ========================================================= */
 
 /* ---------- Design Tokens ---------- */
 :root {
-  /* Colors — warm leather palette */
-  --col-dark:    #100604;   /* espresso black */
-  --col-deep:    #2C1810;   /* deep leather */
-  --col-leather: #7B3F1E;   /* saddle brown */
-  --col-warm:    #C8956C;   /* tan warm */
-  --col-sand:    #D4B896;   /* sand / thread */
-  --col-cream:   #F5EFE0;   /* parchment */
-  --col-light:   #FAF7F2;   /* off-white base */
-  --col-gold:    #C4963A;   /* burnished gold */
-  --col-text:    #1A0A04;   /* near-black warm */
-  --col-muted:   #6B5040;   /* muted warm brown */
+  /* Colors — Tuscany artisan palette */
+  --col-dark:    #1C1410;   /* Tuscan shadow */
+  --col-deep:    #30221A;   /* dark clay */
+  --col-leather: #7D4E2A;   /* natural saddle */
+  --col-warm:    #B87E52;   /* aged tan */
+  --col-sand:    #CEAD88;   /* stone sand */
+  --col-cream:   #F4EDE0;   /* warm parchment */
+  --col-light:   #FAF7F0;   /* stone white / base */
+  --col-gold:    #B8892C;   /* antique brass */
+  --col-stone:   #8C7B6A;   /* Lucca stone gray */
+  --col-text:    #1C1410;   /* warm near-black */
+  --col-muted:   #6B5848;   /* muted clay */
 
   /* Typography */
   --f-display: 'Cormorant Garamond', Georgia, serif;
@@ -305,15 +307,15 @@ button { cursor: pointer; }
   background-color: #1A0A04;
 }
 
-/* Leather grain texture overlay using CSS */
+/* Tuscany dusk — warm clay + leather + antique brass glow */
 .hero__texture {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(160deg, rgba(16,6,4,0.92) 0%, rgba(44,24,16,0.85) 55%, rgba(123,63,30,0.65) 100%),
-    repeating-linear-gradient(30deg, transparent, transparent 4px, rgba(200,149,108,0.018) 4px, rgba(200,149,108,0.018) 8px),
-    repeating-linear-gradient(-30deg, transparent, transparent 4px, rgba(200,149,108,0.012) 4px, rgba(200,149,108,0.012) 8px),
-    radial-gradient(ellipse at 60% 40%, rgba(196,150,58,0.06) 0%, transparent 65%);
+    linear-gradient(155deg, rgba(28,20,16,0.88) 0%, rgba(48,34,26,0.80) 45%, rgba(125,78,42,0.60) 100%),
+    repeating-linear-gradient(28deg, transparent, transparent 5px, rgba(184,137,44,0.022) 5px, rgba(184,137,44,0.022) 10px),
+    repeating-linear-gradient(-28deg, transparent, transparent 5px, rgba(184,137,44,0.014) 5px, rgba(184,137,44,0.014) 10px),
+    radial-gradient(ellipse at 65% 35%, rgba(184,137,44,0.10) 0%, transparent 60%);
 }
 
 /* Hero decorative image frames (right side) */
@@ -334,11 +336,11 @@ button { cursor: pointer; }
 }
 .hero__img-box--1 {
   height: clamp(180px, 28vw, 320px);
-  background: linear-gradient(160deg, #C8956C 0%, #7B3F1E 50%, #3D1E0C 100%);
+  background: linear-gradient(160deg, #CEAD88 0%, #7D4E2A 50%, #3D2414 100%);
 }
 .hero__img-box--2 {
   height: clamp(120px, 18vw, 200px);
-  background: linear-gradient(160deg, #D4B896 0%, #8B5E3C 50%, #4A2810 100%);
+  background: linear-gradient(160deg, #D4BA98 0%, #8C6B40 50%, #4A2C18 100%);
   margin-top: 3rem;
 }
 
@@ -535,13 +537,13 @@ button { cursor: pointer; }
   background: var(--col-cream);
 }
 
-/* Leather-toned placeholder gradients for each product */
-.work-img--1 { background: linear-gradient(145deg, #D4B896 0%, #C8956C 35%, #8B5E3C 70%, #5C3317 100%); }
-.work-img--2 { background: linear-gradient(145deg, #8B5E3C 0%, #6B4226 35%, #4A2C17 70%, #2C1608 100%); }
-.work-img--3 { background: linear-gradient(145deg, #5C4030 0%, #3D2814 35%, #2C1A0E 70%, #1A0A06 100%); }
-.work-img--4 { background: linear-gradient(145deg, #E0C49A 0%, #C8A870 35%, #A07840 70%, #7B5828 100%); }
-.work-img--5 { background: linear-gradient(145deg, #3D2810 0%, #2C1A0A 35%, #1E1006 70%, #120804 100%); }
-.work-img--6 { background: linear-gradient(145deg, #2C2016 0%, #1A140E 35%, #100C08 70%, #080604 100%); }
+/* Natural leather tones — sunlit studio photography feel */
+.work-img--1 { background: linear-gradient(145deg, #E8D5B4 0%, #CEAD88 30%, #A07848 65%, #6B4C2A 100%); }
+.work-img--2 { background: linear-gradient(145deg, #C4A07A 0%, #8C6040 30%, #5C3C20 65%, #3A2410 100%); }
+.work-img--3 { background: linear-gradient(145deg, #B89868 0%, #7D5030 30%, #4E3018 65%, #2C1C0C 100%); }
+.work-img--4 { background: linear-gradient(145deg, #E4CCA4 0%, #C8A870 30%, #9C7848 65%, #6A5030 100%); }
+.work-img--5 { background: linear-gradient(145deg, #5C4028 0%, #3C2814 30%, #281A0C 65%, #180E06 100%); }
+.work-img--6 { background: linear-gradient(145deg, #D4BA94 0%, #B89068 30%, #8C6840 65%, #5A4020 100%); }
 
 .work-card__img {
   position: absolute;
@@ -809,12 +811,13 @@ button { cursor: pointer; }
   inset: 0;
   transition: transform 0.55s var(--ease);
 }
-.ig-cell--1 .ig-cell__inner { background: linear-gradient(135deg, #C8956C 0%, #8B5E3C 60%, #5C3317 100%); }
-.ig-cell--2 .ig-cell__inner { background: linear-gradient(135deg, #D4B896 0%, #B89060 60%, #8B6040 100%); }
-.ig-cell--3 .ig-cell__inner { background: linear-gradient(135deg, #7B3F1E 0%, #5C2E14 50%, #3D1E0C 100%); }
-.ig-cell--4 .ig-cell__inner { background: linear-gradient(135deg, #5C3317 0%, #3D2010 50%, #2C140A 100%); }
-.ig-cell--5 .ig-cell__inner { background: linear-gradient(135deg, #B89060 0%, #8B6040 50%, #6B4828 100%); }
-.ig-cell--6 .ig-cell__inner { background: linear-gradient(135deg, #3D2810 0%, #2C1C0C 50%, #1A1008 100%); }
+/* Instagram-style: warm studio, natural light, leather on neutral bg */
+.ig-cell--1 .ig-cell__inner { background: linear-gradient(135deg, #EAD8BA 0%, #CEAD88 55%, #9C7848 100%); }
+.ig-cell--2 .ig-cell__inner { background: linear-gradient(135deg, #F0E6D4 0%, #D4BA98 55%, #A88060 100%); }
+.ig-cell--3 .ig-cell__inner { background: linear-gradient(135deg, #C4A070 0%, #8C6038 50%, #5A3C20 100%); }
+.ig-cell--4 .ig-cell__inner { background: linear-gradient(135deg, #D8C4A0 0%, #B89468 50%, #7D5030 100%); }
+.ig-cell--5 .ig-cell__inner { background: linear-gradient(135deg, #E4D0B0 0%, #C4A070 50%, #8C6038 100%); }
+.ig-cell--6 .ig-cell__inner { background: linear-gradient(135deg, #A87848 0%, #7D5030 50%, #4E3018 100%); }
 
 .ig-cell:hover .ig-cell__inner { transform: scale(1.08); }
 
