@@ -336,11 +336,15 @@ button { cursor: pointer; }
 }
 .hero__img-box--1 {
   height: clamp(180px, 28vw, 320px);
-  background: linear-gradient(160deg, #CEAD88 0%, #7D4E2A 50%, #3D2414 100%);
+  background-image: url('https://images.pexels.com/photos/4452509/pexels-photo-4452509.jpeg?auto=compress&cs=tinysrgb&w=400');
+  background-size: cover;
+  background-position: center;
 }
 .hero__img-box--2 {
   height: clamp(120px, 18vw, 200px);
-  background: linear-gradient(160deg, #D4BA98 0%, #8C6B40 50%, #4A2C18 100%);
+  background-image: url('https://images.pexels.com/photos/6045262/pexels-photo-6045262.jpeg?auto=compress&cs=tinysrgb&w=400');
+  background-size: cover;
+  background-position: center;
   margin-top: 3rem;
 }
 
@@ -534,16 +538,34 @@ button { cursor: pointer; }
   overflow: hidden;
   aspect-ratio: 3 / 4;
   margin-bottom: 1rem;
-  background: var(--col-cream);
+  background: var(--col-sand);
 }
 
-/* Natural leather tones — sunlit studio photography feel */
-.work-img--1 { background: linear-gradient(145deg, #E8D5B4 0%, #CEAD88 30%, #A07848 65%, #6B4C2A 100%); }
-.work-img--2 { background: linear-gradient(145deg, #C4A07A 0%, #8C6040 30%, #5C3C20 65%, #3A2410 100%); }
-.work-img--3 { background: linear-gradient(145deg, #B89868 0%, #7D5030 30%, #4E3018 65%, #2C1C0C 100%); }
-.work-img--4 { background: linear-gradient(145deg, #E4CCA4 0%, #C8A870 30%, #9C7848 65%, #6A5030 100%); }
-.work-img--5 { background: linear-gradient(145deg, #5C4028 0%, #3C2814 30%, #281A0C 65%, #180E06 100%); }
-.work-img--6 { background: linear-gradient(145deg, #D4BA94 0%, #B89068 30%, #8C6840 65%, #5A4020 100%); }
+/* Real leather craft photography — Pexels (Vlada Karpovich et al.) */
+.work-img--1 {
+  background-image: url('https://images.pexels.com/photos/4452509/pexels-photo-4452509.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover; background-position: center;
+}
+.work-img--2 {
+  background-image: url('https://images.pexels.com/photos/4452642/pexels-photo-4452642.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover; background-position: center;
+}
+.work-img--3 {
+  background-image: url('https://images.pexels.com/photos/6045262/pexels-photo-6045262.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover; background-position: center;
+}
+.work-img--4 {
+  background-image: url('https://images.pexels.com/photos/3777932/pexels-photo-3777932.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover; background-position: center;
+}
+.work-img--5 {
+  background-image: url('https://images.pexels.com/photos/3814573/pexels-photo-3814573.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover; background-position: center;
+}
+.work-img--6 {
+  background-image: url('https://images.pexels.com/photos/167686/pexels-photo-167686.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover; background-position: center;
+}
 
 .work-card__img {
   position: absolute;
@@ -613,16 +635,16 @@ button { cursor: pointer; }
 
 
 /* =========================================================
-   Concept
+   Story
    ========================================================= */
-.concept-layout {
+.story-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(3rem, 8vw, 6rem);
   align-items: center;
 }
-.concept-text .section-title { margin-bottom: 1.4rem; }
-.concept-body {
+.story-text .section-title { margin-bottom: 1.4rem; }
+.story-body {
   font-family: var(--f-jp);
   font-size: 0.92rem;
   font-weight: 300;
@@ -630,45 +652,45 @@ button { cursor: pointer; }
   color: rgba(245,239,224,0.78);
   margin-bottom: 1.25rem;
 }
-.concept-values {
+.story-values {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-top: 2.5rem;
 }
-.concept-value {
+.story-value {
   text-align: center;
   padding: 1.4rem 0.75rem;
   border: 1px solid rgba(200,149,108,0.18);
   transition: border-color var(--duration);
 }
-.concept-value:hover { border-color: rgba(200,149,108,0.4); }
-.concept-value__icon {
+.story-value:hover { border-color: rgba(200,149,108,0.4); }
+.story-value__icon {
   display: block;
   font-size: 0.85rem;
   color: var(--col-warm);
   margin-bottom: 0.7rem;
 }
-.concept-value h3 {
+.story-value h3 {
   font-family: var(--f-jp);
   font-size: 0.88rem;
   font-weight: 400;
   color: var(--col-cream);
   margin-bottom: 0.4rem;
 }
-.concept-value p {
+.story-value p {
   font-size: 0.73rem;
   color: rgba(245,239,224,0.55);
   line-height: 1.75;
 }
 
-/* Concept visual frame */
-.concept-visual { position: relative; }
-.concept-frame {
+/* Story visual frame */
+.story-visual { position: relative; }
+.story-frame {
   position: relative;
   padding: 1.25rem 0 0 1.25rem;
 }
-.concept-frame::before {
+.story-frame::before {
   content: '';
   position: absolute;
   top: 0;
@@ -678,23 +700,37 @@ button { cursor: pointer; }
   border: 1px solid rgba(200,149,108,0.25);
   pointer-events: none;
 }
-.concept-img {
+.story-img {
   aspect-ratio: 3 / 4;
-  background: linear-gradient(155deg, #5C3317 0%, #3D2010 30%, #2C1408 65%, #100604 100%);
+  background-image: url('https://images.pexels.com/photos/28821763/pexels-photo-28821763.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover;
+  background-position: center;
   position: relative;
 }
-.concept-img::after {
-  content: 'Photo';
+.story-quote {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  bottom: -1.25rem;
+  right: -1.25rem;
+  background: rgba(28,20,16,0.88);
+  border: 1px solid rgba(200,149,108,0.25);
+  padding: 1.25rem 1.5rem;
+  max-width: 240px;
+  backdrop-filter: blur(4px);
+}
+.story-quote p {
   font-family: var(--f-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.3em;
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--col-cream);
+  margin-bottom: 0.5rem;
+}
+.story-quote span {
+  font-family: var(--f-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(200,149,108,0.25);
+  color: var(--col-warm);
 }
 
 
@@ -724,24 +760,24 @@ button { cursor: pointer; }
   margin-bottom: 1.4rem;
   position: relative;
   overflow: hidden;
+  background-color: var(--col-sand);
 }
-.process-step__img::after {
-  content: 'Photo';
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--f-display);
-  font-size: 0.78rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(200,149,108,0.4);
+.proc-img--1 {
+  background-image: url('https://images.pexels.com/photos/6045262/pexels-photo-6045262.jpeg?auto=compress&cs=tinysrgb&w=1200');
+  background-size: cover; background-position: center;
 }
-.proc-img--1 { background: linear-gradient(125deg, #D4B896, #B89060, #8B6040); }
-.proc-img--2 { background: linear-gradient(125deg, #C89060, #A07040, #6B4828); }
-.proc-img--3 { background: linear-gradient(125deg, #8B5E3C, #6B4028, #4A2C18); }
-.proc-img--4 { background: linear-gradient(125deg, #5C3317, #3D2010, #2C140A); }
+.proc-img--2 {
+  background-image: url('https://images.pexels.com/photos/3814573/pexels-photo-3814573.jpeg?auto=compress&cs=tinysrgb&w=1200');
+  background-size: cover; background-position: center;
+}
+.proc-img--3 {
+  background-image: url('https://images.pexels.com/photos/6660957/pexels-photo-6660957.jpeg?auto=compress&cs=tinysrgb&w=1200');
+  background-size: cover; background-position: center;
+}
+.proc-img--4 {
+  background-image: url('https://images.pexels.com/photos/4452642/pexels-photo-4452642.jpeg?auto=compress&cs=tinysrgb&w=1200');
+  background-size: cover; background-position: top;
+}
 
 .process-step__title {
   font-family: var(--f-jp);
@@ -810,14 +846,33 @@ button { cursor: pointer; }
   position: absolute;
   inset: 0;
   transition: transform 0.55s var(--ease);
+  background-color: var(--col-sand);
 }
 /* Instagram-style: warm studio, natural light, leather on neutral bg */
-.ig-cell--1 .ig-cell__inner { background: linear-gradient(135deg, #EAD8BA 0%, #CEAD88 55%, #9C7848 100%); }
-.ig-cell--2 .ig-cell__inner { background: linear-gradient(135deg, #F0E6D4 0%, #D4BA98 55%, #A88060 100%); }
-.ig-cell--3 .ig-cell__inner { background: linear-gradient(135deg, #C4A070 0%, #8C6038 50%, #5A3C20 100%); }
-.ig-cell--4 .ig-cell__inner { background: linear-gradient(135deg, #D8C4A0 0%, #B89468 50%, #7D5030 100%); }
-.ig-cell--5 .ig-cell__inner { background: linear-gradient(135deg, #E4D0B0 0%, #C4A070 50%, #8C6038 100%); }
-.ig-cell--6 .ig-cell__inner { background: linear-gradient(135deg, #A87848 0%, #7D5030 50%, #4E3018 100%); }
+.ig-cell--1 .ig-cell__inner {
+  background-image: url('https://images.pexels.com/photos/30018172/pexels-photo-30018172.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover; background-position: center;
+}
+.ig-cell--2 .ig-cell__inner {
+  background-image: url('https://images.pexels.com/photos/4452509/pexels-photo-4452509.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover; background-position: center;
+}
+.ig-cell--3 .ig-cell__inner {
+  background-image: url('https://images.pexels.com/photos/6660957/pexels-photo-6660957.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover; background-position: center;
+}
+.ig-cell--4 .ig-cell__inner {
+  background-image: url('https://images.pexels.com/photos/28821763/pexels-photo-28821763.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover; background-position: center;
+}
+.ig-cell--5 .ig-cell__inner {
+  background-image: url('https://images.pexels.com/photos/4452642/pexels-photo-4452642.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover; background-position: center;
+}
+.ig-cell--6 .ig-cell__inner {
+  background-image: url('https://images.pexels.com/photos/3814573/pexels-photo-3814573.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover; background-position: center;
+}
 
 .ig-cell:hover .ig-cell__inner { transform: scale(1.08); }
 
@@ -1114,7 +1169,9 @@ button { cursor: pointer; }
 }
 .modal__img {
   aspect-ratio: 3 / 1;
-  background: linear-gradient(135deg, #D4B896 0%, #C8956C 40%, #7B3F1E 80%, #3D1E0C 100%);
+  background-image: url('https://images.pexels.com/photos/4452642/pexels-photo-4452642.jpeg?auto=compress&cs=tinysrgb&w=800');
+  background-size: cover;
+  background-position: center;
   margin-bottom: 1.2rem;
   position: relative;
   overflow: hidden;
@@ -1123,7 +1180,7 @@ button { cursor: pointer; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, transparent 40%, rgba(245,239,224,0.08));
+  background: linear-gradient(to right, rgba(28,20,16,0.3) 0%, rgba(28,20,16,0.15) 100%);
 }
 .modal__body {
   font-size: 0.85rem;
@@ -1154,8 +1211,8 @@ button { cursor: pointer; }
 /* Tablet */
 @media (max-width: 1024px) {
   .works-grid { grid-template-columns: repeat(2, 1fr); }
-  .concept-layout { grid-template-columns: 1fr; }
-  .concept-visual { max-width: 420px; margin-inline: auto; }
+  .story-layout { grid-template-columns: 1fr; }
+  .story-visual { max-width: 420px; margin-inline: auto; }
   .ig-grid { grid-template-columns: repeat(3, 1fr); }
 
   .footer-inner {
@@ -1197,8 +1254,8 @@ button { cursor: pointer; }
   .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
   .form-row { grid-template-columns: 1fr; }
 
-  /* Concept values */
-  .concept-values { grid-template-columns: 1fr; gap: 0.6rem; }
+  /* Story values */
+  .story-values { grid-template-columns: 1fr; gap: 0.6rem; }
 
   /* Hero image frame hide on mobile */
   .hero__img-frame { display: none; }
