@@ -2,171 +2,446 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>麻績勝広 ｜ 洋画家 — 石と水と、その静けさ。</title>
-<meta name="description" content="洋画家・麻績勝広（おみ かつひろ）の公式サイト。新潟・糸魚川の海と石、そして水面の泡。マットな絵肌で自然の本質に迫る具象絵画。春陽会会員。">
-<meta property="og:title" content="麻績勝広 ｜ 洋画家">
-<meta property="og:description" content="石と水と、その静けさ。海から、故郷の石へ、水面の泡へ。">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucca | 革小物・レザークラフト — 手縫いの手仕事</title>
+<meta name="description" content="イタリア・ルッカの小さな古都に触れて革職人の道へ。シンプルで質のいい革と真鍮金具を手で縫い、世代を超えて愛されるものを一点ずつ。BASEにて販売・オーダーメイド受付中。">
+<meta property="og:title" content="Lucca | 手縫いレザークラフト">
+<meta property="og:description" content="シンプルで質のいい革と真鍮金具。丁寧な手縫いで一点ずつ仕上げるレザークラフトブランド「Lucca」。BASEにて販売中。">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/img/utakata-2025.jpg">
+<meta property="og:image" content="assets/img/og-leather.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>L</text></svg>">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
-<!-- 構造化データ：公開時は url / image の https://example.com を独自ドメインに置き換える -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "麻績勝広",
-  "alternateName": "Katsuhiro Omi",
-  "jobTitle": "洋画家",
-  "gender": "Male",
-  "birthDate": "1962",
-  "birthPlace": { "@type": "Place", "name": "新潟県糸魚川市" },
-  "nationality": "JP",
-  "url": "https://example.com/",
-  "image": "https://example.com/assets/img/utakata-2025.jpg",
-  "knowsAbout": ["油彩", "具象絵画", "洋画"],
-  "memberOf": { "@type": "Organization", "name": "春陽会", "url": "https://shunyo-kai.or.jp/" },
-  "alumniOf": { "@type": "CollegeOrUniversity", "name": "新潟大学" },
-  "award": [
-    "第9回 雪梁舎フィレンツェ賞展 大賞 (2007)",
-    "第85回 春陽展 春陽会賞 (2008)",
-    "アートオリンピア2019 佳作賞"
-  ]
-}
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Raleway:wght@300;400;500;600&family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/lucca-style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap site-header__inner">
-    <p class="brand">
-      <a href="index.html">
-        <span class="brand__name">麻績勝広</span>
-        <span class="brand__en">Katsuhiro Omi</span>
-      </a>
-    </p>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="globalnav">メニュー</button>
-    <nav class="nav" id="globalnav" aria-label="メインナビゲーション">
+<!-- お知らせバー -->
+<div class="announce-bar" id="announceBar" role="region" aria-label="お知らせ">
+  <p>✦&thinsp;真鍮金具・手縫い仕上げの革小物 &nbsp;·&nbsp; BASEショップにて販売中 &nbsp;<a href="https://luccaleather.base.shop/" target="_blank" rel="noopener">ショップを見る &rarr;</a></p>
+  <button class="announce-bar__close" id="announceClose" aria-label="お知らせを閉じる">&times;</button>
+</div>
+
+<!-- ヘッダー -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#home" class="logo" aria-label="Lucca トップへ">
+      <span class="logo__main">Lucca</span>
+      <span class="logo__sub">Leather Works · Handmade in Japan</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="globalnav" aria-label="メニューを開く">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="global-nav" id="globalnav" aria-label="メインナビゲーション">
       <ul>
-        <li><a href="index.html" aria-current="page">ホーム</a></li>
-        <li><a href="works.html">作品</a></li>
-        <li><a href="about.html">作家について</a></li>
-        <li><a href="exhibitions.html">展示・お知らせ</a></li>
-        <li><a href="contact.html">お問い合わせ</a></li>
+        <li><a href="#works">作品</a></li>
+        <li><a href="#story">ストーリー</a></li>
+        <li><a href="#process">手仕事</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+        <li><a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="nav-shop-btn">Shop</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
-<main>
+<main id="home">
 
   <!-- ヒーロー -->
-  <section class="hero">
-    <div class="hero__copy reveal">
-      <p class="eyebrow">Katsuhiro Omi — Painter</p>
-      <h1 class="hero__concept">石と水と、<br>その静けさ。</h1>
+  <section class="hero" aria-label="ヒーロー">
+    <div class="hero__texture" aria-hidden="true"></div>
+    <div class="hero__content reveal">
+      <p class="hero__eyebrow">Lucca &mdash; Leather Works from Japan</p>
+      <h1 class="hero__title">
+        世代を超えて<br>
+        <em>愛されるものを。</em>
+      </h1>
       <p class="hero__sub">
-        海から、故郷の石へ、そして水面の泡へ。<br>
-        新潟・糸魚川に生まれた洋画家・麻績勝広が、<br>
-        半生をかけて見つめてきた「時間の堆積と本質」。
+        シンプルで質のいい革と真鍮金具。<br>
+        ひと針ひと針、手縫いで仕上げる一点もの。
       </p>
+      <div class="hero__ctas">
+        <a href="#works" class="btn btn--outline-light">作品を見る</a>
+        <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="btn btn--cream">ショップへ</a>
+      </div>
     </div>
-    <figure class="hero__figure reveal">
-      <img src="assets/img/utakata-2025.jpg"
-           alt="麻績勝広「泡沫」2025年。暗い宇宙のような空間に泡が銀河状に渦巻き、青い光の柱が立ちのぼる油彩。「海から宇宙へ」の到達点ともいえる最新作。第102回春陽展出品作。"
-           width="630" height="800">
-      <figcaption class="hero__caption">泡沫（うたかた） ／ <span class="num">2025</span>　油彩・キャンバス（第102回春陽展）</figcaption>
-    </figure>
-  </section>
-
-  <!-- ステートメント -->
-  <section class="section section--sub">
-    <div class="wrap">
-      <p class="statement reveal" style="max-width:720px;">
-        描くのは、見えるものの奥にある静けさ。<br>
-        約30年描き続けた海から、故郷・糸魚川の石へ。
-        還暦を機に、わたしは水面の泡へと筆を移しました。
-        対象が変わっても、見つめているのはいつも同じ —
-        自然がたたえる、本質の表情です。
-      </p>
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span class="hero__scroll-label">Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+    <div class="hero__img-frame" aria-hidden="true">
+      <div class="hero__img-box hero__img-box--1"></div>
+      <div class="hero__img-box hero__img-box--2"></div>
     </div>
   </section>
 
-  <!-- 3シリーズ入口 -->
-  <section class="section">
+  <!-- 特徴ライン -->
+  <div class="feature-bar">
+    <div class="feature-bar__inner">
+      <span class="feature-item">✦ 真鍮金具使用</span>
+      <span class="feature-sep" aria-hidden="true">|</span>
+      <span class="feature-item">✦ 全品手縫い</span>
+      <span class="feature-sep" aria-hidden="true">|</span>
+      <span class="feature-item">✦ 職人による一点制作</span>
+      <span class="feature-sep" aria-hidden="true">|</span>
+      <span class="feature-item">✦ 製作者から直接お届け</span>
+    </div>
+  </div>
+
+  <!-- 作品セクション -->
+  <section class="section" id="works">
     <div class="wrap">
-      <header class="reveal" style="max-width:720px; margin-bottom:var(--space-block);">
+      <header class="section-header reveal">
         <p class="eyebrow">Works</p>
-        <h2 class="section-title">三つのモチーフ<span class="en">Sea / Stone / Foam</span></h2>
-        <p class="lede">海、石、泡。麻績勝広の制作は、ひとつのモチーフに留まらず、静かに移ろいながら深まってきました。それぞれの世界へ。</p>
+        <h2 class="section-title">作品</h2>
+        <p class="section-lede">革小物・財布・バッグ、すべて手縫いの一点制作。<br>使えば使うほど、あなたの色に育っていきます。</p>
       </header>
 
-      <div class="series-index">
-        <a class="series-card series-card--sea reveal" href="works.html#sea">
-          <span class="series-card__no">01</span>
-          <h3 class="series-card__kana">海</h3>
-          <p class="series-card__note">画家としての出発点。約30年にわたり描き続けた、新潟の海。</p>
+      <!-- カテゴリフィルター -->
+      <div class="works-filter reveal" role="group" aria-label="作品カテゴリ">
+        <button class="filter-btn active" data-filter="all">すべて</button>
+        <button class="filter-btn" data-filter="wallet">財布</button>
+        <button class="filter-btn" data-filter="bag">バッグ</button>
+        <button class="filter-btn" data-filter="small">小物</button>
+      </div>
+
+      <div class="works-grid" id="worksGrid">
+
+        <article class="work-card reveal" data-category="small">
+          <div class="work-card__img-wrap">
+            <div class="work-card__img work-img--1" role="img" aria-label="口金メガネケース・ペンケース 作品写真"></div>
+            <div class="work-card__overlay" aria-hidden="true"><span>View</span></div>
+            <span class="work-card__badge">定番人気</span>
+          </div>
+          <div class="work-card__body">
+            <h3 class="work-card__name">口金メガネケース</h3>
+            <p class="work-card__material">ヌメ革 · 真鍮口金 · ペンケースとしても</p>
+            <a href="https://luccaleather.base.shop/items/79140615" target="_blank" rel="noopener" class="work-card__link">ショップで見る &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-card reveal" data-category="wallet">
+          <div class="work-card__img-wrap">
+            <div class="work-card__img work-img--2" role="img" aria-label="ロングウォレット 作品写真"></div>
+            <div class="work-card__overlay" aria-hidden="true"><span>View</span></div>
+          </div>
+          <div class="work-card__body">
+            <h3 class="work-card__name">ロングウォレット</h3>
+            <p class="work-card__material">ヌメ革 · 真鍮金具 · 手縫い</p>
+            <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="work-card__link">ショップで見る &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-card reveal" data-category="wallet">
+          <div class="work-card__img-wrap">
+            <div class="work-card__img work-img--3" role="img" aria-label="二つ折り財布 作品写真"></div>
+            <div class="work-card__overlay" aria-hidden="true"><span>View</span></div>
+          </div>
+          <div class="work-card__body">
+            <h3 class="work-card__name">二つ折り財布</h3>
+            <p class="work-card__material">植物タンニン鞣し革 · 真鍮スナップ</p>
+            <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="work-card__link">ショップで見る &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-card reveal" data-category="small">
+          <div class="work-card__img-wrap">
+            <div class="work-card__img work-img--4" role="img" aria-label="キーケース 作品写真"></div>
+            <div class="work-card__overlay" aria-hidden="true"><span>View</span></div>
+          </div>
+          <div class="work-card__body">
+            <h3 class="work-card__name">キーケース</h3>
+            <p class="work-card__material">ヌメ革 · 真鍮フック</p>
+            <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="work-card__link">ショップで見る &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-card reveal" data-category="bag">
+          <div class="work-card__img-wrap">
+            <div class="work-card__img work-img--5" role="img" aria-label="トートバッグ 作品写真"></div>
+            <div class="work-card__overlay" aria-hidden="true"><span>View</span></div>
+            <span class="work-card__badge work-card__badge--new">New</span>
+          </div>
+          <div class="work-card__body">
+            <h3 class="work-card__name">ミニトートバッグ</h3>
+            <p class="work-card__material">植物タンニン鞣し革 · 真鍮Dカン</p>
+            <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="work-card__link">ショップで見る &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-card reveal" data-category="small">
+          <div class="work-card__img-wrap">
+            <div class="work-card__img work-img--6" role="img" aria-label="コインケース 作品写真"></div>
+            <div class="work-card__overlay" aria-hidden="true"><span>View</span></div>
+          </div>
+          <div class="work-card__body">
+            <h3 class="work-card__name">コインケース</h3>
+            <p class="work-card__material">ヌメ革 · 真鍮ホック</p>
+            <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="work-card__link">ショップで見る &rarr;</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="section-cta reveal">
+        <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="btn btn--primary btn--lg">すべての作品をショップで見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ブランドストーリー -->
+  <section class="section section--dark" id="story">
+    <div class="wrap story-layout">
+      <div class="story-text reveal">
+        <p class="eyebrow eyebrow--warm">Story</p>
+        <h2 class="section-title section-title--light">25歳の一人旅が、<br>すべての始まりでした。</h2>
+
+        <p class="story-body">
+          イタリア・トスカーナに位置する小さな古都、ルッカ。
+          25歳のひとり旅でこの街に出会い、石畳に刻まれた時間と、
+          職人たちの静かな手仕事に、深く心を動かされました。
+        </p>
+        <p class="story-body">
+          「世代を超えて愛されるモノとコトを」——
+          その想いを胸に、帰国後にレザークラフトの道を歩み始めました。
+          以来、シンプルで質のいい革と真鍮金具だけを選び、
+          ひとつひとつ丁寧に手縫いで仕上げています。
+        </p>
+        <p class="story-body">
+          Luccaの作品は、あなたの手に渡ってから始まります。
+          使い込むほどに革が育ち、色づき、あなただけの表情になる——
+          その経年変化こそ、本革の醍醐味です。
+        </p>
+
+        <div class="story-values">
+          <div class="story-value">
+            <span class="story-value__icon" aria-hidden="true">✦</span>
+            <h3>真鍮金具</h3>
+            <p>味わいのある真鍮を<br>すべての作品に使用</p>
+          </div>
+          <div class="story-value">
+            <span class="story-value__icon" aria-hidden="true">✦</span>
+            <h3>手縫い仕上げ</h3>
+            <p>ミシンは使わず<br>ひと針ひと針手で縫う</p>
+          </div>
+          <div class="story-value">
+            <span class="story-value__icon" aria-hidden="true">✦</span>
+            <h3>製作者直送</h3>
+            <p>作った本人が直接<br>お届けします</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-visual reveal" aria-hidden="true">
+        <div class="story-frame">
+          <div class="story-img"></div>
+          <div class="story-quote">
+            <p>"世代を超えて愛される<br>ものとことを。"</p>
+            <span>— Lucca</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 手仕事プロセス -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <header class="section-header reveal">
+        <p class="eyebrow">Handcraft</p>
+        <h2 class="section-title">ひと針ひと針、<br>手で縫う。</h2>
+        <p class="section-lede">すべての工程を一人の職人が手がけます。<br>型紙から裁断、縫製、仕上げまで——ひとつに時間をかけて。</p>
+      </header>
+
+      <div class="process-grid">
+
+        <div class="process-step reveal">
+          <div class="process-step__num" aria-hidden="true">01</div>
+          <div class="process-step__img proc-img--1" role="img" aria-label="革の選定"></div>
+          <h3 class="process-step__title">革の選定</h3>
+          <p class="process-step__desc">植物タンニン鞣しの「ヌメ革」を中心に、経年変化の美しいものを厳選。革の顔をひとつひとつ確かめながら、作品に合う素材を選びます。</p>
+        </div>
+
+        <div class="process-step reveal">
+          <div class="process-step__num" aria-hidden="true">02</div>
+          <div class="process-step__img proc-img--2" role="img" aria-label="型紙と裁断"></div>
+          <h3 class="process-step__title">型紙・裁断</h3>
+          <p class="process-step__desc">自分で設計した型紙をもとに、革の表情を見ながら一枚ずつ手で裁断します。革の傷やシワの位置も確かめながら、丁寧に。</p>
+        </div>
+
+        <div class="process-step reveal">
+          <div class="process-step__num" aria-hidden="true">03</div>
+          <div class="process-step__img proc-img--3" role="img" aria-label="手縫い"></div>
+          <h3 class="process-step__title">手縫い</h3>
+          <p class="process-step__desc">菱目打ちで穴を開け、ひと針ひと針手縫いします。Luccaでは機械は使いません。手の感覚で縫い目の張りと均一さを確かめながら縫い進めます。</p>
+        </div>
+
+        <div class="process-step reveal">
+          <div class="process-step__num" aria-hidden="true">04</div>
+          <div class="process-step__img proc-img--4" role="img" aria-label="仕上げ・磨き"></div>
+          <h3 class="process-step__title">仕上げ・磨き</h3>
+          <p class="process-step__desc">コバ（革の断面）を何度も丁寧に磨き、革全体にオイルを入れて仕上げます。使い始めから美しく、長く使えるものを目指しています。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ショップバナー -->
+  <section class="shop-banner" aria-label="オンラインショップへのリンク">
+    <div class="shop-banner__content reveal">
+      <p class="eyebrow eyebrow--warm">Online Shop</p>
+      <h2 class="shop-banner__title">BASEショップで<br>販売中</h2>
+      <p class="shop-banner__sub">財布 · 小物 · メガネケース · バッグ<br>オーダーメイドのご相談もお気軽に</p>
+      <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="btn btn--cream btn--lg">ショップを見る</a>
+    </div>
+  </section>
+
+  <!-- Instagramセクション -->
+  <section class="section" id="instagram">
+    <div class="wrap">
+      <header class="section-header reveal">
+        <p class="eyebrow">Instagram</p>
+        <h2 class="section-title">@lucca_leather</h2>
+        <p class="section-lede">制作の日々 · 新作情報 · 素材のこと。<br>革と向き合う時間をInstagramで。</p>
+      </header>
+
+      <div class="ig-grid reveal">
+        <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="ig-cell ig-cell--1" aria-label="Instagramを見る">
+          <div class="ig-cell__inner"></div>
+          <div class="ig-cell__hover" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
         </a>
-        <a class="series-card series-card--stone reveal" href="works.html#stone">
-          <span class="series-card__no">02</span>
-          <h3 class="series-card__kana">石・水石</h3>
-          <p class="series-card__note">故郷・糸魚川、姫川流域の石。マットな絵肌が宿す沈黙の質感。</p>
-        </a>
-        <a class="series-card series-card--foam reveal" href="works.html#foam">
-          <span class="series-card__no">03</span>
-          <h3 class="series-card__kana">泡</h3>
-          <p class="series-card__note">近作。水面に生まれては消える泡へ。「海から宇宙へ」。</p>
+        <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="ig-cell ig-cell--2" aria-label="Instagramを見る"><div class="ig-cell__inner"></div><div class="ig-cell__hover" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></a>
+        <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="ig-cell ig-cell--3" aria-label="Instagramを見る"><div class="ig-cell__inner"></div><div class="ig-cell__hover" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></a>
+        <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="ig-cell ig-cell--4" aria-label="Instagramを見る"><div class="ig-cell__inner"></div><div class="ig-cell__hover" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></a>
+        <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="ig-cell ig-cell--5" aria-label="Instagramを見る"><div class="ig-cell__inner"></div><div class="ig-cell__hover" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></a>
+        <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="ig-cell ig-cell--6" aria-label="Instagramを見る"><div class="ig-cell__inner"></div><div class="ig-cell__hover" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div></a>
+      </div>
+
+      <div class="section-cta reveal">
+        <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="btn btn--outline-dark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          @lucca_leather をフォローする
         </a>
       </div>
     </div>
   </section>
 
-  <!-- 最新の展示 -->
-  <section class="section section--sub">
+  <!-- お問い合わせセクション -->
+  <section class="section section--cream" id="contact">
     <div class="wrap">
-      <header class="reveal" style="max-width:720px; margin-bottom:var(--space-block);">
-        <p class="eyebrow">Exhibitions</p>
-        <h2 class="section-title">展示・お知らせ</h2>
+      <header class="section-header reveal">
+        <p class="eyebrow">Order &amp; Contact</p>
+        <h2 class="section-title">オーダー・お問い合わせ</h2>
+        <p class="section-lede">オーダーメイドや作品のご質問は、<br>お気軽にご連絡ください。</p>
       </header>
-      <ul class="exh-list">
-        <li class="exh-item reveal">
-          <div class="exh-item__date">2022<br>8.10 – 8.28</div>
-          <div>
-            <span class="tag">個展</span>
-            <h3 class="exh-item__title">麻績勝広　具象絵画の新たな世界　海から宇宙へ</h3>
-            <p class="exh-item__place">ギャラリーみつけ（新潟県見附市）</p>
+
+      <div class="contact-layout">
+        <div class="contact-cards reveal">
+          <div class="contact-card">
+            <span class="contact-card__icon" aria-hidden="true">✦</span>
+            <h3>オーダーメイド</h3>
+            <p>サイズ・革の色・金具など、ご要望をお聞きしながら一点を制作します。まずはInstagramのDMやBASEショップのメッセージ機能でお気軽にどうぞ。</p>
+            <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" class="contact-card__link">Instagram DMへ &rarr;</a>
           </div>
-        </li>
-      </ul>
-      <p class="reveal" style="margin-top:2.4em;"><a href="exhibitions.html">これまでの展示・受賞をすべて見る →</a></p>
+          <div class="contact-card">
+            <span class="contact-card__icon" aria-hidden="true">✦</span>
+            <h3>素材・お手入れのこと</h3>
+            <p>使用している革の種類や真鍮金具のこと、日々のお手入れ方法など、気になることがあれば何でもお聞きください。</p>
+            <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="contact-card__link">BASEショップへ &rarr;</a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">お名前 <span class="required" aria-label="必須">*</span></label>
+              <input type="text" id="contact-name" name="name" required autocomplete="name" placeholder="山田 太郎">
+            </div>
+            <div class="form-group">
+              <label for="contact-email">メールアドレス <span class="required" aria-label="必須">*</span></label>
+              <input type="email" id="contact-email" name="email" required autocomplete="email" placeholder="your@email.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contact-subject">件名</label>
+            <select id="contact-subject" name="subject">
+              <option value="order">オーダーメイドについて</option>
+              <option value="product">作品・商品について</option>
+              <option value="care">革のお手入れ・修理について</option>
+              <option value="other">その他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact-message">メッセージ <span class="required" aria-label="必須">*</span></label>
+            <textarea id="contact-message" name="message" required rows="5" placeholder="ご質問・ご要望をお書きください"></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full" id="contactSubmit">送信する</button>
+          <p class="form-note">お急ぎの方は <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener">Instagram DM</a> にてご連絡いただくと早く対応できます。</p>
+        </form>
+      </div>
     </div>
   </section>
 
 </main>
 
+<!-- フッター -->
 <footer class="site-footer">
-  <div class="wrap site-footer__inner">
-    <p class="brand">
-      <span class="brand__name">麻績勝広</span>
-      <span class="brand__en">Katsuhiro Omi — Painter</span>
-    </p>
-    <ul class="foot-nav">
-      <li><a href="works.html">作品</a></li>
-      <li><a href="about.html">作家について</a></li>
-      <li><a href="exhibitions.html">展示・お知らせ</a></li>
-      <li><a href="contact.html">お問い合わせ</a></li>
-    </ul>
-    <p class="foot-meta">
-      所属：<a href="https://shunyo-kai.or.jp/" target="_blank" rel="noopener">春陽会</a>（2010年 会員推挙）<br>
-      © Katsuhiro Omi. 掲載作品の無断転載を禁じます。<br>
-      <span class="num">最終更新：2026.06</span>
-    </p>
+  <div class="footer-inner wrap">
+    <div class="footer-brand">
+      <p class="footer-logo">Lucca</p>
+      <p class="footer-tagline">Leather Works &nbsp;·&nbsp; Handmade in Japan</p>
+    </div>
+    <nav class="footer-nav" aria-label="フッターナビゲーション">
+      <ul>
+        <li><a href="#works">作品</a></li>
+        <li><a href="#story">ストーリー</a></li>
+        <li><a href="#process">手仕事</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+        <li><a href="https://luccaleather.base.shop/" target="_blank" rel="noopener">Shop</a></li>
+      </ul>
+    </nav>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener" aria-label="Instagram @lucca_leather">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">&copy; Lucca. All rights reserved. 掲載作品・画像の無断転載を禁じます。</p>
   </div>
 </footer>
 
-<script src="assets/js/main.js" defer></script>
+<!-- フローティングショップボタン -->
+<a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="float-shop" id="floatShop" aria-label="ショップを開く">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+  </svg>
+  <span>Shop</span>
+</a>
+
+<!-- ウェルカムモーダル -->
+<div class="modal-overlay" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal__close" id="modalClose" aria-label="閉じる">&times;</button>
+    <div class="modal__tag" aria-hidden="true">Lucca — Leather Works</div>
+    <h2 class="modal__title" id="modalTitle">世代を超えて<br>愛されるものを。</h2>
+    <div class="modal__img" aria-hidden="true"></div>
+    <p class="modal__body">真鍮金具×手縫い仕上げのレザー小物をBASEにて販売中。口金メガネケースから財布・バッグまで、オーダーメイドのご相談もお気軽に。</p>
+    <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="btn btn--primary btn--full">ショップを見る</a>
+    <button class="modal__skip" id="modalSkip">閉じる</button>
+  </div>
+</div>
+
+<script src="assets/js/lucca-main.js" defer></script>
 </body>
 </html>
