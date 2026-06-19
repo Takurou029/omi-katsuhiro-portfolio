@@ -21,7 +21,7 @@
 <body>
 
 <!-- お知らせバー -->
-<div class="announce-bar" id="announceBar" role="banner">
+<div class="announce-bar" id="announceBar" role="region" aria-label="お知らせ">
   <p>✦&thinsp;新作コレクション入荷中 &nbsp;·&nbsp; 受注製作・オーダーメイド受付中 &nbsp;<a href="https://luccaleather.base.shop/" target="_blank" rel="noopener">ショップを見る &rarr;</a></p>
   <button class="announce-bar__close" id="announceClose" aria-label="お知らせを閉じる">&times;</button>
 </div>
@@ -388,7 +388,7 @@
             <textarea id="contact-message" name="message" required rows="5" placeholder="ご質問・ご要望をお書きください"></textarea>
           </div>
           <button type="submit" class="btn btn--primary btn--full" id="contactSubmit">送信する</button>
-          <p class="form-note">※ このフォームはデモです。実際のお問い合わせはInstagramまたはBASEショップよりお願いします。</p>
+          <p class="form-note">お急ぎの方は <a href="https://www.instagram.com/lucca_leather/" target="_blank" rel="noopener">Instagram DM</a> にてご連絡いただくと早く対応できます。</p>
         </form>
       </div>
     </div>
@@ -430,16 +430,16 @@
   <span>Shop</span>
 </a>
 
-<!-- ウェルカムモーダル（新作ポップ） -->
+<!-- ウェルカムモーダル -->
 <div class="modal-overlay" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal">
     <button class="modal__close" id="modalClose" aria-label="閉じる">&times;</button>
-    <div class="modal__tag" aria-hidden="true">New Arrival</div>
-    <h2 class="modal__title" id="modalTitle">新作コレクション<br>入荷しました</h2>
+    <div class="modal__tag" aria-hidden="true">Lucca Leather</div>
+    <h2 class="modal__title" id="modalTitle">手縫いレザークラフト<br>BASEにて販売中</h2>
     <div class="modal__img" aria-hidden="true"></div>
-    <p class="modal__body">植物タンニン鞣し革を使った新作財布・バッグをBASEショップにて販売中です。在庫数に限りがありますのでお早めに。</p>
-    <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="btn btn--primary btn--full">ショップで見る</a>
-    <button class="modal__skip" id="modalSkip">あとで見る</button>
+    <p class="modal__body">植物タンニン鞣し革を使った財布・バッグ・小物をBASEショップにて販売中です。オーダーメイドのご相談も随時受付しています。</p>
+    <a href="https://luccaleather.base.shop/" target="_blank" rel="noopener" class="btn btn--primary btn--full">ショップを見る</a>
+    <button class="modal__skip" id="modalSkip">閉じる</button>
   </div>
 </div>
 

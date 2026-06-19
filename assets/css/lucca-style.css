@@ -929,6 +929,11 @@ button { cursor: pointer; }
   line-height: 1.7;
   margin-top: 0.25rem;
 }
+.form-note a {
+  color: var(--col-leather);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 
 
 /* =========================================================
