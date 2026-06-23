@@ -6,731 +6,317 @@
 <title>サクラStudio — AI エージェント オフィス</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     background: #0d0d0d;
     color: #e0e0e0;
     font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
     font-size: 13px;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
-  /* ── 上部ステータスバー ── */
+  /* ── Stats Bar ── */
   .stats-bar {
     display: flex;
     background: #111;
     border-bottom: 1px solid #222;
-    padding: 0;
     flex-shrink: 0;
+    height: 72px;
   }
   .stat-cell {
     flex: 1;
-    padding: 10px 16px;
-    border-right: 1px solid #222;
+    padding: 8px 14px;
+    border-right: 1px solid #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .stat-cell:last-child { border-right: none; }
   .stat-num {
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1;
+    font-size: 26px;
+    font-weight: 800;
     color: #fff;
-    letter-spacing: -0.5px;
+    line-height: 1;
+    letter-spacing: -1px;
   }
-  .stat-label { color: #888; font-size: 11px; margin-top: 2px; }
-  .stat-sub { font-size: 11px; margin-top: 3px; }
-  .stat-sub.blue  { color: #4a9eff; }
-  .stat-sub.green { color: #3dd68c; }
-  .stat-sub.yellow{ color: #f5a623; }
-  .stat-sub.red   { color: #ff6b6b; }
+  .stat-num small { font-size: 14px; font-weight: 400; color: #aaa; letter-spacing: 0; }
+  .stat-label { color: #666; font-size: 10px; margin-top: 2px; }
+  .stat-sub { font-size: 11px; margin-top: 2px; font-weight: 600; }
+  .c-blue   { color: #4a9eff; }
+  .c-green  { color: #3dd68c; }
+  .c-yellow { color: #f5a623; }
+  .c-red    { color: #ff6b6b; }
 
-  /* ── メインエリア ── */
+  /* ── Main ── */
   .main-area {
+    flex: 1;
     display: flex;
-    flex: 1;
     overflow: hidden;
+    min-height: 0;
   }
 
-  /* ── オフィス（左） ── */
-  .office-wrap {
+  /* ── Office Canvas ── */
+  .office-container {
     flex: 1;
-    background: #1a1208;
     position: relative;
+    background: #0d0d0d;
     overflow: hidden;
   }
-
-  /* ピクセルアートオフィス */
-  .office {
+  #office {
+    display: block;
     width: 100%;
     height: 100%;
-    position: relative;
     image-rendering: pixelated;
+    image-rendering: crisp-edges;
   }
 
-  /* 木床 */
-  .office::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(90deg, transparent 0, transparent 31px, #1e1408 32px),
-      repeating-linear-gradient(180deg, transparent 0, transparent 31px, #1e1408 32px);
-    background-color: #2a1c0c;
-    opacity: 0.6;
-  }
-
-  /* 天井灯 */
-  .ceiling-lights {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    gap: 60px;
-    padding: 0 40px;
-    pointer-events: none;
-  }
-  .ceiling-light {
-    width: 80px;
-    height: 18px;
-    background: linear-gradient(180deg, #555 0%, #888 50%, rgba(200,210,255,0.15) 100%);
-    border-radius: 0 0 4px 4px;
-    position: relative;
-    flex-shrink: 0;
-  }
-  .ceiling-light::after {
-    content: '';
-    position: absolute;
-    top: 18px;
-    left: 10px;
-    right: 10px;
-    height: 60px;
-    background: radial-gradient(ellipse at top, rgba(200,210,255,0.12) 0%, transparent 70%);
-  }
-
-  /* 本棚 */
-  .bookshelf {
-    position: absolute;
-    left: 10px;
-    top: 40px;
-    width: 60px;
-    height: 120px;
-    background: #3d2510;
-    border: 2px solid #5a3820;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 4px;
-  }
-  .book-row {
-    display: flex;
-    gap: 2px;
-    flex: 1;
-  }
-  .book {
-    flex: 1;
-    border-radius: 1px;
-  }
-
-  /* デスク */
-  .desk {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .desk-top {
-    background: #8b6914;
-    border: 2px solid #a07820;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    position: relative;
-  }
-  .monitor {
-    width: 32px;
-    height: 24px;
-    background: #1a1a2e;
-    border: 2px solid #444;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .monitor-screen {
-    width: 26px;
-    height: 18px;
-    border-radius: 1px;
-  }
-  .monitor::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 4px;
-    background: #555;
-  }
-
-  /* キャラクター */
-  .char {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 10px;
-  }
-  .char-sprite {
-    width: 24px;
-    height: 36px;
-    position: relative;
-  }
-  .char-head {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;
-  }
-  .char-body {
-    width: 20px;
-    height: 16px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 16px;
-    border-radius: 2px 2px 0 0;
-  }
-  .char-legs {
-    width: 20px;
-    height: 8px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-  }
-  .char-label {
-    margin-top: 2px;
-    background: rgba(0,0,0,0.7);
-    padding: 1px 4px;
-    border-radius: 2px;
-    color: #ddd;
-    font-size: 9px;
-    white-space: nowrap;
-  }
-  /* 影（楕円） */
-  .char::before {
-    content: '';
-    position: absolute;
-    bottom: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 28px;
-    height: 8px;
-    background: rgba(0,0,0,0.4);
-    border-radius: 50%;
-  }
-
-  /* 仕切りエリア（右側） */
-  .office-rooms {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 220px;
-    display: flex;
-    flex-direction: column;
-    border-left: 3px solid #3a2a15;
-  }
-  .room {
-    flex: 1;
-    background: #1e1410;
-    border-bottom: 3px solid #3a2a15;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .room-label {
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    color: #888;
-    white-space: nowrap;
-  }
-  .sofa {
-    width: 70px;
-    height: 30px;
-    background: #6b3a2a;
-    border: 2px solid #8b4a35;
-    border-radius: 4px 4px 0 0;
-    position: relative;
-    margin: 4px;
-  }
-  .sofa::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 4px;
-    right: 4px;
-    height: 8px;
-    background: #5a3025;
-    border-radius: 0 0 3px 3px;
-  }
-  .server-rack {
-    width: 30px;
-    height: 70px;
-    background: #1a1a1a;
-    border: 2px solid #333;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding: 4px;
-    margin: 4px;
-  }
-  .server-unit {
-    height: 8px;
-    background: #2a2a2a;
-    border-radius: 1px;
-    position: relative;
-  }
-  .server-unit::before {
-    content: '';
-    position: absolute;
-    left: 3px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 4px;
-    background: #3dd68c;
-    border-radius: 50%;
-  }
-
-  /* 植物 */
-  .plant {
-    position: absolute;
-    font-size: 20px;
-  }
-
-  /* アクティビティログ */
+  /* ── Activity Log ── */
   .activity-log {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(0,0,0,0.8);
-    border: 1px solid #333;
+    bottom: 14px;
+    left: 14px;
+    background: rgba(0,0,0,0.82);
+    border: 1px solid #2a2a2a;
     padding: 8px 12px;
-    min-width: 180px;
+    min-width: 192px;
+    pointer-events: none;
   }
-  .activity-title {
-    font-size: 10px;
-    color: #666;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
+  .act-title {
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+    font-weight: 700;
   }
-  .activity-item {
+  .act-item {
     font-size: 11px;
-    color: #aaa;
-    line-height: 1.8;
+    color: #999;
+    line-height: 1.9;
   }
-  .activity-item span { color: #ccc; }
-  .activity-item .act { color: #888; }
+  .act-item b { color: #ccc; font-weight: 500; }
+  .act-item .op { color: #666; }
 
-  /* ── 右パネル ── */
+  /* ── Right Panel ── */
   .right-panel {
-    width: 300px;
+    width: 298px;
     background: #111;
-    border-left: 1px solid #222;
+    border-left: 1px solid #1e1e1e;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     flex-shrink: 0;
   }
+  .right-panel::-webkit-scrollbar { width: 4px; }
+  .right-panel::-webkit-scrollbar-thumb { background: #333; }
 
   .panel-header {
-    padding: 14px 16px 10px;
-    border-bottom: 1px solid #222;
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid #1e1e1e;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    flex-shrink: 0;
   }
-  .panel-title { font-size: 16px; font-weight: 700; color: #fff; }
-  .panel-sub { font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 1px; }
+  .panel-title { font-size: 15px; font-weight: 700; color: #fff; }
+  .panel-sub { font-size: 9px; color: #555; letter-spacing: 2px; margin-top: 2px; }
   .panel-time {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #aaa;
+    gap: 5px;
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
   }
-  .dot-green {
-    width: 8px; height: 8px;
+  .dot {
+    width: 7px; height: 7px;
     background: #3dd68c;
     border-radius: 50%;
-    animation: pulse 2s infinite;
+    animation: blink 2s ease-in-out infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  .staff-list { padding: 6px; display: flex; flex-direction: column; gap: 5px; }
+
+  .card {
+    border-radius: 5px;
+    padding: 9px 11px;
+    background: #181818;
+    border: 1px solid #252525;
   }
-
-  .staff-list { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
-
-  .staff-card {
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 6px;
-    padding: 10px 12px;
-    position: relative;
+  .card--active {
+    background: linear-gradient(135deg, #1e1020, #18101e);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 1px #7c3aed22;
   }
-  .staff-card--active { border-color: #a855f7; }
-
-  .staff-card-header {
+  .card-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
-  .staff-name { font-size: 13px; font-weight: 600; color: #fff; }
-  .staff-badge {
+  .card-name { font-size: 12px; font-weight: 600; color: #f0f0f0; }
+  .badge {
     font-size: 10px;
-    padding: 2px 6px;
+    padding: 1px 6px;
     border-radius: 3px;
-    font-weight: 500;
+    font-weight: 600;
   }
-  .badge-purple { background: #7c3aed; color: #e9d5ff; }
-  .badge-green  { background: #065f46; color: #6ee7b7; }
-  .badge-gray   { background: #374151; color: #9ca3af; }
+  .b-purple { background: #5b21b6; color: #ddd6fe; }
+  .b-green  { background: #064e3b; color: #6ee7b7; }
+  .b-gray   { background: #1f2937; color: #9ca3af; }
 
-  .staff-desc { font-size: 11px; color: #666; margin-bottom: 6px; }
+  .card-desc { font-size: 10px; color: #555; margin-bottom: 4px; }
 
-  .staff-action {
+  .card-action {
     font-size: 11px;
     color: #a855f7;
     display: flex;
     align-items: center;
     gap: 4px;
   }
-  .staff-action::before { content: '▶'; font-size: 8px; }
+  .card-action::before { content: '▶'; font-size: 7px; }
 
-  .staff-task {
-    background: #0d0d0d;
-    border-radius: 4px;
-    padding: 6px 8px;
+  .card-task {
+    background: #0e0e0e;
+    border-radius: 3px;
+    padding: 5px 8px;
     margin-top: 4px;
   }
-  .task-name {
-    font-size: 12px;
+  .task-title {
+    font-size: 11px;
     color: #d1d5db;
-    font-weight: 500;
+    font-weight: 600;
   }
-  .task-name::before { content: '✓ '; color: #3dd68c; }
-  .task-detail { font-size: 10px; color: #555; margin-top: 2px; }
-  .task-date { font-size: 10px; color: #444; margin-top: 2px; }
+  .task-title::before { content: '✓ '; color: #3dd68c; font-weight: 700; }
+  .task-sub { font-size: 10px; color: #4b5563; margin-top: 1px; }
+  .task-date { font-size: 9px; color: #374151; margin-top: 1px; }
 
-  .staff-waiting { font-size: 11px; color: #555; margin-top: 4px; font-style: italic; }
+  .card-empty { font-size: 10px; color: #3a3a3a; font-style: italic; margin-top: 3px; }
 </style>
 </head>
 <body>
 
-<!-- ── 上部ステータスバー ── -->
+<!-- Stats Bar -->
 <div class="stats-bar">
   <div class="stat-cell">
-    <div class="stat-num">12<span style="font-size:16px;color:#aaa;">件</span></div>
+    <div class="stat-num">12<small>件</small></div>
     <div class="stat-label">リサーチ（ソラ）</div>
-    <div class="stat-sub blue">ネタ 8本</div>
+    <div class="stat-sub c-blue">ネタ 8本</div>
   </div>
   <div class="stat-cell">
     <div class="stat-num">8400</div>
     <div class="stat-label">発信インプレ（エリカ）</div>
-    <div class="stat-sub blue">投稿 6本</div>
+    <div class="stat-sub c-blue">投稿 6本</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num">36<span style="font-size:16px;color:#aaa;">件</span></div>
+    <div class="stat-num">36<small>件</small></div>
     <div class="stat-label">交流（ナナ）</div>
-    <div class="stat-sub green">新規フォロー 14</div>
+    <div class="stat-sub c-green">新規フォロー 14</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num">18<span style="font-size:16px;color:#aaa;">人</span></div>
+    <div class="stat-num">18<small>人</small></div>
     <div class="stat-label">メール登録（ユイ）</div>
-    <div class="stat-sub yellow">記事 2本</div>
+    <div class="stat-sub c-yellow">記事 2本</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-num">4<span style="font-size:16px;color:#aaa;">件</span></div>
+    <div class="stat-num">4<small>件</small></div>
     <div class="stat-label">販売（アオイ）</div>
-    <div class="stat-sub red">売上 ¥24,800</div>
+    <div class="stat-sub c-red">売上 ¥24,800</div>
   </div>
 </div>
 
-<!-- ── メインエリア ── -->
+<!-- Main Area -->
 <div class="main-area">
 
-  <!-- ── ピクセルアートオフィス ── -->
-  <div class="office-wrap">
-    <div class="office">
+  <!-- Office Canvas -->
+  <div class="office-container">
+    <canvas id="office"></canvas>
 
-      <!-- 天井灯 -->
-      <div class="ceiling-lights">
-        <div class="ceiling-light"></div>
-        <div class="ceiling-light"></div>
-        <div class="ceiling-light"></div>
-        <div class="ceiling-light"></div>
-        <div class="ceiling-light"></div>
-      </div>
-
-      <!-- 本棚 -->
-      <div class="bookshelf">
-        <div class="book-row">
-          <div class="book" style="background:#c0392b"></div>
-          <div class="book" style="background:#2980b9"></div>
-          <div class="book" style="background:#27ae60"></div>
-        </div>
-        <div class="book-row">
-          <div class="book" style="background:#f39c12"></div>
-          <div class="book" style="background:#8e44ad"></div>
-          <div class="book" style="background:#e74c3c"></div>
-        </div>
-        <div class="book-row">
-          <div class="book" style="background:#16a085"></div>
-          <div class="book" style="background:#d35400"></div>
-          <div class="book" style="background:#2c3e50"></div>
-        </div>
-      </div>
-
-      <!-- デスク列（上段）→ ソラ、エリカ、ナナ -->
-      <!-- ソラのデスク -->
-      <div class="desk" style="left:90px; top:60px;">
-        <div class="desk-top" style="width:80px; height:40px;">
-          <div class="monitor"><div class="monitor-screen" style="background:#1a3a5c;"></div></div>
-          <div class="monitor"><div class="monitor-screen" style="background:#0d2b0d;"></div></div>
-        </div>
-      </div>
-      <div class="char" style="left:108px; top:98px;">
-        <div class="char-sprite">
-          <div class="char-head" style="background:#f0c080;"></div>
-          <div class="char-body" style="background:#3b82f6;"></div>
-          <div class="char-legs" style="background:#1e3a5f;"></div>
-        </div>
-        <div class="char-label">ソラ（リサーチ）</div>
-      </div>
-
-      <!-- エリカのデスク -->
-      <div class="desk" style="left:220px; top:60px;">
-        <div class="desk-top" style="width:80px; height:40px;">
-          <div class="monitor"><div class="monitor-screen" style="background:#2d1b4e;"></div></div>
-          <div class="monitor"><div class="monitor-screen" style="background:#4a1a1a;"></div></div>
-        </div>
-      </div>
-      <div class="char" style="left:238px; top:98px;">
-        <div class="char-sprite">
-          <div class="char-head" style="background:#e8b090;"></div>
-          <div class="char-body" style="background:#9333ea;"></div>
-          <div class="char-legs" style="background:#4c1d95;"></div>
-        </div>
-        <div class="char-label">エリカ（発信）</div>
-      </div>
-
-      <!-- ナナのデスク -->
-      <div class="desk" style="left:350px; top:60px;">
-        <div class="desk-top" style="width:80px; height:40px;">
-          <div class="monitor"><div class="monitor-screen" style="background:#1a3a1a;"></div></div>
-          <div class="monitor"><div class="monitor-screen" style="background:#3a2a0a;"></div></div>
-        </div>
-      </div>
-      <div class="char" style="left:368px; top:98px;">
-        <div class="char-sprite">
-          <div class="char-head" style="background:#f5c5a0;"></div>
-          <div class="char-body" style="background:#10b981;"></div>
-          <div class="char-legs" style="background:#064e3b;"></div>
-        </div>
-        <div class="char-label">ナナ（交流）</div>
-      </div>
-
-      <!-- サクラ社長（歩き回り中） -->
-      <div class="char" style="left:300px; top:190px;">
-        <div class="char-sprite">
-          <div class="char-head" style="background:#f0a080; width:18px; height:18px; top:-1px;"></div>
-          <!-- 王冠 -->
-          <div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-size:12px;">👑</div>
-          <div class="char-body" style="background:#ec4899; width:22px;"></div>
-          <div class="char-legs" style="background:#be185d;"></div>
-        </div>
-        <div class="char-label">サクラ（社長）</div>
-      </div>
-
-      <!-- 下段デスク → ユイ、アオイ -->
-      <!-- ユイのデスク -->
-      <div class="desk" style="left:90px; top:240px;">
-        <div class="desk-top" style="width:80px; height:40px;">
-          <div class="monitor"><div class="monitor-screen" style="background:#1a1a3a;"></div></div>
-          <div class="monitor"><div class="monitor-screen" style="background:#2a1a2a;"></div></div>
-        </div>
-      </div>
-      <div class="char" style="left:108px; top:278px;">
-        <div class="char-sprite">
-          <div class="char-head" style="background:#f5d0a0;"></div>
-          <div class="char-body" style="background:#6366f1;"></div>
-          <div class="char-legs" style="background:#312e81;"></div>
-        </div>
-        <div class="char-label">ユイ（制作）</div>
-      </div>
-
-      <!-- アオイのデスク -->
-      <div class="desk" style="left:220px; top:240px;">
-        <div class="desk-top" style="width:80px; height:40px;">
-          <div class="monitor"><div class="monitor-screen" style="background:#0a2a1a;"></div></div>
-        </div>
-      </div>
-      <div class="char" style="left:238px; top:278px;">
-        <div class="char-sprite">
-          <div class="char-head" style="background:#e0b080;"></div>
-          <div class="char-body" style="background:#8b5cf6;"></div>
-          <div class="char-legs" style="background:#4c1d95;"></div>
-        </div>
-        <div class="char-label">アオイ（営業）</div>
-      </div>
-
-      <!-- 植物 -->
-      <div class="plant" style="left:76px; top:52px;">🌿</div>
-      <div class="plant" style="left:170px; top:52px;">🪴</div>
-      <div class="plant" style="right:230px; top:52px;">🌿</div>
-      <div class="plant" style="left:76px; top:230px;">🌱</div>
-      <div class="plant" style="right:236px; bottom:20px;">🪴</div>
-
-      <!-- 右側の部屋（休憩スペース & サーバー室） -->
-      <div class="office-rooms">
-        <div class="room">
-          <div class="room-label">休憩スペース</div>
-          <div style="display:flex; gap:8px; margin-top:24px;">
-            <div class="sofa"></div>
-            <div class="sofa" style="transform:rotate(90deg); margin-top:10px;"></div>
-          </div>
-          <div style="position:absolute; bottom:10px; right:10px; font-size:20px;">☕</div>
-        </div>
-        <div class="room">
-          <div class="room-label">サーバー室</div>
-          <div style="display:flex; gap:6px; margin-top:24px;">
-            <div class="server-rack">
-              <div class="server-unit"></div>
-              <div class="server-unit"></div>
-              <div class="server-unit"></div>
-              <div class="server-unit" style="--color:#4a9eff;"></div>
-              <div class="server-unit"></div>
-            </div>
-            <div class="server-rack">
-              <div class="server-unit"></div>
-              <div class="server-unit"></div>
-              <div class="server-unit"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- アクティビティログ -->
-      <div class="activity-log">
-        <div class="activity-title">ACTIVITY</div>
-        <div class="activity-item"><span>ユイ（制作）</span> <span class="act">・ Stop</span></div>
-        <div class="activity-item"><span>ユイ（制作）</span> <span class="act">・ Stop</span></div>
-        <div class="activity-item"><span>ユイ（制作）</span> <span class="act">・ Read</span></div>
-        <div class="activity-item"><span>アオイ（営業）</span> <span class="act">・ Edit</span></div>
-        <div class="activity-item"><span>ナナ（交流）</span> <span class="act">・ WebSearch</span></div>
-      </div>
-
+    <div class="activity-log" id="actLog">
+      <div class="act-title">ACTIVITY</div>
+      <div class="act-item"><b>ユイ（制作）</b> <span class="op">・ Stop</span></div>
+      <div class="act-item"><b>ユイ（制作）</b> <span class="op">・ Stop</span></div>
+      <div class="act-item"><b>ユイ（制作）</b> <span class="op">・ Read</span></div>
+      <div class="act-item"><b>アオイ（営業）</b> <span class="op">・ Edit</span></div>
+      <div class="act-item"><b>ナナ（交流）</b> <span class="op">・ WebSearch</span></div>
     </div>
   </div>
 
-  <!-- ── 右パネル ── -->
+  <!-- Right Panel -->
   <div class="right-panel">
     <div class="panel-header">
       <div>
         <div class="panel-title">サクラStudio</div>
         <div class="panel-sub">STAFF</div>
       </div>
-      <div class="panel-time">
-        <div class="dot-green"></div>
-        03:21
-      </div>
+      <div class="panel-time"><div class="dot"></div><span id="clock">03:21</span></div>
     </div>
-
     <div class="staff-list">
 
-      <!-- サクラ（社長） -->
-      <div class="staff-card staff-card--active">
-        <div class="staff-card-header">
-          <div class="staff-name">サクラ（社長）</div>
-          <div class="staff-badge badge-purple">統括</div>
+      <div class="card card--active">
+        <div class="card-head">
+          <div class="card-name">サクラ（社長）</div>
+          <div class="badge b-purple">統括</div>
         </div>
-        <div class="staff-desc">全体を統括・確認と指示</div>
-        <div class="staff-action">社内を巡回中</div>
+        <div class="card-desc">全体を統括・確認と指示</div>
+        <div class="card-action">社内を巡回中</div>
       </div>
 
-      <!-- ソラ（リサーチ） -->
-      <div class="staff-card">
-        <div class="staff-card-header">
-          <div class="staff-name">ソラ（リサーチ）</div>
-          <div class="staff-badge badge-green">完了</div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">ソラ（リサーチ）</div>
+          <div class="badge b-green">完了</div>
         </div>
-        <div class="staff-desc">競合・トレンドを調査しネタを供給</div>
-        <div class="staff-task">
-          <div class="task-name">競合リサーチ 8件</div>
-          <div class="task-detail">バズ投稿の型とネタ候補を抽出</div>
+        <div class="card-desc">競合・トレンドを調査しネタを供給</div>
+        <div class="card-task">
+          <div class="task-title">競合リサーチ 8件</div>
+          <div class="task-sub">バズ投稿の型とネタ候補を抽出</div>
           <div class="task-date">納品 1日前</div>
         </div>
       </div>
 
-      <!-- エリカ（発信） -->
-      <div class="staff-card">
-        <div class="staff-card-header">
-          <div class="staff-name">エリカ（発信）</div>
-          <div class="staff-badge badge-green">完了</div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">エリカ（発信）</div>
+          <div class="badge b-green">完了</div>
         </div>
-        <div class="staff-desc">Threads／Xで発信・流入をつくる</div>
-        <div class="staff-task">
-          <div class="task-name">Threads投稿 5本</div>
-          <div class="task-detail">朝・昼・夜枠、1本は記事へ誘導</div>
+        <div class="card-desc">Threads／Xで発信・流入をつくる</div>
+        <div class="card-task">
+          <div class="task-title">Threads投稿 5本</div>
+          <div class="task-sub">朝・昼・夜枠、1本は記事へ誘導</div>
           <div class="task-date">納品 1日前</div>
         </div>
       </div>
 
-      <!-- ナナ（交流） -->
-      <div class="staff-card">
-        <div class="staff-card-header">
-          <div class="staff-name">ナナ（交流）</div>
-          <div class="staff-badge badge-gray">待機</div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">ナナ（交流）</div>
+          <div class="badge b-gray">待機</div>
         </div>
-        <div class="staff-desc">リプ・引用でフォロワーと関係構築</div>
-        <div class="staff-waiting">まだ成果はありません</div>
+        <div class="card-desc">リプ・引用でフォロワーと関係構築</div>
+        <div class="card-empty">まだ成果はありません</div>
       </div>
 
-      <!-- ユイ（制作） -->
-      <div class="staff-card">
-        <div class="staff-card-header">
-          <div class="staff-name">ユイ（制作）</div>
-          <div class="staff-badge badge-gray">待機</div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">ユイ（制作）</div>
+          <div class="badge b-gray">待機</div>
         </div>
-        <div class="staff-desc">記事・LP・メルマガの制作</div>
-        <div class="staff-waiting">タスク待ち</div>
+        <div class="card-desc">記事・LP・メルマガの制作</div>
+        <div class="card-empty">タスク待ち</div>
       </div>
 
-      <!-- アオイ（営業） -->
-      <div class="staff-card">
-        <div class="staff-card-header">
-          <div class="staff-name">アオイ（営業）</div>
-          <div class="staff-badge badge-gray">待機</div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-name">アオイ（営業）</div>
+          <div class="badge b-gray">待機</div>
         </div>
-        <div class="staff-desc">商品・サービスの販売と顧客対応</div>
-        <div class="staff-task" style="border-left: 2px solid #333;">
-          <div class="task-name" style="color:#888;">売上 ¥24,800</div>
-          <div class="task-detail">今月 4件 成約</div>
+        <div class="card-desc">商品・サービスの販売と顧客対応</div>
+        <div class="card-task">
+          <div class="task-title" style="color:#9ca3af;">売上 ¥24,800</div>
+          <div class="task-sub">今月 4件 成約</div>
         </div>
       </div>
 
@@ -740,47 +326,431 @@
 </div>
 
 <script>
-  // 時計の更新
-  function updateClock() {
-    const el = document.querySelector('.panel-time');
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2,'0');
-    const m = String(now.getMinutes()).padStart(2,'0');
-    el.innerHTML = `<div class="dot-green"></div>${h}:${m}`;
-  }
-  setInterval(updateClock, 60000);
+// ════════════════════════════════════════════
+//  Pixel-Art Office Canvas
+// ════════════════════════════════════════════
+const canvas = document.getElementById('office');
+const ctx    = canvas.getContext('2d');
 
-  // キャラクターのアニメーション（社長が少しずつ動く）
-  const sakura = document.querySelector('.char[style*="left:300px"]');
-  let x = 300, y = 190, dx = 0.5, dy = 0.3;
-  function moveSakura() {
-    x += dx; y += dy;
-    if (x > 360 || x < 250) dx = -dx;
-    if (y > 230 || y < 170) dy = -dy;
-    sakura.style.left = x + 'px';
-    sakura.style.top  = y + 'px';
-  }
-  setInterval(moveSakura, 80);
+const S = 3; // 1 pixel-art unit = 3 actual pixels
 
-  // アクティビティログに疑似エントリを追加
-  const activities = [
-    ['ソラ（リサーチ）', 'WebSearch'],
-    ['エリカ（発信）', 'Write'],
-    ['ナナ（交流）', 'Read'],
-    ['アオイ（営業）', 'Edit'],
-    ['ユイ（制作）', 'Stop'],
-  ];
-  let ai = 0;
-  setInterval(() => {
-    const log = document.querySelector('.activity-log');
-    const [name, act] = activities[ai++ % activities.length];
-    const div = document.createElement('div');
-    div.className = 'activity-item';
-    div.innerHTML = `<span>${name}</span> <span class="act">・ ${act}</span>`;
-    log.appendChild(div);
-    const items = log.querySelectorAll('.activity-item');
-    if (items.length > 7) items[0].remove();
-  }, 3000);
+// Convert pixel-art coord → actual
+const p = n => Math.round(n * S);
+
+// --- Low-level draw helpers ---
+function rect(x, y, w, h, col) {
+  ctx.fillStyle = col;
+  ctx.fillRect(p(x), p(y), p(w), p(h));
+}
+function hrule(y, x0, x1, col) {
+  ctx.strokeStyle = col;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(p(x0), p(y) + 0.5);
+  ctx.lineTo(p(x1), p(y) + 0.5);
+  ctx.stroke();
+}
+function vrule(x, y0, y1, col) {
+  ctx.strokeStyle = col;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(p(x) + 0.5, p(y0));
+  ctx.lineTo(p(x) + 0.5, p(y1));
+  ctx.stroke();
+}
+function ellipseShape(cx, cy, rx, ry, col) {
+  ctx.fillStyle = col;
+  ctx.beginPath();
+  ctx.ellipse(p(cx), p(cy), p(rx), p(ry), 0, 0, Math.PI * 2);
+  ctx.fill();
+}
+function label(text, cx, y, fgCol = '#ddd', bgCol = 'rgba(0,0,0,0.78)') {
+  ctx.font = `bold ${p(3.2)}px "Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif`;
+  ctx.textAlign   = 'center';
+  ctx.textBaseline = 'bottom';
+  const tw  = ctx.measureText(text).width;
+  const ph  = p(3.8);
+  const pad = p(1.5);
+  ctx.fillStyle = bgCol;
+  ctx.fillRect(p(cx) - tw / 2 - pad, p(y) - ph, tw + pad * 2, ph + p(0.4));
+  ctx.fillStyle = fgCol;
+  ctx.fillText(text, p(cx), p(y));
+}
+function smallText(text, cx, y, col = '#888', size = 2.8) {
+  ctx.font = `${p(size)}px "Hiragino Kaku Gothic ProN",sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillStyle = col;
+  ctx.fillText(text, p(cx), p(y));
+}
+
+// ────────────────────────────────────────────
+//  Pixel-art character sprite  (8 × 14 px art)
+//  x,y = top-left in pixel-art coords
+// ────────────────────────────────────────────
+function charSprite(x, y, { skin, hair, shirt, pants, hasCrown = false }) {
+  // shadow
+  ellipseShape(x + 4, y + 15, 5, 1.5, 'rgba(0,0,0,0.50)');
+
+  // shoes
+  rect(x + 1, y + 12, 2, 2, '#0a0a0a');
+  rect(x + 5, y + 12, 2, 2, '#0a0a0a');
+
+  // legs
+  rect(x + 1, y +  8, 2, 4, pants);
+  rect(x + 5, y +  8, 2, 4, pants);
+
+  // body
+  rect(x + 1, y + 4, 6, 4, shirt);
+  // collar highlight
+  rect(x + 3, y + 4, 2, 1, shadeColor(shirt, -20));
+
+  // arms
+  rect(x,     y + 5, 1, 3, skin);
+  rect(x + 7, y + 5, 1, 3, skin);
+
+  // head
+  rect(x + 2, y + 0, 4, 4, skin);
+
+  // hair
+  rect(x + 2, y + 0, 4, 1, hair);   // top
+  rect(x + 2, y + 1, 1, 1, hair);   // left side
+  rect(x + 5, y + 1, 1, 1, hair);   // right side
+
+  // eyes
+  rect(x + 3, y + 2, 1, 1, '#111');
+  rect(x + 5, y + 2, 1, 1, '#111');
+
+  // crown (for サクラ)
+  if (hasCrown) {
+    rect(x + 2, y - 3, 4, 2, '#f5c542');
+    rect(x + 2, y - 4, 1, 2, '#f5c542');
+    rect(x + 4, y - 5, 1, 3, '#f5c542');
+    rect(x + 5, y - 4, 1, 2, '#f5c542');
+    rect(x + 4, y - 5, 1, 1, '#ff4444'); // gem
+  }
+}
+
+function shadeColor(hex, amt) {
+  // simple brightness shift for collar highlight
+  let n = parseInt(hex.replace('#',''), 16);
+  let r = Math.min(255, Math.max(0, (n>>16) + amt));
+  let g = Math.min(255, Math.max(0, ((n>>8)&0xff) + amt));
+  let b = Math.min(255, Math.max(0, (n&0xff) + amt));
+  return `rgb(${r},${g},${b})`;
+}
+
+// ────────────────────────────────────────────
+//  Desk  (24 × 8 art px)
+// ────────────────────────────────────────────
+function desk(x, y, numMonitors = 2, screenColors = ['#1a3a5c','#2d1b4e']) {
+  // desk top surface
+  rect(x, y, 24, 4, '#8b6914');
+  rect(x, y, 24, 1, '#c49a2a'); // highlight edge
+  // desk front face
+  rect(x, y + 4, 24, 3, '#6b4f0e');
+
+  for (let i = 0; i < numMonitors; i++) {
+    const mx = x + 2 + i * 12;
+    const sc = screenColors[i] || '#1a3a5c';
+    // monitor body
+    rect(mx,     y - 6, 9, 6, '#2a2a2a');
+    // screen
+    rect(mx + 1, y - 5, 7, 4, sc);
+    // screen inner glow
+    rect(mx + 2, y - 4, 5, 2, mixBright(sc));
+    // stand
+    rect(mx + 3, y,     3, 2, '#444');
+    rect(mx + 2, y + 2, 5, 1, '#555');
+  }
+}
+
+function mixBright(hex) {
+  // a slightly lighter version of the screen color for inner glow
+  let n = parseInt(hex.replace('#',''), 16);
+  let r = Math.min(255, (n>>16) + 30);
+  let g = Math.min(255, ((n>>8)&0xff) + 30);
+  let b = Math.min(255, (n&0xff) + 30);
+  return `rgb(${r},${g},${b})`;
+}
+
+// ────────────────────────────────────────────
+//  Bookshelf  (12 × 30 art px)
+// ────────────────────────────────────────────
+const BOOK_COLS = ['#c0392b','#2980b9','#27ae60','#f39c12','#8e44ad','#e74c3c','#16a085','#d35400','#2c3e50'];
+function bookshelf(x, y) {
+  rect(x, y, 12, 32, '#3d2510');
+  rect(x, y,  1, 32, '#5a3820'); // left edge
+  rect(x+11,y, 1, 32, '#5a3820'); // right edge
+  let bi = 0;
+  for (let row = 0; row < 3; row++) {
+    const by = y + 2 + row * 10;
+    rect(x, by + 8, 12, 1, '#5a3820'); // shelf board
+    for (let c = 0; c < 3; c++) {
+      rect(x + 1 + c * 3, by, 3, 8, BOOK_COLS[bi++ % BOOK_COLS.length]);
+    }
+  }
+}
+
+// ────────────────────────────────────────────
+//  Ceiling light strip
+// ────────────────────────────────────────────
+function ceilingLight(x, w) {
+  rect(x, 0, w, 5, '#555');
+  rect(x + 1, 1, w - 2, 2, '#999');
+  // glow cone
+  ctx.fillStyle = 'rgba(190,200,255,0.07)';
+  ctx.beginPath();
+  ctx.moveTo(p(x), p(5));
+  ctx.lineTo(p(x + w), p(5));
+  ctx.lineTo(p(x + w + 10), p(18));
+  ctx.lineTo(p(x - 10), p(18));
+  ctx.closePath();
+  ctx.fill();
+}
+
+// ────────────────────────────────────────────
+//  Plant  (7 × 10 art px)
+// ────────────────────────────────────────────
+function plant(x, y) {
+  rect(x + 1, y + 6, 5, 4, '#6b3a2a');
+  rect(x,     y + 8, 7, 2, '#5a3025');
+  rect(x + 2, y + 2, 3, 5, '#1a6a1a');
+  rect(x + 1, y + 3, 5, 3, '#228822');
+  rect(x + 3, y,     1, 4, '#1a6a1a');
+}
+
+// ────────────────────────────────────────────
+//  Sofa  (22 × 14 art px)
+// ────────────────────────────────────────────
+function sofa(x, y) {
+  rect(x,     y,     22, 7, '#7b3f2d');
+  rect(x,     y,     22, 1, '#9a5040'); // top highlight
+  rect(x,     y + 7, 22, 5, '#5a3025'); // seat
+  rect(x,     y,     3,  12, '#9a5040'); // left armrest
+  rect(x + 19,y,     3,  12, '#9a5040'); // right armrest
+  rect(x + 3, y + 12, 3, 2, '#3a2015'); // legs
+  rect(x + 16,y + 12, 3, 2, '#3a2015');
+}
+
+// ────────────────────────────────────────────
+//  Server rack  (10 × 22 art px)
+// ────────────────────────────────────────────
+function serverRack(x, y) {
+  rect(x, y, 10, 22, '#181818');
+  rect(x, y,  1, 22, '#333');
+  rect(x + 9,y, 1, 22, '#333');
+  rect(x, y,     10,  1, '#333');
+  rect(x, y + 21,10,  1, '#333');
+  for (let i = 0; i < 5; i++) {
+    const uy = y + 2 + i * 4;
+    rect(x + 1, uy, 8, 3, '#242424');
+    rect(x + 2, uy + 1, 2, 1, '#3dd68c');
+    rect(x + 6, uy + 1, 1, 1, '#4a9eff');
+  }
+}
+
+// ════════════════════════════════════════════
+//  Main draw function
+// ════════════════════════════════════════════
+// Pixel-art reference layout (pixels):
+//   Canvas: W × H   (resizes to fit container)
+//   ROOM_X: where the partitioned rooms start
+//   Chars:  6 staff members
+
+let CW, CH, ROOM_X;
+
+// Sakura wander state
+let skX = 82, skY = 62, skDx = 0.25, skDy = 0.18;
+
+function drawScene() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  CW     = Math.floor(canvas.width  / S);
+  CH     = Math.floor(canvas.height / S);
+  ROOM_X = Math.min(160, Math.floor(CW * 0.76));
+
+  // ── Floor ──
+  rect(0, 8, ROOM_X, CH - 8, '#2a1c0c');
+
+  // wood planks (horizontal)
+  for (let y = 16; y < CH; y += 8) {
+    hrule(y, 0, ROOM_X, '#1e1408');
+  }
+  // plank joints (vertical, staggered)
+  for (let y = 16; y < CH; y += 8) {
+    const offset = (Math.floor(y / 8) % 2) * 14;
+    for (let x = offset; x < ROOM_X; x += 28) {
+      vrule(x, y, y + 8, '#1e1408');
+    }
+  }
+
+  // ── Ceiling strip ──
+  rect(0, 0, ROOM_X, 8, '#141008');
+
+  // Ceiling lights
+  ceilingLight(12, 20);
+  ceilingLight(46, 20);
+  ceilingLight(88, 20);
+  ceilingLight(ROOM_X - 40, 20);
+
+  // ── Bookshelf (left wall) ──
+  bookshelf(3, 10);
+
+  // ── Top desk row  (3 desks) ──
+  desk(22,  20, 2, ['#1a3a5c', '#0d2b0d']);
+  desk(64,  20, 2, ['#2d1b4e', '#3a0a0a']);
+  desk(106, 20, 2, ['#1a3a1a', '#3a2a0a']);
+
+  // ── Top-row characters ──
+  // ソラ
+  charSprite(24, 30, { skin:'#f0c080', hair:'#3d2006', shirt:'#3b82f6', pants:'#1e3a5f' });
+  label('ソラ（リサーチ）', 28, 48);
+
+  // エリカ
+  charSprite(66, 30, { skin:'#e8b090', hair:'#1a0808', shirt:'#9333ea', pants:'#4c1d95' });
+  label('エリカ（発信）', 70, 48);
+
+  // ナナ
+  charSprite(108, 30, { skin:'#f5c5a0', hair:'#8a6030', shirt:'#10b981', pants:'#064e3b' });
+  label('ナナ（交流）', 112, 48);
+
+  // ── サクラ社長 (wandering) ──
+  charSprite(Math.round(skX), Math.round(skY), {
+    skin:'#f0a080', hair:'#c01060', shirt:'#ec4899', pants:'#be185d', hasCrown: true
+  });
+  label('サクラ（社長）', skX + 4, skY + 19);
+
+  // ── Bottom desk row  (2 desks) ──
+  desk(22,  90, 2, ['#1a1a3a', '#2a1a2a']);
+  desk(64,  90, 2, ['#0a2a1a', '#2a0a2a']);
+
+  // ── Bottom-row characters ──
+  // ユイ
+  charSprite(24, 100, { skin:'#f5d0a0', hair:'#5a3a15', shirt:'#6366f1', pants:'#312e81' });
+  label('ユイ（制作）', 28, 118);
+
+  // アオイ
+  charSprite(66, 100, { skin:'#e0b080', hair:'#2a1808', shirt:'#8b5cf6', pants:'#4c1d95' });
+  label('アオイ（営業）', 70, 118);
+
+  // ── Plants ──
+  plant(16, 10);
+  plant(56, 10);
+  plant(ROOM_X - 28, 10);
+  plant(16, 72);
+  plant(ROOM_X - 10, 74);
+
+  // ── Room divider wall ──
+  rect(ROOM_X,     0, 4, CH, '#2a1e10');
+  rect(ROOM_X + 1, 0, 2, CH, '#3a2a15');
+
+  // ── Break room ──
+  const BREAK_Y_END = Math.floor(CH / 2);
+  rect(ROOM_X + 4, 0, CW - ROOM_X - 4, BREAK_Y_END, '#1e1520');
+  hrule(BREAK_Y_END, ROOM_X + 4, CW, '#3a2a30');
+  smallText('休憩スペース', ROOM_X + 4 + (CW - ROOM_X - 4) / 2, 3, '#666');
+
+  // Sofas
+  sofa(ROOM_X + 8, 18);
+  // second sofa rotated (draw as tall sofa)
+  rect(ROOM_X + 35, 16, 6, 22, '#7b3f2d');
+  rect(ROOM_X + 35, 16, 2, 22, '#9a5040');
+  rect(ROOM_X + 41, 16, 1, 22, '#6a3020');
+  rect(ROOM_X + 36, 37, 5, 1,  '#5a3025');
+
+  // table between sofas
+  rect(ROOM_X + 14, 36, 14, 6, '#5a3820');
+  rect(ROOM_X + 15, 37, 12, 4, '#6a4830');
+  // mug on table
+  rect(ROOM_X + 20, 35, 3, 3, '#888');
+  rect(ROOM_X + 21, 34, 1, 1, '#aaa');
+
+  // plant in break room
+  plant(ROOM_X + 42, 6);
+
+  // ── Server room ──
+  rect(ROOM_X + 4, BREAK_Y_END + 1, CW - ROOM_X - 4, CH - BREAK_Y_END - 1, '#0e0e14');
+  smallText('サーバー室', ROOM_X + 4 + (CW - ROOM_X - 4) / 2, BREAK_Y_END + 4, '#666');
+
+  const rY = BREAK_Y_END + 16;
+  serverRack(ROOM_X + 8,  rY);
+  serverRack(ROOM_X + 22, rY);
+  serverRack(ROOM_X + 36, rY);
+
+  // LED strip on server room ceiling
+  rect(ROOM_X + 4, BREAK_Y_END + 1, CW - ROOM_X - 4, 2, '#1a1a2a');
+  for (let lx = ROOM_X + 6; lx < CW - 2; lx += 4) {
+    rect(lx, BREAK_Y_END + 1, 2, 1, '#4a9eff44');
+  }
+}
+
+// ════════════════════════════════════════════
+//  Animation loop
+// ════════════════════════════════════════════
+function animate() {
+  skX += skDx;
+  skY += skDy;
+
+  const minX = 60, maxX = ROOM_X ? Math.min(ROOM_X - 14, 122) : 122;
+  const minY = 54, maxY = 82;
+  if (skX > maxX || skX < minX) skDx = -skDx;
+  if (skY > maxY || skY < minY) skDy = -skDy;
+
+  drawScene();
+  requestAnimationFrame(animate);
+}
+
+// ════════════════════════════════════════════
+//  Responsive canvas resize
+// ════════════════════════════════════════════
+function resize() {
+  const container = canvas.parentElement;
+  canvas.width  = container.clientWidth;
+  canvas.height = container.clientHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+animate();
+
+// ════════════════════════════════════════════
+//  Clock
+// ════════════════════════════════════════════
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    String(now.getHours()).padStart(2,'0') + ':' +
+    String(now.getMinutes()).padStart(2,'0');
+}
+updateClock();
+setInterval(updateClock, 60000);
+
+// ════════════════════════════════════════════
+//  Activity log — append random entries
+// ════════════════════════════════════════════
+const ACT_ENTRIES = [
+  ['ソラ（リサーチ）','WebSearch'],
+  ['ソラ（リサーチ）','Read'],
+  ['エリカ（発信）','Write'],
+  ['エリカ（発信）','Edit'],
+  ['ナナ（交流）','WebSearch'],
+  ['ナナ（交流）','Read'],
+  ['アオイ（営業）','Edit'],
+  ['ユイ（制作）','Stop'],
+  ['ユイ（制作）','Read'],
+  ['サクラ（社長）','Read'],
+];
+let actIdx = 0;
+setInterval(() => {
+  const log = document.getElementById('actLog');
+  const [name, op] = ACT_ENTRIES[actIdx++ % ACT_ENTRIES.length];
+  const div = document.createElement('div');
+  div.className = 'act-item';
+  div.innerHTML = `<b>${name}</b> <span class="op">・ ${op}</span>`;
+  log.appendChild(div);
+  const items = log.querySelectorAll('.act-item');
+  if (items.length > 6) items[0].remove();
+}, 2800);
 </script>
 </body>
 </html>
