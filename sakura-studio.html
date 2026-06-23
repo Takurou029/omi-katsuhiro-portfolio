@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サクラStudio — AI エージェント オフィス</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d0d0d;
+    color: #e0e0e0;
+    font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── 上部ステータスバー ── */
+  .stats-bar {
+    display: flex;
+    background: #111;
+    border-bottom: 1px solid #222;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .stat-cell {
+    flex: 1;
+    padding: 10px 16px;
+    border-right: 1px solid #222;
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .stat-label { color: #888; font-size: 11px; margin-top: 2px; }
+  .stat-sub { font-size: 11px; margin-top: 3px; }
+  .stat-sub.blue  { color: #4a9eff; }
+  .stat-sub.green { color: #3dd68c; }
+  .stat-sub.yellow{ color: #f5a623; }
+  .stat-sub.red   { color: #ff6b6b; }
+
+  /* ── メインエリア ── */
+  .main-area {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── オフィス（左） ── */
+  .office-wrap {
+    flex: 1;
+    background: #1a1208;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ピクセルアートオフィス */
+  .office {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    image-rendering: pixelated;
+  }
+
+  /* 木床 */
+  .office::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent 0, transparent 31px, #1e1408 32px),
+      repeating-linear-gradient(180deg, transparent 0, transparent 31px, #1e1408 32px);
+    background-color: #2a1c0c;
+    opacity: 0.6;
+  }
+
+  /* 天井灯 */
+  .ceiling-lights {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 60px;
+    padding: 0 40px;
+    pointer-events: none;
+  }
+  .ceiling-light {
+    width: 80px;
+    height: 18px;
+    background: linear-gradient(180deg, #555 0%, #888 50%, rgba(200,210,255,0.15) 100%);
+    border-radius: 0 0 4px 4px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .ceiling-light::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    right: 10px;
+    height: 60px;
+    background: radial-gradient(ellipse at top, rgba(200,210,255,0.12) 0%, transparent 70%);
+  }
+
+  /* 本棚 */
+  .bookshelf {
+    position: absolute;
+    left: 10px;
+    top: 40px;
+    width: 60px;
+    height: 120px;
+    background: #3d2510;
+    border: 2px solid #5a3820;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px;
+  }
+  .book-row {
+    display: flex;
+    gap: 2px;
+    flex: 1;
+  }
+  .book {
+    flex: 1;
+    border-radius: 1px;
+  }
+
+  /* デスク */
+  .desk {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .desk-top {
+    background: #8b6914;
+    border: 2px solid #a07820;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+  }
+  .monitor {
+    width: 32px;
+    height: 24px;
+    background: #1a1a2e;
+    border: 2px solid #444;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .monitor-screen {
+    width: 26px;
+    height: 18px;
+    border-radius: 1px;
+  }
+  .monitor::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 4px;
+    background: #555;
+  }
+
+  /* キャラクター */
+  .char {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+  }
+  .char-sprite {
+    width: 24px;
+    height: 36px;
+    position: relative;
+  }
+  .char-head {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+  }
+  .char-body {
+    width: 20px;
+    height: 16px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 16px;
+    border-radius: 2px 2px 0 0;
+  }
+  .char-legs {
+    width: 20px;
+    height: 8px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+  }
+  .char-label {
+    margin-top: 2px;
+    background: rgba(0,0,0,0.7);
+    padding: 1px 4px;
+    border-radius: 2px;
+    color: #ddd;
+    font-size: 9px;
+    white-space: nowrap;
+  }
+  /* 影（楕円） */
+  .char::before {
+    content: '';
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 8px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+  }
+
+  /* 仕切りエリア（右側） */
+  .office-rooms {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    border-left: 3px solid #3a2a15;
+  }
+  .room {
+    flex: 1;
+    background: #1e1410;
+    border-bottom: 3px solid #3a2a15;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .room-label {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #888;
+    white-space: nowrap;
+  }
+  .sofa {
+    width: 70px;
+    height: 30px;
+    background: #6b3a2a;
+    border: 2px solid #8b4a35;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    margin: 4px;
+  }
+  .sofa::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 4px;
+    right: 4px;
+    height: 8px;
+    background: #5a3025;
+    border-radius: 0 0 3px 3px;
+  }
+  .server-rack {
+    width: 30px;
+    height: 70px;
+    background: #1a1a1a;
+    border: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 4px;
+    margin: 4px;
+  }
+  .server-unit {
+    height: 8px;
+    background: #2a2a2a;
+    border-radius: 1px;
+    position: relative;
+  }
+  .server-unit::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #3dd68c;
+    border-radius: 50%;
+  }
+
+  /* 植物 */
+  .plant {
+    position: absolute;
+    font-size: 20px;
+  }
+
+  /* アクティビティログ */
+  .activity-log {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid #333;
+    padding: 8px 12px;
+    min-width: 180px;
+  }
+  .activity-title {
+    font-size: 10px;
+    color: #666;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .activity-item {
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1.8;
+  }
+  .activity-item span { color: #ccc; }
+  .activity-item .act { color: #888; }
+
+  /* ── 右パネル ── */
+  .right-panel {
+    width: 300px;
+    background: #111;
+    border-left: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .panel-header {
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid #222;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .panel-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .panel-sub { font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 1px; }
+  .panel-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #aaa;
+  }
+  .dot-green {
+    width: 8px; height: 8px;
+    background: #3dd68c;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .staff-list { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+
+  .staff-card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 10px 12px;
+    position: relative;
+  }
+  .staff-card--active { border-color: #a855f7; }
+
+  .staff-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .staff-name { font-size: 13px; font-weight: 600; color: #fff; }
+  .staff-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .badge-purple { background: #7c3aed; color: #e9d5ff; }
+  .badge-green  { background: #065f46; color: #6ee7b7; }
+  .badge-gray   { background: #374151; color: #9ca3af; }
+
+  .staff-desc { font-size: 11px; color: #666; margin-bottom: 6px; }
+
+  .staff-action {
+    font-size: 11px;
+    color: #a855f7;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .staff-action::before { content: '▶'; font-size: 8px; }
+
+  .staff-task {
+    background: #0d0d0d;
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin-top: 4px;
+  }
+  .task-name {
+    font-size: 12px;
+    color: #d1d5db;
+    font-weight: 500;
+  }
+  .task-name::before { content: '✓ '; color: #3dd68c; }
+  .task-detail { font-size: 10px; color: #555; margin-top: 2px; }
+  .task-date { font-size: 10px; color: #444; margin-top: 2px; }
+
+  .staff-waiting { font-size: 11px; color: #555; margin-top: 4px; font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ── 上部ステータスバー ── -->
+<div class="stats-bar">
+  <div class="stat-cell">
+    <div class="stat-num">12<span style="font-size:16px;color:#aaa;">件</span></div>
+    <div class="stat-label">リサーチ（ソラ）</div>
+    <div class="stat-sub blue">ネタ 8本</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">8400</div>
+    <div class="stat-label">発信インプレ（エリカ）</div>
+    <div class="stat-sub blue">投稿 6本</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">36<span style="font-size:16px;color:#aaa;">件</span></div>
+    <div class="stat-label">交流（ナナ）</div>
+    <div class="stat-sub green">新規フォロー 14</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">18<span style="font-size:16px;color:#aaa;">人</span></div>
+    <div class="stat-label">メール登録（ユイ）</div>
+    <div class="stat-sub yellow">記事 2本</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">4<span style="font-size:16px;color:#aaa;">件</span></div>
+    <div class="stat-label">販売（アオイ）</div>
+    <div class="stat-sub red">売上 ¥24,800</div>
+  </div>
+</div>
+
+<!-- ── メインエリア ── -->
+<div class="main-area">
+
+  <!-- ── ピクセルアートオフィス ── -->
+  <div class="office-wrap">
+    <div class="office">
+
+      <!-- 天井灯 -->
+      <div class="ceiling-lights">
+        <div class="ceiling-light"></div>
+        <div class="ceiling-light"></div>
+        <div class="ceiling-light"></div>
+        <div class="ceiling-light"></div>
+        <div class="ceiling-light"></div>
+      </div>
+
+      <!-- 本棚 -->
+      <div class="bookshelf">
+        <div class="book-row">
+          <div class="book" style="background:#c0392b"></div>
+          <div class="book" style="background:#2980b9"></div>
+          <div class="book" style="background:#27ae60"></div>
+        </div>
+        <div class="book-row">
+          <div class="book" style="background:#f39c12"></div>
+          <div class="book" style="background:#8e44ad"></div>
+          <div class="book" style="background:#e74c3c"></div>
+        </div>
+        <div class="book-row">
+          <div class="book" style="background:#16a085"></div>
+          <div class="book" style="background:#d35400"></div>
+          <div class="book" style="background:#2c3e50"></div>
+        </div>
+      </div>
+
+      <!-- デスク列（上段）→ ソラ、エリカ、ナナ -->
+      <!-- ソラのデスク -->
+      <div class="desk" style="left:90px; top:60px;">
+        <div class="desk-top" style="width:80px; height:40px;">
+          <div class="monitor"><div class="monitor-screen" style="background:#1a3a5c;"></div></div>
+          <div class="monitor"><div class="monitor-screen" style="background:#0d2b0d;"></div></div>
+        </div>
+      </div>
+      <div class="char" style="left:108px; top:98px;">
+        <div class="char-sprite">
+          <div class="char-head" style="background:#f0c080;"></div>
+          <div class="char-body" style="background:#3b82f6;"></div>
+          <div class="char-legs" style="background:#1e3a5f;"></div>
+        </div>
+        <div class="char-label">ソラ（リサーチ）</div>
+      </div>
+
+      <!-- エリカのデスク -->
+      <div class="desk" style="left:220px; top:60px;">
+        <div class="desk-top" style="width:80px; height:40px;">
+          <div class="monitor"><div class="monitor-screen" style="background:#2d1b4e;"></div></div>
+          <div class="monitor"><div class="monitor-screen" style="background:#4a1a1a;"></div></div>
+        </div>
+      </div>
+      <div class="char" style="left:238px; top:98px;">
+        <div class="char-sprite">
+          <div class="char-head" style="background:#e8b090;"></div>
+          <div class="char-body" style="background:#9333ea;"></div>
+          <div class="char-legs" style="background:#4c1d95;"></div>
+        </div>
+        <div class="char-label">エリカ（発信）</div>
+      </div>
+
+      <!-- ナナのデスク -->
+      <div class="desk" style="left:350px; top:60px;">
+        <div class="desk-top" style="width:80px; height:40px;">
+          <div class="monitor"><div class="monitor-screen" style="background:#1a3a1a;"></div></div>
+          <div class="monitor"><div class="monitor-screen" style="background:#3a2a0a;"></div></div>
+        </div>
+      </div>
+      <div class="char" style="left:368px; top:98px;">
+        <div class="char-sprite">
+          <div class="char-head" style="background:#f5c5a0;"></div>
+          <div class="char-body" style="background:#10b981;"></div>
+          <div class="char-legs" style="background:#064e3b;"></div>
+        </div>
+        <div class="char-label">ナナ（交流）</div>
+      </div>
+
+      <!-- サクラ社長（歩き回り中） -->
+      <div class="char" style="left:300px; top:190px;">
+        <div class="char-sprite">
+          <div class="char-head" style="background:#f0a080; width:18px; height:18px; top:-1px;"></div>
+          <!-- 王冠 -->
+          <div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-size:12px;">👑</div>
+          <div class="char-body" style="background:#ec4899; width:22px;"></div>
+          <div class="char-legs" style="background:#be185d;"></div>
+        </div>
+        <div class="char-label">サクラ（社長）</div>
+      </div>
+
+      <!-- 下段デスク → ユイ、アオイ -->
+      <!-- ユイのデスク -->
+      <div class="desk" style="left:90px; top:240px;">
+        <div class="desk-top" style="width:80px; height:40px;">
+          <div class="monitor"><div class="monitor-screen" style="background:#1a1a3a;"></div></div>
+          <div class="monitor"><div class="monitor-screen" style="background:#2a1a2a;"></div></div>
+        </div>
+      </div>
+      <div class="char" style="left:108px; top:278px;">
+        <div class="char-sprite">
+          <div class="char-head" style="background:#f5d0a0;"></div>
+          <div class="char-body" style="background:#6366f1;"></div>
+          <div class="char-legs" style="background:#312e81;"></div>
+        </div>
+        <div class="char-label">ユイ（制作）</div>
+      </div>
+
+      <!-- アオイのデスク -->
+      <div class="desk" style="left:220px; top:240px;">
+        <div class="desk-top" style="width:80px; height:40px;">
+          <div class="monitor"><div class="monitor-screen" style="background:#0a2a1a;"></div></div>
+        </div>
+      </div>
+      <div class="char" style="left:238px; top:278px;">
+        <div class="char-sprite">
+          <div class="char-head" style="background:#e0b080;"></div>
+          <div class="char-body" style="background:#8b5cf6;"></div>
+          <div class="char-legs" style="background:#4c1d95;"></div>
+        </div>
+        <div class="char-label">アオイ（営業）</div>
+      </div>
+
+      <!-- 植物 -->
+      <div class="plant" style="left:76px; top:52px;">🌿</div>
+      <div class="plant" style="left:170px; top:52px;">🪴</div>
+      <div class="plant" style="right:230px; top:52px;">🌿</div>
+      <div class="plant" style="left:76px; top:230px;">🌱</div>
+      <div class="plant" style="right:236px; bottom:20px;">🪴</div>
+
+      <!-- 右側の部屋（休憩スペース & サーバー室） -->
+      <div class="office-rooms">
+        <div class="room">
+          <div class="room-label">休憩スペース</div>
+          <div style="display:flex; gap:8px; margin-top:24px;">
+            <div class="sofa"></div>
+            <div class="sofa" style="transform:rotate(90deg); margin-top:10px;"></div>
+          </div>
+          <div style="position:absolute; bottom:10px; right:10px; font-size:20px;">☕</div>
+        </div>
+        <div class="room">
+          <div class="room-label">サーバー室</div>
+          <div style="display:flex; gap:6px; margin-top:24px;">
+            <div class="server-rack">
+              <div class="server-unit"></div>
+              <div class="server-unit"></div>
+              <div class="server-unit"></div>
+              <div class="server-unit" style="--color:#4a9eff;"></div>
+              <div class="server-unit"></div>
+            </div>
+            <div class="server-rack">
+              <div class="server-unit"></div>
+              <div class="server-unit"></div>
+              <div class="server-unit"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- アクティビティログ -->
+      <div class="activity-log">
+        <div class="activity-title">ACTIVITY</div>
+        <div class="activity-item"><span>ユイ（制作）</span> <span class="act">・ Stop</span></div>
+        <div class="activity-item"><span>ユイ（制作）</span> <span class="act">・ Stop</span></div>
+        <div class="activity-item"><span>ユイ（制作）</span> <span class="act">・ Read</span></div>
+        <div class="activity-item"><span>アオイ（営業）</span> <span class="act">・ Edit</span></div>
+        <div class="activity-item"><span>ナナ（交流）</span> <span class="act">・ WebSearch</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 右パネル ── -->
+  <div class="right-panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">サクラStudio</div>
+        <div class="panel-sub">STAFF</div>
+      </div>
+      <div class="panel-time">
+        <div class="dot-green"></div>
+        03:21
+      </div>
+    </div>
+
+    <div class="staff-list">
+
+      <!-- サクラ（社長） -->
+      <div class="staff-card staff-card--active">
+        <div class="staff-card-header">
+          <div class="staff-name">サクラ（社長）</div>
+          <div class="staff-badge badge-purple">統括</div>
+        </div>
+        <div class="staff-desc">全体を統括・確認と指示</div>
+        <div class="staff-action">社内を巡回中</div>
+      </div>
+
+      <!-- ソラ（リサーチ） -->
+      <div class="staff-card">
+        <div class="staff-card-header">
+          <div class="staff-name">ソラ（リサーチ）</div>
+          <div class="staff-badge badge-green">完了</div>
+        </div>
+        <div class="staff-desc">競合・トレンドを調査しネタを供給</div>
+        <div class="staff-task">
+          <div class="task-name">競合リサーチ 8件</div>
+          <div class="task-detail">バズ投稿の型とネタ候補を抽出</div>
+          <div class="task-date">納品 1日前</div>
+        </div>
+      </div>
+
+      <!-- エリカ（発信） -->
+      <div class="staff-card">
+        <div class="staff-card-header">
+          <div class="staff-name">エリカ（発信）</div>
+          <div class="staff-badge badge-green">完了</div>
+        </div>
+        <div class="staff-desc">Threads／Xで発信・流入をつくる</div>
+        <div class="staff-task">
+          <div class="task-name">Threads投稿 5本</div>
+          <div class="task-detail">朝・昼・夜枠、1本は記事へ誘導</div>
+          <div class="task-date">納品 1日前</div>
+        </div>
+      </div>
+
+      <!-- ナナ（交流） -->
+      <div class="staff-card">
+        <div class="staff-card-header">
+          <div class="staff-name">ナナ（交流）</div>
+          <div class="staff-badge badge-gray">待機</div>
+        </div>
+        <div class="staff-desc">リプ・引用でフォロワーと関係構築</div>
+        <div class="staff-waiting">まだ成果はありません</div>
+      </div>
+
+      <!-- ユイ（制作） -->
+      <div class="staff-card">
+        <div class="staff-card-header">
+          <div class="staff-name">ユイ（制作）</div>
+          <div class="staff-badge badge-gray">待機</div>
+        </div>
+        <div class="staff-desc">記事・LP・メルマガの制作</div>
+        <div class="staff-waiting">タスク待ち</div>
+      </div>
+
+      <!-- アオイ（営業） -->
+      <div class="staff-card">
+        <div class="staff-card-header">
+          <div class="staff-name">アオイ（営業）</div>
+          <div class="staff-badge badge-gray">待機</div>
+        </div>
+        <div class="staff-desc">商品・サービスの販売と顧客対応</div>
+        <div class="staff-task" style="border-left: 2px solid #333;">
+          <div class="task-name" style="color:#888;">売上 ¥24,800</div>
+          <div class="task-detail">今月 4件 成約</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // 時計の更新
+  function updateClock() {
+    const el = document.querySelector('.panel-time');
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    el.innerHTML = `<div class="dot-green"></div>${h}:${m}`;
+  }
+  setInterval(updateClock, 60000);
+
+  // キャラクターのアニメーション（社長が少しずつ動く）
+  const sakura = document.querySelector('.char[style*="left:300px"]');
+  let x = 300, y = 190, dx = 0.5, dy = 0.3;
+  function moveSakura() {
+    x += dx; y += dy;
+    if (x > 360 || x < 250) dx = -dx;
+    if (y > 230 || y < 170) dy = -dy;
+    sakura.style.left = x + 'px';
+    sakura.style.top  = y + 'px';
+  }
+  setInterval(moveSakura, 80);
+
+  // アクティビティログに疑似エントリを追加
+  const activities = [
+    ['ソラ（リサーチ）', 'WebSearch'],
+    ['エリカ（発信）', 'Write'],
+    ['ナナ（交流）', 'Read'],
+    ['アオイ（営業）', 'Edit'],
+    ['ユイ（制作）', 'Stop'],
+  ];
+  let ai = 0;
+  setInterval(() => {
+    const log = document.querySelector('.activity-log');
+    const [name, act] = activities[ai++ % activities.length];
+    const div = document.createElement('div');
+    div.className = 'activity-item';
+    div.innerHTML = `<span>${name}</span> <span class="act">・ ${act}</span>`;
+    log.appendChild(div);
+    const items = log.querySelectorAll('.activity-item');
+    if (items.length > 7) items[0].remove();
+  }, 3000);
+</script>
+</body>
+</html>
