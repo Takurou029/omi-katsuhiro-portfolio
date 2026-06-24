@@ -868,70 +868,94 @@ function drawChar(ch) {
     ctx.stroke();
   }
 
-  // ── Face features ──
+  // ── Face features (kawaii / chibi style) ──
   const faceX = cx + p*4;
-  const eyeY  = cy + p*2.4;
+  const eyeY  = cy + p*2.6;
 
-  // Eyebrows
+  // Blush marks
+  ctx.fillStyle = 'rgba(255,110,110,0.28)';
+  ctx.beginPath();
+  ctx.ellipse(faceX - p*2.2, eyeY + p*1.0, p*1.6, p*0.8, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(faceX + p*2.2, eyeY + p*1.0, p*1.6, p*0.8, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Thin cute eyebrows
   ctx.strokeStyle = ch.hairColor;
-  ctx.lineWidth = p*0.5;
+  ctx.lineWidth = p*0.55;
   ctx.lineCap = 'round';
   ctx.beginPath();
-  ctx.moveTo(faceX - p*2.2, eyeY - p*1.3);
-  ctx.lineTo(faceX - p*1,   eyeY - p*1.6);
+  ctx.moveTo(faceX - p*2.4, eyeY - p*1.8);
+  ctx.quadraticCurveTo(faceX - p*1.5, eyeY - p*2.2, faceX - p*0.6, eyeY - p*1.9);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(faceX + p*1,   eyeY - p*1.6);
-  ctx.lineTo(faceX + p*2.2, eyeY - p*1.3);
+  ctx.moveTo(faceX + p*0.6, eyeY - p*1.9);
+  ctx.quadraticCurveTo(faceX + p*1.5, eyeY - p*2.2, faceX + p*2.4, eyeY - p*1.8);
   ctx.stroke();
 
-  // Eye whites
-  ctx.fillStyle = '#f8f8ff';
+  // Big anime eyes — left
+  // Outer dark shape
+  ctx.fillStyle = '#18182a';
   ctx.beginPath();
-  ctx.ellipse(faceX - p*1.5, eyeY, p*1.1, p*0.9, 0, 0, Math.PI*2);
+  ctx.ellipse(faceX - p*1.6, eyeY, p*1.3, p*1.55, 0, 0, Math.PI*2);
   ctx.fill();
+  // Coloured iris (bottom 2/3)
+  ctx.fillStyle = ch.eyeColor || '#3868c0';
   ctx.beginPath();
-  ctx.ellipse(faceX + p*1.5, eyeY, p*1.1, p*0.9, 0, 0, Math.PI*2);
+  ctx.ellipse(faceX - p*1.6, eyeY + p*0.25, p*1.05, p*1.2, 0, 0, Math.PI*2);
+  ctx.fill();
+  // Lower iris lighter gradient suggestion
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.beginPath();
+  ctx.ellipse(faceX - p*1.6, eyeY + p*0.7, p*0.75, p*0.6, 0, 0, Math.PI*2);
+  ctx.fill();
+  // Large white catchlight
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(faceX - p*0.95, eyeY - p*0.65, p*0.52, 0, Math.PI*2);
+  ctx.fill();
+  // Small secondary catchlight
+  ctx.beginPath();
+  ctx.arc(faceX - p*2.0, eyeY + p*0.5, p*0.22, 0, Math.PI*2);
   ctx.fill();
 
-  // Iris
-  ctx.fillStyle = ch.eyeColor || '#2a4a8a';
+  // Big anime eyes — right (mirror)
+  ctx.fillStyle = '#18182a';
   ctx.beginPath();
-  ctx.arc(faceX - p*1.5, eyeY, p*0.65, 0, Math.PI*2);
+  ctx.ellipse(faceX + p*1.6, eyeY, p*1.3, p*1.55, 0, 0, Math.PI*2);
   ctx.fill();
+  ctx.fillStyle = ch.eyeColor || '#3868c0';
   ctx.beginPath();
-  ctx.arc(faceX + p*1.5, eyeY, p*0.65, 0, Math.PI*2);
+  ctx.ellipse(faceX + p*1.6, eyeY + p*0.25, p*1.05, p*1.2, 0, 0, Math.PI*2);
   ctx.fill();
-
-  // Pupil + catch-light
-  ctx.fillStyle = '#08080f';
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
   ctx.beginPath();
-  ctx.arc(faceX - p*1.5 + p*0.1, eyeY, p*0.32, 0, Math.PI*2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(faceX + p*1.5 + p*0.1, eyeY, p*0.32, 0, Math.PI*2);
+  ctx.ellipse(faceX + p*1.6, eyeY + p*0.7, p*0.75, p*0.6, 0, 0, Math.PI*2);
   ctx.fill();
   ctx.fillStyle = '#ffffff';
   ctx.beginPath();
-  ctx.arc(faceX - p*1.2, eyeY - p*0.2, p*0.18, 0, Math.PI*2);
+  ctx.arc(faceX + p*2.25, eyeY - p*0.65, p*0.52, 0, Math.PI*2);
   ctx.fill();
   ctx.beginPath();
-  ctx.arc(faceX + p*1.8, eyeY - p*0.2, p*0.18, 0, Math.PI*2);
+  ctx.arc(faceX + p*1.2, eyeY + p*0.5, p*0.22, 0, Math.PI*2);
   ctx.fill();
 
-  // Nose
-  ctx.strokeStyle = 'rgba(0,0,0,0.18)';
-  ctx.lineWidth = p*0.4;
+  // Tiny nose — just two small dots
+  ctx.fillStyle = 'rgba(160,80,60,0.30)';
   ctx.beginPath();
-  ctx.arc(faceX + p*0.3, eyeY + p*1, p*0.5, 0.3, Math.PI - 0.3);
-  ctx.stroke();
+  ctx.arc(faceX - p*0.4, eyeY + p*1.6, p*0.28, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(faceX + p*0.4, eyeY + p*1.6, p*0.28, 0, Math.PI*2);
+  ctx.fill();
 
-  // Mouth / smile
-  ctx.strokeStyle = '#d07070';
-  ctx.lineWidth = p*0.45;
+  // Small cute smile
+  ctx.strokeStyle = '#e07878';
+  ctx.lineWidth = p*0.5;
   ctx.lineCap = 'round';
   ctx.beginPath();
-  ctx.arc(faceX, eyeY + p*1.9, p*1.1, 0.15, Math.PI - 0.15);
+  ctx.arc(faceX, eyeY + p*2.3, p*0.85, 0.25, Math.PI - 0.25);
   ctx.stroke();
 
   // ── Name label ──
