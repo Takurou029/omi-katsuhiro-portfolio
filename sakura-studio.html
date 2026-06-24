@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サクラStudio — AI Office Simulator</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0d0d18;
+  color: #dde0f0;
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* ── TOP DASHBOARD ── */
+.dashboard {
+  display: flex;
+  background: #0a0a14;
+  border-bottom: 1px solid #23233a;
+  flex-shrink: 0;
+}
+.metric-card {
+  flex: 1;
+  padding: 10px 18px 8px;
+  border-right: 1px solid #1c1c2e;
+}
+.metric-card:last-child { border-right: none; }
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.metric-label {
+  font-size: 0.68rem;
+  color: #5a5a88;
+  margin-top: 3px;
+}
+.metric-sub {
+  font-size: 0.72rem;
+  color: #4a80c8;
+  margin-top: 2px;
+}
+.metric-sub.green  { color: #3cc870; }
+.metric-sub.amber  { color: #d89030; }
+
+/* ── MAIN AREA ── */
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── OFFICE CANVAS WRAPPER ── */
+.office-wrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #0d0d18;
+}
+#office {
+  display: block;
+  image-rendering: pixelated;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── ACTIVITY LOG ── */
+.log {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(6,6,16,0.82);
+  border: 1px solid #23233a;
+  padding: 8px 12px 10px;
+  width: 210px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+.log-label {
+  font-size: 0.6rem;
+  color: #44446a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+}
+.log-row {
+  font-size: 0.72rem;
+  color: #9898c0;
+  line-height: 1.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.log-row .lname { color: #d0d0f0; }
+.log-row .ldot  { color: #34344a; }
+.log-row .lact  { color: #5a5a88; }
+
+/* ── SIDE PANEL ── */
+.side-panel {
+  width: 272px;
+  background: #0a0a14;
+  border-left: 1px solid #1c1c2e;
+  overflow-y: auto;
+  flex-shrink: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #23233a transparent;
+}
+.side-panel::-webkit-scrollbar { width: 4px; }
+.side-panel::-webkit-scrollbar-thumb { background: #23233a; }
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid #1c1c2e;
+  position: sticky;
+  top: 0;
+  background: #0a0a14;
+  z-index: 1;
+}
+.panel-title  { font-size: 1rem; font-weight: 700; color: #fff; }
+.panel-sub    { font-size: 0.62rem; color: #44446a; margin-top: 2px; letter-spacing: 0.06em; }
+.panel-timer  { font-size: 0.8rem; color: #3cc870; font-variant-numeric: tabular-nums; }
+.timer-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #3cc870;
+  margin-right: 5px;
+  animation: blink 1.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+/* Staff cards */
+.staff-card {
+  padding: 12px 16px;
+  border-bottom: 1px solid #111122;
+}
+.sc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.sc-name { font-size: 0.88rem; font-weight: 600; color: #e8e8ff; }
+.sc-role { font-size: 0.68rem; color: #44446a; margin-top: 2px; }
+
+.badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 6px;
+  margin-top: 1px;
+}
+.badge-done    { background: #0d2a1a; color: #3cc870; }
+.badge-wait    { background: #141422; color: #44446a; }
+.badge-active  { background: rgba(208,80,160,0.15); color: #d050a0; border: 1px solid #d050a0; }
+.badge-running { background: #0d1f36; color: #4a80c8; }
+
+.sc-task  { margin-top: 9px; font-size: 0.72rem; }
+.sc-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: #b0b0d0;
+  line-height: 1.4;
+}
+.sc-check { color: #3cc870; flex-shrink: 0; }
+.sc-arrow { color: #4a80c8; flex-shrink: 0; }
+.sc-meta  { color: #383858; font-size: 0.68rem; margin-top: 3px; padding-left: 16px; }
+.sc-date  { color: #2a2a48; font-size: 0.65rem; margin-top: 4px; }
+.sc-none  { color: #2a2a48; font-size: 0.72rem; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ── DASHBOARD ── -->
+<div class="dashboard">
+  <div class="metric-card">
+    <div class="metric-value" id="m0">12</div>
+    <div class="metric-label">リサーチ（ソラ）</div>
+    <div class="metric-sub">ネタ <span id="s0">8</span>本</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value" id="m1">8,400</div>
+    <div class="metric-label">発信インプレ（エリカ）</div>
+    <div class="metric-sub">投稿 <span id="s1">6</span>本</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value" id="m2">36</div>
+    <div class="metric-label">交流（ナナ）</div>
+    <div class="metric-sub green">新規フォロー <span id="s2">14</span></div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value" id="m3">18</div>
+    <div class="metric-label">メール登録（ユイ）</div>
+    <div class="metric-sub">記事 <span id="s3">2</span>本</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value" id="m4">4</div>
+    <div class="metric-label">販売（アオイ）</div>
+    <div class="metric-sub amber">売上 ¥<span id="s4">24,800</span></div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- Office canvas -->
+  <div class="office-wrap">
+    <canvas id="office"></canvas>
+
+    <!-- Activity log -->
+    <div class="log">
+      <div class="log-label">ACTIVITY</div>
+      <div id="log-list"></div>
+    </div>
+  </div>
+
+  <!-- Side panel -->
+  <div class="side-panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">サクラStudio</div>
+        <div class="panel-sub">STAFF</div>
+      </div>
+      <div class="panel-timer">
+        <span class="timer-dot"></span><span id="timer">00:00</span>
+      </div>
+    </div>
+
+    <!-- サクラ -->
+    <div class="staff-card">
+      <div class="sc-head">
+        <div>
+          <div class="sc-name">サクラ（社長）</div>
+          <div class="sc-role">全体を統括・確認と指示</div>
+        </div>
+        <span class="badge badge-active">競合</span>
+      </div>
+      <div class="sc-task">
+        <div class="sc-title"><span class="sc-arrow">▶</span> 社内を巡回中</div>
+      </div>
+    </div>
+
+    <!-- ソラ -->
+    <div class="staff-card">
+      <div class="sc-head">
+        <div>
+          <div class="sc-name">ソラ（リサーチ）</div>
+          <div class="sc-role">競合・トレンドを調査しネタを供給</div>
+        </div>
+        <span class="badge badge-done">完了</span>
+      </div>
+      <div class="sc-task">
+        <div class="sc-title"><span class="sc-check">✓</span> 競合リサーチ 8件</div>
+        <div class="sc-meta">バズ投稿の型とネタ候補を抽出</div>
+        <div class="sc-date">納品 1ヶ月前</div>
+      </div>
+    </div>
+
+    <!-- エリカ -->
+    <div class="staff-card">
+      <div class="sc-head">
+        <div>
+          <div class="sc-name">エリカ（発信）</div>
+          <div class="sc-role">Threads／Xで発信・流入をつくる</div>
+        </div>
+        <span class="badge badge-done">完了</span>
+      </div>
+      <div class="sc-task">
+        <div class="sc-title"><span class="sc-check">✓</span> Threads投稿 5本</div>
+        <div class="sc-meta">朝・昼・夜枠、1本は記事へ誘導</div>
+        <div class="sc-date">納品 1ヶ月前</div>
+      </div>
+    </div>
+
+    <!-- ナナ -->
+    <div class="staff-card">
+      <div class="sc-head">
+        <div>
+          <div class="sc-name">ナナ（交流）</div>
+          <div class="sc-role">リプ・引用でフォロワーと関係構築</div>
+        </div>
+        <span class="badge badge-wait">待機</span>
+      </div>
+      <div class="sc-none">まだ成果はありません</div>
+    </div>
+
+    <!-- ユイ -->
+    <div class="staff-card">
+      <div class="sc-head">
+        <div>
+          <div class="sc-name">ユイ（制作）</div>
+          <div class="sc-role">記事・LP・動画の制作</div>
+        </div>
+        <span class="badge badge-wait">待機</span>
+      </div>
+      <div class="sc-none">まだ成果はありません</div>
+    </div>
+
+    <!-- アオイ -->
+    <div class="staff-card">
+      <div class="sc-head">
+        <div>
+          <div class="sc-name">アオイ（営業）</div>
+          <div class="sc-role">販売・マネタイズ担当</div>
+        </div>
+        <span class="badge badge-running">進行中</span>
+      </div>
+      <div class="sc-task">
+        <div class="sc-title"><span class="sc-arrow" style="color:#d89030">▶</span> 売上レポート作成中</div>
+        <div class="sc-meta">¥24,800 達成 → 目標レポート編集</div>
+      </div>
+    </div>
+
+  </div><!-- /side-panel -->
+</div><!-- /main -->
+
+<script>
+// ═══════════════════════════════════════════════
+//  CANVAS SETUP
+// ═══════════════════════════════════════════════
+const canvas = document.getElementById('office');
+const ctx    = canvas.getContext('2d');
+
+// Virtual resolution we draw in (scaled to actual canvas)
+const VW = 560, VH = 340;
+
+function resizeCanvas() {
+  const wrap = canvas.parentElement;
+  canvas.width  = wrap.clientWidth;
+  canvas.height = wrap.clientHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Scale helpers: convert virtual → canvas pixels
+function sx(x) { return x * canvas.width  / VW; }
+function sy(y) { return y * canvas.height / VH; }
+function sp(p) { return p * Math.min(canvas.width / VW, canvas.height / VH); }
+
+// ═══════════════════════════════════════════════
+//  COLORS
+// ═══════════════════════════════════════════════
+const C = {
+  floorA:   '#3d2a12',
+  floorB:   '#4a3318',
+  floorDark:'#2e1f0c',
+  wall:     '#1a1428',
+  wallTop:  '#221832',
+  window:   '#0d2038',
+  windowHi: '#1a4870',
+  desk:     '#2e1c0a',
+  deskTop:  '#3a2210',
+  deskEdge: '#1e1006',
+  monitor:  '#080c18',
+  monitorGlow: '#1a3a60',
+  breakFloor:'#1a1228',
+  serverFloor:'#0c180c',
+  serverRack: '#0e180e',
+  shelf:    '#241608',
+};
+
+// ═══════════════════════════════════════════════
+//  LAYOUT (in virtual coords)
+// ═══════════════════════════════════════════════
+const OFF = { x: 16, y: 24, w: 338, h: 292 };  // main office
+const BR  = { x: OFF.x + OFF.w + 14, y: OFF.y, w: 176, h: 152 };  // break room
+const SR  = { x: OFF.x + OFF.w + 14, y: BR.y + BR.h + 10, w: 176, h: 116 }; // server room
+
+// Desk positions: [virtualX, virtualY, monitorHue]
+const DESKS = [
+  // Row 1
+  { x: OFF.x + 28,  y: OFF.y + 54,  mc: '#1a3a60', gc: '#3a7ac8' },
+  { x: OFF.x + 120, y: OFF.y + 54,  mc: '#0d2818', gc: '#2a9050' },
+  { x: OFF.x + 212, y: OFF.y + 54,  mc: '#280a3a', gc: '#8040c0' },
+  // Row 2
+  { x: OFF.x + 28,  y: OFF.y + 180, mc: '#2a1010', gc: '#c04040' },
+  { x: OFF.x + 120, y: OFF.y + 180, mc: '#1c1c0a', gc: '#a09030' },
+];
+
+// ═══════════════════════════════════════════════
+//  STAFF CHARACTERS
+// ═══════════════════════════════════════════════
+const STAFF = [
+  {
+    id: 'sakura', name: 'サクラ', role: '社長',
+    bodyColor: '#c050a0', hairColor: '#2a0818', skinColor: '#f0c090', pantsColor: '#280014',
+    x: 200, y: 130, vx: 0, vy: 0, walkFrame: 0, facing: 1,
+    patrol: true, patrolIdx: 0,
+  },
+  {
+    id: 'sora', name: 'ソラ', role: 'リサーチ',
+    bodyColor: '#2878e8', hairColor: '#081838', skinColor: '#f0c090', pantsColor: '#082030',
+    x: DESKS[0].x + 8, y: DESKS[0].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
+    deskX: DESKS[0].x + 8, deskY: DESKS[0].y + 20, patrol: false,
+  },
+  {
+    id: 'erika', name: 'エリカ', role: '発信',
+    bodyColor: '#28a850', hairColor: '#081c10', skinColor: '#f0c090', pantsColor: '#082018',
+    x: DESKS[1].x + 8, y: DESKS[1].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
+    deskX: DESKS[1].x + 8, deskY: DESKS[1].y + 20, patrol: false,
+  },
+  {
+    id: 'nana', name: 'ナナ', role: '交流',
+    bodyColor: '#7840c8', hairColor: '#180828', skinColor: '#f0c090', pantsColor: '#180828',
+    x: DESKS[2].x + 8, y: DESKS[2].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
+    deskX: DESKS[2].x + 8, deskY: DESKS[2].y + 20, patrol: false,
+  },
+  {
+    id: 'yui', name: 'ユイ', role: '制作',
+    bodyColor: '#c07818', hairColor: '#280e04', skinColor: '#f0c090', pantsColor: '#200a04',
+    x: DESKS[3].x + 8, y: DESKS[3].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
+    deskX: DESKS[3].x + 8, deskY: DESKS[3].y + 20, patrol: false,
+  },
+  {
+    id: 'aoi', name: 'アオイ', role: '営業',
+    bodyColor: '#6828a8', hairColor: '#100420', skinColor: '#f0c090', pantsColor: '#100420',
+    x: DESKS[4].x + 8, y: DESKS[4].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
+    deskX: DESKS[4].x + 8, deskY: DESKS[4].y + 20, patrol: false,
+  },
+];
+
+// Patrol waypoints for サクラ
+const PATROL = [
+  { x: 230, y: 120 }, { x: 300, y: 140 }, { x: 310, y: 220 },
+  { x: 220, y: 230 }, { x: 120, y: 240 }, { x: 60,  y: 220 },
+  { x: 50,  y: 130 }, { x: 150, y: 110 }, { x: 200, y: 130 },
+];
+let patrolTarget = 0;
+
+// ═══════════════════════════════════════════════
+//  DRAWING HELPERS
+// ═══════════════════════════════════════════════
+function fr(vx, vy, vw, vh, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(sx(vx), sy(vy), sx(vw) - sx(0), sy(vh) - sy(0));
+}
+
+// Pixel-art rect: size in "game pixels" (≈2 virtual pixels each)
+const GP = 2; // game pixel = 2 virtual px
+function gp(vx, vy, gw, gh, color) {
+  fr(vx, vy, gw * GP, gh * GP, color);
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW FLOOR
+// ═══════════════════════════════════════════════
+function drawFloor() {
+  // Office floor tiles
+  const tileV = 16; // tile size in virtual px
+  for (let ty = OFF.y; ty < OFF.y + OFF.h; ty += tileV) {
+    for (let tx = OFF.x; tx < OFF.x + OFF.w; tx += tileV) {
+      const dark = ((Math.floor((tx - OFF.x) / tileV) + Math.floor((ty - OFF.y) / tileV)) % 2 === 0);
+      ctx.fillStyle = dark ? C.floorA : C.floorB;
+      ctx.fillRect(sx(tx), sy(ty), sx(tileV) - sx(0) + 0.5, sy(tileV) - sy(0) + 0.5);
+    }
+  }
+  // Floor edges / shadows
+  ctx.fillStyle = C.floorDark;
+  fr(OFF.x, OFF.y + OFF.h - 2, OFF.w, 2, C.floorDark);
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW WALLS & WINDOWS
+// ═══════════════════════════════════════════════
+function drawWalls() {
+  // Top wall
+  fr(OFF.x - 6, OFF.y - 20, OFF.w + 12, 22, C.wallTop);
+  // Side walls
+  fr(OFF.x - 6, OFF.y, 6, OFF.h, C.wall);
+  fr(OFF.x + OFF.w, OFF.y, 6, OFF.h, C.wall);
+
+  // Windows
+  const winW = 52, winH = 16, winY = OFF.y - 17;
+  const winXs = [OFF.x + 20, OFF.x + 90, OFF.x + 170, OFF.x + 255];
+  winXs.forEach(wx => {
+    fr(wx, winY, winW, winH, C.window);
+    fr(wx, winY, winW / 3, winH / 2, C.windowHi);
+    // Frame
+    ctx.strokeStyle = '#0a1828';
+    ctx.lineWidth = sp(0.6);
+    ctx.strokeRect(sx(wx), sy(winY), sx(wx + winW) - sx(wx), sy(winY + winH) - sy(winY));
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW BOOKSHELF
+// ═══════════════════════════════════════════════
+const BOOK_COLORS = ['#b03030','#308850','#3050b0','#a07820','#703088','#b05020'];
+function drawBookshelf() {
+  fr(OFF.x + 2, OFF.y + 14, 18, OFF.h * 0.38, C.shelf);
+  for (let i = 0; i < 8; i++) {
+    const by = OFF.y + 18 + i * 13;
+    fr(OFF.x + 3, by, 16, 11, BOOK_COLORS[i % BOOK_COLORS.length]);
+    fr(OFF.x + 16, by, 2, 11, 'rgba(0,0,0,0.3)');
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW PLANT
+// ═══════════════════════════════════════════════
+function drawPlant(vx, vy) {
+  fr(vx + 4, vy + 16, 10, 10, '#3a2410');  // pot
+  fr(vx + 5, vy + 14, 8, 4, '#2e1c0c');
+  ctx.fillStyle = '#1a4820';
+  ctx.beginPath();
+  ctx.arc(sx(vx + 9), sy(vy + 8), sp(9), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#246030';
+  ctx.beginPath();
+  ctx.arc(sx(vx + 5), sy(vy + 5), sp(5), 0, Math.PI * 2);
+  ctx.fill();
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW DESK
+// ═══════════════════════════════════════════════
+let monitorTick = 0;
+function drawDesk(d) {
+  const { x, y, mc, gc } = d;
+  const dw = 76, dh = 34;
+
+  // Desk surface
+  fr(x, y + 12, dw, dh - 12, C.deskTop);
+  // Desk front edge
+  fr(x, y + dh - 4, dw, 4, C.deskEdge);
+  // Desk legs
+  fr(x + 2, y + dh, 4, 8, C.desk);
+  fr(x + dw - 6, y + dh, 4, 8, C.desk);
+
+  // Monitor stand
+  fr(x + dw/2 - 4, y + 10, 8, 4, '#1a1a28');
+  fr(x + dw/2 - 8, y + 13, 16, 2, '#141420');
+
+  // Monitor screen
+  const mw = 46, mh = 30;
+  const mx = x + (dw - mw) / 2;
+  const my = y - mh + 12;
+  fr(mx - 2, my - 2, mw + 4, mh + 4, '#0c0c18');  // bezel
+  fr(mx, my, mw, mh, mc);
+
+  // Screen content: flicker glow lines
+  const tick = (monitorTick + d.x * 3) % 120;
+  ctx.fillStyle = gc;
+  ctx.globalAlpha = 0.7 + Math.sin(tick * 0.15) * 0.2;
+  for (let li = 0; li < 5; li++) {
+    const lw = (10 + ((d.x + li * 7 + tick) % 24)) * 1.2;
+    fr(mx + 3, my + 4 + li * 5, lw, 1.5, gc);
+  }
+  // Cursor blink
+  if (Math.floor(tick / 30) % 2 === 0) {
+    fr(mx + 3, my + 24, 4, 2, gc);
+  }
+  ctx.globalAlpha = 1;
+
+  // Screen glow halo
+  const grd = ctx.createRadialGradient(
+    sx(mx + mw/2), sy(my + mh/2), 0,
+    sx(mx + mw/2), sy(my + mh/2), sp(mw * 0.9)
+  );
+  grd.addColorStop(0, 'rgba(60,120,220,0.06)');
+  grd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(sx(mx - 10), sy(my - 10), sx(mw + 20) - sx(0), sy(mh + 20) - sy(0));
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW BREAK ROOM
+// ═══════════════════════════════════════════════
+function drawBreakRoom() {
+  fr(BR.x, BR.y, BR.w, BR.h, C.breakFloor);
+  // Floor tiles
+  const tileV = 16;
+  for (let ty = BR.y; ty < BR.y + BR.h; ty += tileV) {
+    for (let tx = BR.x; tx < BR.x + BR.w; tx += tileV) {
+      ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+      ctx.lineWidth = sp(0.4);
+      ctx.strokeRect(sx(tx), sy(ty), sx(tileV) - sx(0), sy(tileV) - sy(0));
+    }
+  }
+  // Label
+  ctx.fillStyle = '#3a2858';
+  ctx.font = `${sp(9)}px sans-serif`;
+  ctx.fillText('休憩スペース', sx(BR.x + 6), sy(BR.y + 12));
+
+  // Sofa
+  const sx2 = BR.x + 14, sy2 = BR.y + 30;
+  fr(sx2, sy2, BR.w - 28, 46, '#4a3060');          // main cushion
+  fr(sx2, sy2, BR.w - 28, 14, '#583870');           // top cushion highlight
+  fr(sx2, sy2 + 40, BR.w - 28, 8, '#301a48');       // base
+  fr(sx2 - 8, sy2, 8, 46, '#3a2050');               // left arm
+  fr(sx2 + BR.w - 20, sy2, 8, 46, '#3a2050');       // right arm
+
+  // Coffee table
+  fr(BR.x + 20, BR.y + 84, 60, 28, '#281840');
+  fr(BR.x + 22, BR.y + 86, 56, 24, '#321c50');
+
+  // Wall art
+  fr(BR.x + BR.w - 48, BR.y + 8, 34, 22, '#1c1030');
+  ctx.fillStyle = '#4a2878';
+  ctx.beginPath();
+  ctx.arc(sx(BR.x + BR.w - 31), sy(BR.y + 19), sp(7), 0, Math.PI * 2);
+  ctx.fill();
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW SERVER ROOM
+// ═══════════════════════════════════════════════
+function drawServerRoom() {
+  fr(SR.x, SR.y, SR.w, SR.h, C.serverFloor);
+  ctx.fillStyle = '#1a3a1a';
+  ctx.font = `${sp(9)}px sans-serif`;
+  ctx.fillText('サーバー室', sx(SR.x + 6), sy(SR.y + 12));
+
+  const rackW = 40, rackH = SR.h - 24, rackY = SR.y + 18;
+  for (let r = 0; r < 3; r++) {
+    const rackX = SR.x + 14 + r * 50;
+    fr(rackX, rackY, rackW, rackH, C.serverRack);
+    // Rack units
+    for (let u = 0; u < 6; u++) {
+      fr(rackX + 2, rackY + 4 + u * 13, rackW - 4, 11, '#0a1a0a');
+      // LEDs
+      const ledColor = [u % 3 === 0 ? '#00dd44' : '#0044ee', '#003388'][u % 2];
+      fr(rackX + 4, rackY + 7 + u * 13, 5, 3, monitorTick % 60 < 30 || u % 2 !== 0 ? '#00cc44' : '#004422');
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  DRAW CHARACTER SPRITE  (side-view pixel art)
+// ═══════════════════════════════════════════════
+function drawChar(ch) {
+  const p  = sp(GP);         // one game-pixel in canvas coords
+  const cx = sx(ch.x);
+  const cy = sy(ch.y);
+  const f  = ch.walkFrame;
+  const moving = ch.vx !== 0 || ch.vy !== 0;
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  ctx.beginPath();
+  ctx.ellipse(cx + p*3, cy + p*13, p*4, p*1.2, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Legs (animate when moving)
+  ctx.fillStyle = ch.pantsColor;
+  if (moving) {
+    const swing = Math.sin(f * 0.35) * p * 1.8;
+    // Left leg
+    ctx.fillRect(cx + p,     cy + p*8 - swing, p*2, p*4);
+    // Right leg
+    ctx.fillRect(cx + p*3,   cy + p*8 + swing, p*2, p*4);
+  } else {
+    ctx.fillRect(cx + p,     cy + p*8,  p*2, p*4);
+    ctx.fillRect(cx + p*3,   cy + p*8,  p*2, p*4);
+  }
+
+  // Body
+  ctx.fillStyle = ch.bodyColor;
+  ctx.fillRect(cx, cy + p*3, p*6, p*6);
+
+  // Arms (swing when moving)
+  if (moving) {
+    const aswing = Math.sin(f * 0.35) * p * 1.5;
+    ctx.fillRect(cx - p,     cy + p*3 + aswing, p, p*4);
+    ctx.fillRect(cx + p*6,   cy + p*3 - aswing, p, p*4);
+  } else {
+    ctx.fillRect(cx - p,     cy + p*4, p, p*3);
+    ctx.fillRect(cx + p*6,   cy + p*4, p, p*3);
+  }
+
+  // Neck
+  ctx.fillStyle = ch.skinColor;
+  ctx.fillRect(cx + p*2, cy + p*2, p*2, p*2);
+
+  // Head
+  ctx.fillStyle = ch.skinColor;
+  ctx.fillRect(cx + p, cy, p*4, p*4);
+
+  // Hair
+  ctx.fillStyle = ch.hairColor;
+  ctx.fillRect(cx + p,   cy,       p*4, p);     // top
+  ctx.fillRect(cx + p,   cy,       p,   p*2);   // left side
+  if (ch.facing === 1) {
+    ctx.fillRect(cx + p*4, cy, p, p*2);
+  }
+
+  // Eyes
+  ctx.fillStyle = '#0a0a1c';
+  const eyeOff = ch.facing === 1 ? p : 0;
+  ctx.fillRect(cx + p*2 + eyeOff, cy + p*2, p, p);
+
+  // Name label
+  const label = `${ch.name}（${ch.role}）`;
+  ctx.font = `bold ${sp(7.5)}px sans-serif`;
+  const tw = ctx.measureText(label).width;
+  ctx.fillStyle = 'rgba(5,5,16,0.72)';
+  ctx.fillRect(cx + p*3 - tw/2 - 3, cy + p*13 + 1, tw + 6, sp(10));
+  ctx.fillStyle = '#c8c8e8';
+  ctx.textAlign = 'center';
+  ctx.fillText(label, cx + p*3, cy + p*13 + sp(8));
+  ctx.textAlign = 'left';
+}
+
+// ═══════════════════════════════════════════════
+//  UPDATE CHARACTER POSITIONS
+// ═══════════════════════════════════════════════
+const WALK_SPEED = 0.8; // virtual px per frame
+
+function updateChars() {
+  STAFF.forEach(ch => {
+    if (!ch.patrol) {
+      ch.vx = 0; ch.vy = 0;
+      return;
+    }
+    // サクラ patrols between waypoints
+    const target = PATROL[patrolTarget];
+    const dx = target.x - ch.x;
+    const dy = target.y - ch.y;
+    const dist = Math.hypot(dx, dy);
+    if (dist < 2) {
+      patrolTarget = (patrolTarget + 1) % PATROL.length;
+      ch.vx = 0; ch.vy = 0;
+    } else {
+      const spd = Math.min(WALK_SPEED, dist);
+      ch.vx = (dx / dist) * spd;
+      ch.vy = (dy / dist) * spd;
+      ch.x += ch.vx;
+      ch.y += ch.vy;
+      ch.facing = dx > 0 ? 1 : 0;
+    }
+    ch.walkFrame++;
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  ACTIVITY LOG
+// ═══════════════════════════════════════════════
+let logEntries = [
+  { name: 'ユイ（制作）',    action: 'Stop' },
+  { name: 'ユイ（制作）',    action: 'Stop' },
+  { name: 'ユイ（制作）',    action: 'Read' },
+  { name: 'アオイ（営業）',  action: 'Edit' },
+  { name: 'ナナ（交流）',    action: 'WebSearch' },
+];
+
+const ACTIONS = ['Read','Write','Edit','WebSearch','Stop','Bash','Grep','Glob','mcp_tool'];
+const NAMES   = ['サクラ（社長）','ソラ（リサーチ）','エリカ（発信）','ナナ（交流）','ユイ（制作）','アオイ（営業）'];
+
+function renderLog() {
+  const el = document.getElementById('log-list');
+  el.innerHTML = logEntries.slice(-5).map(e =>
+    `<div class="log-row"><span class="lname">${e.name}</span><span class="ldot"> ・ </span><span class="lact">${e.action}</span></div>`
+  ).join('');
+}
+renderLog();
+
+setInterval(() => {
+  logEntries.push({
+    name:   NAMES[Math.floor(Math.random() * NAMES.length)],
+    action: ACTIONS[Math.floor(Math.random() * ACTIONS.length)],
+  });
+  if (logEntries.length > 20) logEntries.shift();
+  renderLog();
+}, 1800 + Math.random() * 1200);
+
+// ═══════════════════════════════════════════════
+//  TIMER
+// ═══════════════════════════════════════════════
+let elapsed = 0;
+setInterval(() => {
+  elapsed++;
+  const h = Math.floor(elapsed / 3600);
+  const m = Math.floor((elapsed % 3600) / 60);
+  document.getElementById('timer').textContent =
+    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}, 1000);
+
+// ═══════════════════════════════════════════════
+//  METRIC TICK (gentle increase)
+// ═══════════════════════════════════════════════
+let impTick = 0;
+setInterval(() => {
+  impTick++;
+  if (impTick % 7 === 0) {
+    const el = document.getElementById('m1');
+    const cur = parseInt(el.textContent.replace(',',''));
+    const next = cur + Math.floor(Math.random() * 12);
+    el.textContent = next.toLocaleString('ja-JP');
+  }
+  if (impTick % 23 === 0) {
+    const el = document.getElementById('s2');
+    el.textContent = parseInt(el.textContent) + 1;
+  }
+}, 3000);
+
+// ═══════════════════════════════════════════════
+//  RENDER LOOP
+// ═══════════════════════════════════════════════
+let frame = 0;
+
+function render() {
+  frame++;
+  monitorTick = frame;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background
+  ctx.fillStyle = '#0a0a14';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw static office elements
+  drawWalls();
+  drawFloor();
+  drawBookshelf();
+
+  // Plants
+  drawPlant(OFF.x + OFF.w - 30, OFF.y + 16);
+  drawPlant(OFF.x + 2,          OFF.y + OFF.h - 44);
+  drawPlant(OFF.x + OFF.w/2 - 4, OFF.y + 16);
+
+  // Desks
+  DESKS.forEach(drawDesk);
+
+  // Side rooms
+  drawBreakRoom();
+  drawServerRoom();
+
+  // Separator lines
+  ctx.strokeStyle = '#1c1c30';
+  ctx.lineWidth = sp(0.8);
+  ctx.beginPath();
+  ctx.moveTo(sx(OFF.x + OFF.w + 8), sy(OFF.y));
+  ctx.lineTo(sx(OFF.x + OFF.w + 8), sy(OFF.y + OFF.h));
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(sx(BR.x), sy(BR.y + BR.h + 5));
+  ctx.lineTo(sx(BR.x + BR.w), sy(BR.y + BR.h + 5));
+  ctx.stroke();
+
+  // Update and draw characters (sorted by Y for painter's algo)
+  updateChars();
+  [...STAFF].sort((a, b) => a.y - b.y).forEach(drawChar);
+
+  requestAnimationFrame(render);
+}
+
+render();
+</script>
+</body>
+</html>
