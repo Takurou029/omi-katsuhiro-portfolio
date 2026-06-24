@@ -8,7 +8,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #1e1c34;
+  background: #0d0d18;
   color: #dde0f0;
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
   height: 100dvh;
@@ -21,8 +21,8 @@ body {
 /* ── TOP DASHBOARD ── */
 .dashboard {
   display: flex;
-  background: #18162c;
-  border-bottom: 1px solid #34305e;
+  background: #080810;
+  border-bottom: 1px solid #1a1a2e;
   flex-shrink: 0;
   overflow-x: auto;
   scrollbar-width: none;
@@ -32,7 +32,7 @@ body {
   flex: 1;
   min-width: 120px;
   padding: 10px 18px 8px;
-  border-right: 1px solid #2c2850;
+  border-right: 1px solid #161628;
 }
 .metric-card:last-child { border-right: none; }
 .metric-value {
@@ -67,7 +67,7 @@ body {
   position: relative;
   flex: 1;
   overflow: hidden;
-  background: #1e1c34;
+  background: #0d0d18;
   min-height: 200px;
 }
 #office {
@@ -83,8 +83,8 @@ body {
   position: absolute;
   bottom: 12px;
   left: 12px;
-  background: rgba(18,16,36,0.88);
-  border: 1px solid #38305a;
+  background: rgba(4,4,14,0.85);
+  border: 1px solid #1e1e32;
   padding: 8px 12px 10px;
   width: 210px;
   backdrop-filter: blur(4px);
@@ -112,25 +112,25 @@ body {
 /* ── SIDE PANEL ── */
 .side-panel {
   width: 272px;
-  background: #18162c;
-  border-left: 1px solid #34305e;
+  background: #080810;
+  border-left: 1px solid #1a1a2e;
   overflow-y: auto;
   flex-shrink: 0;
   scrollbar-width: thin;
-  scrollbar-color: #38305a transparent;
+  scrollbar-color: #22223a transparent;
 }
 .side-panel::-webkit-scrollbar { width: 4px; }
-.side-panel::-webkit-scrollbar-thumb { background: #38305a; }
+.side-panel::-webkit-scrollbar-thumb { background: #22223a; }
 
 .panel-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 14px 16px 10px;
-  border-bottom: 1px solid #2c2850;
+  border-bottom: 1px solid #161628;
   position: sticky;
   top: 0;
-  background: #18162c;
+  background: #080810;
   z-index: 1;
 }
 .panel-title  { font-size: 1rem; font-weight: 700; color: #fff; }
@@ -149,7 +149,7 @@ body {
 /* Staff cards */
 .staff-card {
   padding: 12px 16px;
-  border-bottom: 1px solid #22203a;
+  border-bottom: 1px solid #0e0e1e;
 }
 .sc-head {
   display: flex;
@@ -361,22 +361,22 @@ function sp(p) { return p * Math.min(canvas.width / VW, canvas.height / VH); }
 //  COLORS
 // ═══════════════════════════════════════════════
 const C = {
-  floorA:     '#9a7040',
-  floorB:     '#b08850',
-  floorDark:  '#7a5830',
-  wall:       '#2c2848',
-  wallTop:    '#3c3860',
-  window:     '#1e3c60',
-  windowHi:   '#3472a8',
-  desk:       '#5a3c1c',
-  deskTop:    '#6e4a28',
-  deskEdge:   '#422c14',
-  monitor:    '#141828',
-  monitorGlow:'#1a3a60',
-  breakFloor: '#2c2448',
-  serverFloor:'#182418',
-  serverRack: '#1a2c1a',
-  shelf:      '#42280e',
+  floorA:     '#3d2a12',
+  floorB:     '#4a3318',
+  floorDark:  '#2a1c0a',
+  wall:       '#18122a',
+  wallTop:    '#201830',
+  window:     '#0a1c34',
+  windowHi:   '#164068',
+  desk:       '#2a1a08',
+  deskTop:    '#362010',
+  deskEdge:   '#1c1006',
+  monitor:    '#060a14',
+  monitorGlow:'#122840',
+  breakFloor: '#160e24',
+  serverFloor:'#080f08',
+  serverRack: '#0a140a',
+  shelf:      '#1e1006',
 };
 
 // ═══════════════════════════════════════════════
@@ -468,7 +468,7 @@ function fr(vx, vy, vw, vh, color) {
 }
 
 // Game pixel size (virtual units per "pixel")
-const GP = 2.8;
+const GP = 2.2;
 
 // ═══════════════════════════════════════════════
 //  DRAW FLOOR
@@ -668,7 +668,7 @@ function drawServerRoom() {
 }
 
 // ═══════════════════════════════════════════════
-//  DRAW CHARACTER SPRITE  (detailed pixel art)
+//  DRAW CHARACTER SPRITE  (classic RPG pixel art)
 // ═══════════════════════════════════════════════
 function drawChar(ch) {
   const p  = sp(GP);
@@ -676,299 +676,123 @@ function drawChar(ch) {
   const cy = sy(ch.y);
   const f  = ch.walkFrame;
   const moving = ch.vx !== 0 || ch.vy !== 0;
-  const swing  = moving ? Math.sin(f * 0.28) : 0;
+  const swing  = moving ? Math.sin(f * 0.3) : 0;
 
   // ── Shadow ──
-  ctx.fillStyle = 'rgba(0,0,0,0.30)';
+  ctx.fillStyle = 'rgba(0,0,0,0.28)';
   ctx.beginPath();
-  ctx.ellipse(cx + p*4, cy + p*17, p*4.5, p*1.4, 0, 0, Math.PI * 2);
+  ctx.ellipse(cx + p*3, cy + p*13, p*3.8, p*1.1, 0, 0, Math.PI * 2);
   ctx.fill();
+
+  // ── Legs ──
+  ctx.fillStyle = ch.pantsColor;
+  ctx.fillRect(cx + p,   cy + p*8 + swing*p*2,  p*2, p*4);
+  ctx.fillRect(cx + p*3, cy + p*8 - swing*p*2,  p*2, p*4);
 
   // ── Shoes ──
-  ctx.fillStyle = ch.shoeColor || '#1a1a2a';
-  // left shoe (slight tilt when walking)
-  ctx.save();
-  ctx.translate(cx + p*1.5, cy + p*15.5 + swing * p * 2.2);
-  ctx.fillRect(-p, -p*0.5, p*2.5, p*1.5);
-  ctx.fillRect(-p*0.5, p*0.8, p*3, p*0.8);  // sole
-  ctx.restore();
-  // right shoe
-  ctx.save();
-  ctx.translate(cx + p*5, cy + p*15.5 - swing * p * 2.2);
-  ctx.fillRect(-p, -p*0.5, p*2.5, p*1.5);
-  ctx.fillRect(-p*0.5, p*0.8, p*3, p*0.8);
-  ctx.restore();
+  ctx.fillStyle = ch.shoeColor || '#111120';
+  ctx.fillRect(cx + p*0.5, cy + p*11.5 + swing*p*2,   p*2.5, p*1.5);
+  ctx.fillRect(cx + p*2.8, cy + p*11.5 - swing*p*2,   p*2.5, p*1.5);
 
-  // ── Pants / legs ──
-  ctx.fillStyle = ch.pantsColor;
-  // left leg
-  ctx.fillRect(cx + p*1, cy + p*10 + swing*p*2.5, p*2.8, p*6);
-  // right leg
-  ctx.fillRect(cx + p*4, cy + p*10 - swing*p*2.5, p*2.8, p*6);
-  // waist join
-  ctx.fillRect(cx + p*1, cy + p*10, p*6, p*2);
-
-  // ── Body / shirt ──
+  // ── Body ──
   ctx.fillStyle = ch.bodyColor;
-  ctx.fillRect(cx + p*0.5, cy + p*5.5, p*7, p*5.5);
-  // shirt highlight (top sheen)
-  ctx.fillStyle = ch.bodyHi || ch.bodyColor;
-  ctx.globalAlpha = 0.5;
-  ctx.fillRect(cx + p*0.5, cy + p*5.5, p*7, p*1.5);
-  ctx.globalAlpha = 1;
-  // shirt collar V
-  ctx.fillStyle = ch.skinColor;
-  ctx.beginPath();
-  ctx.moveTo(cx + p*3.2, cy + p*5.5);
-  ctx.lineTo(cx + p*4.8, cy + p*5.5);
-  ctx.lineTo(cx + p*4, cy + p*7.5);
-  ctx.fill();
-
-  // ── Tie (アオイ) ──
-  if (ch.accessory === 'tie') {
-    ctx.fillStyle = '#a03030';
-    ctx.beginPath();
-    ctx.moveTo(cx + p*3.6, cy + p*5.8);
-    ctx.lineTo(cx + p*4.4, cy + p*5.8);
-    ctx.lineTo(cx + p*4.8, cy + p*9.5);
-    ctx.lineTo(cx + p*4, cy + p*10.5);
-    ctx.lineTo(cx + p*3.2, cy + p*9.5);
-    ctx.fill();
-  }
+  ctx.fillRect(cx, cy + p*4, p*6, p*5);
+  // Slight top sheen
+  ctx.fillStyle = 'rgba(255,255,255,0.10)';
+  ctx.fillRect(cx, cy + p*4, p*6, p*1.5);
 
   // ── Arms ──
-  const armSwing = swing * p * 2.8;
-  // left arm
   ctx.fillStyle = ch.bodyColor;
-  ctx.fillRect(cx - p*0.8, cy + p*5.5 - armSwing, p*2, p*5);
-  // right arm
-  ctx.fillRect(cx + p*6.8, cy + p*5.5 + armSwing, p*2, p*5);
-  // hands (skin circles)
-  ctx.fillStyle = ch.skinColor;
-  ctx.beginPath();
-  ctx.arc(cx, cy + p*10.5 - armSwing, p*1.3, 0, Math.PI*2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(cx + p*7.8, cy + p*10.5 + armSwing, p*1.3, 0, Math.PI*2);
-  ctx.fill();
+  ctx.fillRect(cx - p,   cy + p*4 - swing*p*1.5, p*1.5, p*4);
+  ctx.fillRect(cx + p*5, cy + p*4 + swing*p*1.5, p*1.5, p*4);
 
   // ── Neck ──
   ctx.fillStyle = ch.skinColor;
-  ctx.fillRect(cx + p*3, cy + p*4, p*2, p*2.5);
+  ctx.fillRect(cx + p*2, cy + p*3, p*2, p*2);
 
-  // ── Head (round) ──
+  // ── Head ──
   ctx.fillStyle = ch.skinColor;
-  ctx.beginPath();
-  ctx.arc(cx + p*4, cy + p*2.5, p*3.8, 0, Math.PI*2);
-  ctx.fill();
+  ctx.fillRect(cx + p, cy, p*4, p*4);
 
-  // ── Hair ──
+  // ── Hair (style per character) ──
   ctx.fillStyle = ch.hairColor;
   const hs = ch.hairStyle;
+  // Top hair always
+  ctx.fillRect(cx + p, cy - p*0.5, p*4, p*1.5);
   if (hs === 'bob') {
-    // round top + side curtains
-    ctx.beginPath();
-    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
-    ctx.lineTo(cx + p*4, cy - p*2);
-    ctx.fill();
-    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*2, p*4.5);   // left curtain
-    ctx.fillRect(cx + p*5.8, cy - p*0.5, p*2, p*4.5);   // right curtain
-    // highlight
-    ctx.fillStyle = ch.hairHi || ch.hairColor;
-    ctx.globalAlpha = 0.5;
-    ctx.beginPath();
-    ctx.arc(cx + p*3, cy + p*0.5, p*1.5, 0, Math.PI*2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-    // Crown (サクラ)
-    if (ch.accessory === 'crown') {
-      ctx.fillStyle = '#f0c030';
-      ctx.fillRect(cx + p*2, cy - p*2.8, p*4, p*1.5);
-      for (let t = 0; t < 3; t++) {
-        ctx.beginPath();
-        ctx.moveTo(cx + p*(2.3 + t*1.3), cy - p*2.8);
-        ctx.lineTo(cx + p*(2.9 + t*1.3), cy - p*4.2);
-        ctx.lineTo(cx + p*(3.5 + t*1.3), cy - p*2.8);
-        ctx.fill();
-      }
-    }
+    ctx.fillRect(cx + p*0.2, cy, p*1.2, p*3.5);
+    ctx.fillRect(cx + p*4.6, cy, p*1.2, p*3.5);
   } else if (hs === 'short') {
-    ctx.beginPath();
-    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.15, Math.PI * 1.85);
-    ctx.lineTo(cx + p*4, cy - p*2);
-    ctx.fill();
-    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*1.5, p*3);
-    ctx.fillRect(cx + p*6.3, cy - p*0.5, p*1.5, p*3);
-    // Glasses (ソラ)
-    if (ch.accessory === 'glasses') {
-      ctx.strokeStyle = '#4080d0';
-      ctx.lineWidth = p*0.5;
-      ctx.strokeRect(cx + p*1.5, cy + p*1.8, p*2.2, p*1.6);
-      ctx.strokeRect(cx + p*4.3, cy + p*1.8, p*2.2, p*1.6);
-      ctx.beginPath();
-      ctx.moveTo(cx + p*3.7, cy + p*2.4);
-      ctx.lineTo(cx + p*4.3, cy + p*2.4);
-      ctx.stroke();
-    }
+    ctx.fillRect(cx + p*0.5, cy, p, p*2);
+    ctx.fillRect(cx + p*4.5, cy, p, p*2);
   } else if (hs === 'ponytail') {
-    ctx.beginPath();
-    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
-    ctx.lineTo(cx + p*4, cy - p*2);
-    ctx.fill();
-    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*1.5, p*3);
-    // Ponytail
-    ctx.fillStyle = ch.hairColor;
-    ctx.beginPath();
-    ctx.moveTo(cx + p*7.5, cy + p*1);
-    ctx.quadraticCurveTo(cx + p*10, cy + p*4, cx + p*8, cy + p*9);
-    ctx.quadraticCurveTo(cx + p*6.5, cy + p*9.5, cx + p*7, cy + p*5);
-    ctx.quadraticCurveTo(cx + p*8.5, cy + p*3, cx + p*7.5, cy + p*1);
-    ctx.fill();
+    ctx.fillRect(cx + p*0.5, cy, p, p*2.5);
+    // ponytail flick right
+    ctx.fillRect(cx + p*5, cy + p*0.5, p*2.5, p);
+    ctx.fillRect(cx + p*6, cy + p*1, p*1.5, p*3);
   } else if (hs === 'long') {
-    ctx.beginPath();
-    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
-    ctx.lineTo(cx + p*4, cy - p*2);
-    ctx.fill();
-    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*1.8, p*8);   // long left
-    ctx.fillRect(cx + p*5.8, cy - p*0.5, p*2, p*8);     // long right
-    // Earring (ナナ)
-    if (ch.accessory === 'earring') {
-      ctx.fillStyle = '#d0a030';
-      ctx.beginPath();
-      ctx.arc(cx + p*0.5, cy + p*3.5, p*0.8, 0, Math.PI*2);
-      ctx.fill();
-    }
+    ctx.fillRect(cx + p*0.2, cy, p*1.2, p*6);
+    ctx.fillRect(cx + p*4.6, cy, p*1.2, p*6);
   } else if (hs === 'wavy') {
-    ctx.beginPath();
-    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
-    ctx.lineTo(cx + p*4, cy - p*2);
-    ctx.fill();
-    // Wavy side strands
-    for (let w = 0; w < 3; w++) {
-      ctx.beginPath();
-      ctx.moveTo(cx + p*0.5, cy + p*(0.5 + w*2));
-      ctx.quadraticCurveTo(cx - p*1, cy + p*(1.5 + w*2), cx + p*0.5, cy + p*(2.5 + w*2));
-      ctx.lineWidth = p*1.5;
-      ctx.strokeStyle = ch.hairColor;
-      ctx.stroke();
-    }
+    ctx.fillRect(cx + p*0.2, cy, p*1.2, p*2.5);
+    ctx.fillRect(cx + p*4.6, cy, p*1.2, p*2.5);
+    ctx.fillRect(cx + p*0.5, cy + p*3, p, p*2);
   } else { // neat
+    ctx.fillRect(cx + p*0.5, cy, p, p*2);
+    ctx.fillRect(cx + p*4.5, cy, p, p*2);
+    // side part pixel
+    ctx.fillRect(cx + p*3, cy - p*0.5, p*2, p*0.5);
+  }
+
+  // ── Crown (サクラ) ──
+  if (ch.accessory === 'crown') {
+    ctx.fillStyle = '#e8b828';
+    ctx.fillRect(cx + p*1.5, cy - p*2, p*3, p*1.5);
+    ctx.fillRect(cx + p*1.5, cy - p*3, p, p);
+    ctx.fillRect(cx + p*3,   cy - p*3.5, p, p*1.5);
+    ctx.fillRect(cx + p*4.5, cy - p*3, p, p);
+    ctx.fillStyle = '#f0d848';
+    ctx.fillRect(cx + p*3, cy - p*2, p, p*0.5);
+  }
+
+  // ── Glasses (ソラ) ──
+  if (ch.accessory === 'glasses') {
+    ctx.strokeStyle = '#5090e0';
+    ctx.lineWidth = sp(0.7);
+    ctx.strokeRect(cx + p*1.2, cy + p*1.5, p*1.6, p*1.2);
+    ctx.strokeRect(cx + p*3.2, cy + p*1.5, p*1.6, p*1.2);
     ctx.beginPath();
-    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.15, Math.PI * 1.85);
-    ctx.lineTo(cx + p*4, cy - p*2);
-    ctx.fill();
-    ctx.fillRect(cx + p*0.3, cy - p*0.5, p*1.2, p*2.5);
-    ctx.fillRect(cx + p*6.5, cy - p*0.5, p*1.2, p*2.5);
-    // Side part line
-    ctx.strokeStyle = ch.hairHi || '#334';
-    ctx.lineWidth = p*0.4;
-    ctx.beginPath();
-    ctx.moveTo(cx + p*4.5, cy - p*1.8);
-    ctx.lineTo(cx + p*3.5, cy + p*0.5);
+    ctx.moveTo(cx + p*2.8, cy + p*2);
+    ctx.lineTo(cx + p*3.2, cy + p*2);
     ctx.stroke();
   }
 
-  // ── Face features (kawaii / chibi style) ──
-  const faceX = cx + p*4;
-  const eyeY  = cy + p*2.6;
+  // ── Tie (アオイ) ──
+  if (ch.accessory === 'tie') {
+    ctx.fillStyle = '#b03030';
+    ctx.fillRect(cx + p*2.5, cy + p*4, p, p*4);
+    ctx.fillRect(cx + p*2.2, cy + p*7, p*1.6, p*1.5);
+  }
 
-  // Blush marks
-  ctx.fillStyle = 'rgba(255,110,110,0.28)';
-  ctx.beginPath();
-  ctx.ellipse(faceX - p*2.2, eyeY + p*1.0, p*1.6, p*0.8, 0, 0, Math.PI*2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(faceX + p*2.2, eyeY + p*1.0, p*1.6, p*0.8, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  // Thin cute eyebrows
-  ctx.strokeStyle = ch.hairColor;
-  ctx.lineWidth = p*0.55;
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(faceX - p*2.4, eyeY - p*1.8);
-  ctx.quadraticCurveTo(faceX - p*1.5, eyeY - p*2.2, faceX - p*0.6, eyeY - p*1.9);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(faceX + p*0.6, eyeY - p*1.9);
-  ctx.quadraticCurveTo(faceX + p*1.5, eyeY - p*2.2, faceX + p*2.4, eyeY - p*1.8);
-  ctx.stroke();
-
-  // Big anime eyes — left
-  // Outer dark shape
-  ctx.fillStyle = '#18182a';
-  ctx.beginPath();
-  ctx.ellipse(faceX - p*1.6, eyeY, p*1.3, p*1.55, 0, 0, Math.PI*2);
-  ctx.fill();
-  // Coloured iris (bottom 2/3)
-  ctx.fillStyle = ch.eyeColor || '#3868c0';
-  ctx.beginPath();
-  ctx.ellipse(faceX - p*1.6, eyeY + p*0.25, p*1.05, p*1.2, 0, 0, Math.PI*2);
-  ctx.fill();
-  // Lower iris lighter gradient suggestion
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  ctx.beginPath();
-  ctx.ellipse(faceX - p*1.6, eyeY + p*0.7, p*0.75, p*0.6, 0, 0, Math.PI*2);
-  ctx.fill();
-  // Large white catchlight
-  ctx.fillStyle = '#ffffff';
-  ctx.beginPath();
-  ctx.arc(faceX - p*0.95, eyeY - p*0.65, p*0.52, 0, Math.PI*2);
-  ctx.fill();
-  // Small secondary catchlight
-  ctx.beginPath();
-  ctx.arc(faceX - p*2.0, eyeY + p*0.5, p*0.22, 0, Math.PI*2);
-  ctx.fill();
-
-  // Big anime eyes — right (mirror)
-  ctx.fillStyle = '#18182a';
-  ctx.beginPath();
-  ctx.ellipse(faceX + p*1.6, eyeY, p*1.3, p*1.55, 0, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = ch.eyeColor || '#3868c0';
-  ctx.beginPath();
-  ctx.ellipse(faceX + p*1.6, eyeY + p*0.25, p*1.05, p*1.2, 0, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  ctx.beginPath();
-  ctx.ellipse(faceX + p*1.6, eyeY + p*0.7, p*0.75, p*0.6, 0, 0, Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle = '#ffffff';
-  ctx.beginPath();
-  ctx.arc(faceX + p*2.25, eyeY - p*0.65, p*0.52, 0, Math.PI*2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(faceX + p*1.2, eyeY + p*0.5, p*0.22, 0, Math.PI*2);
-  ctx.fill();
-
-  // Tiny nose — just two small dots
-  ctx.fillStyle = 'rgba(160,80,60,0.30)';
-  ctx.beginPath();
-  ctx.arc(faceX - p*0.4, eyeY + p*1.6, p*0.28, 0, Math.PI*2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(faceX + p*0.4, eyeY + p*1.6, p*0.28, 0, Math.PI*2);
-  ctx.fill();
-
-  // Small cute smile
-  ctx.strokeStyle = '#e07878';
-  ctx.lineWidth = p*0.5;
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.arc(faceX, eyeY + p*2.3, p*0.85, 0.25, Math.PI - 0.25);
-  ctx.stroke();
+  // ── Simple pixel eyes ──
+  ctx.fillStyle = '#0a0a1a';
+  ctx.fillRect(cx + p*1.8, cy + p*1.8, p, p);
+  ctx.fillRect(cx + p*3.2, cy + p*1.8, p, p);
+  // tiny white dot
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.fillRect(cx + p*2.1, cy + p*1.8, p*0.4, p*0.4);
+  ctx.fillRect(cx + p*3.5, cy + p*1.8, p*0.4, p*0.4);
 
   // ── Name label ──
   const label = `${ch.name}（${ch.role}）`;
   ctx.font = `bold ${sp(7.5)}px sans-serif`;
   const tw = ctx.measureText(label).width;
-  ctx.fillStyle = 'rgba(10,8,28,0.78)';
-  ctx.fillRect(faceX - tw/2 - 4, cy + p*17.5, tw + 8, sp(10));
-  ctx.fillStyle = '#d8d8f8';
+  ctx.fillStyle = 'rgba(4,4,14,0.75)';
+  ctx.fillRect(cx + p*3 - tw/2 - 3, cy + p*13.5, tw + 6, sp(10));
+  ctx.fillStyle = '#c8c8e8';
   ctx.textAlign = 'center';
-  ctx.fillText(label, faceX, cy + p*17.5 + sp(8));
+  ctx.fillText(label, cx + p*3, cy + p*13.5 + sp(8));
   ctx.textAlign = 'left';
-  ctx.lineCap = 'butt';
 }
 
 // ═══════════════════════════════════════════════
