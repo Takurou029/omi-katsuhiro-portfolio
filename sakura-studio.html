@@ -8,7 +8,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #0d0d18;
+  background: #1e1c34;
   color: #dde0f0;
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
   height: 100dvh;
@@ -21,8 +21,8 @@ body {
 /* ── TOP DASHBOARD ── */
 .dashboard {
   display: flex;
-  background: #0a0a14;
-  border-bottom: 1px solid #23233a;
+  background: #18162c;
+  border-bottom: 1px solid #34305e;
   flex-shrink: 0;
   overflow-x: auto;
   scrollbar-width: none;
@@ -32,7 +32,7 @@ body {
   flex: 1;
   min-width: 120px;
   padding: 10px 18px 8px;
-  border-right: 1px solid #1c1c2e;
+  border-right: 1px solid #2c2850;
 }
 .metric-card:last-child { border-right: none; }
 .metric-value {
@@ -67,7 +67,7 @@ body {
   position: relative;
   flex: 1;
   overflow: hidden;
-  background: #0d0d18;
+  background: #1e1c34;
   min-height: 200px;
 }
 #office {
@@ -77,45 +77,14 @@ body {
   height: 100%;
 }
 
-/* ── MOBILE LAYOUT ── */
-@media (max-width: 600px) {
-  body { overflow: auto; height: auto; }
-
-  .dashboard { overflow-x: auto; }
-  .metric-card { min-width: 100px; padding: 8px 12px 6px; }
-  .metric-value { font-size: 1.5rem; }
-
-  .main {
-    flex-direction: column;
-    overflow: visible;
-    flex: none;
-  }
-
-  .office-wrap {
-    width: 100%;
-    height: 52vw;
-    min-height: 200px;
-    flex: none;
-  }
-
-  .side-panel {
-    width: 100%;
-    border-left: none;
-    border-top: 1px solid #1c1c2e;
-    overflow-y: visible;
-  }
-
-  .log { width: 160px; font-size: 0.65rem; padding: 6px 8px; }
-  .log-row { font-size: 0.65rem; line-height: 1.6; }
-}
 
 /* ── ACTIVITY LOG ── */
 .log {
   position: absolute;
   bottom: 12px;
   left: 12px;
-  background: rgba(6,6,16,0.82);
-  border: 1px solid #23233a;
+  background: rgba(18,16,36,0.88);
+  border: 1px solid #38305a;
   padding: 8px 12px 10px;
   width: 210px;
   backdrop-filter: blur(4px);
@@ -143,25 +112,25 @@ body {
 /* ── SIDE PANEL ── */
 .side-panel {
   width: 272px;
-  background: #0a0a14;
-  border-left: 1px solid #1c1c2e;
+  background: #18162c;
+  border-left: 1px solid #34305e;
   overflow-y: auto;
   flex-shrink: 0;
   scrollbar-width: thin;
-  scrollbar-color: #23233a transparent;
+  scrollbar-color: #38305a transparent;
 }
 .side-panel::-webkit-scrollbar { width: 4px; }
-.side-panel::-webkit-scrollbar-thumb { background: #23233a; }
+.side-panel::-webkit-scrollbar-thumb { background: #38305a; }
 
 .panel-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 14px 16px 10px;
-  border-bottom: 1px solid #1c1c2e;
+  border-bottom: 1px solid #2c2850;
   position: sticky;
   top: 0;
-  background: #0a0a14;
+  background: #18162c;
   z-index: 1;
 }
 .panel-title  { font-size: 1rem; font-weight: 700; color: #fff; }
@@ -180,7 +149,7 @@ body {
 /* Staff cards */
 .staff-card {
   padding: 12px 16px;
-  border-bottom: 1px solid #111122;
+  border-bottom: 1px solid #22203a;
 }
 .sc-head {
   display: flex;
@@ -200,10 +169,10 @@ body {
   margin-left: 6px;
   margin-top: 1px;
 }
-.badge-done    { background: #0d2a1a; color: #3cc870; }
-.badge-wait    { background: #141422; color: #44446a; }
-.badge-active  { background: rgba(208,80,160,0.15); color: #d050a0; border: 1px solid #d050a0; }
-.badge-running { background: #0d1f36; color: #4a80c8; }
+.badge-done    { background: #12352a; color: #3cc870; }
+.badge-wait    { background: #202040; color: #5a5888; }
+.badge-active  { background: rgba(208,80,160,0.18); color: #e060b8; border: 1px solid #d050a0; }
+.badge-running { background: #122040; color: #5a90d8; }
 
 .sc-task  { margin-top: 9px; font-size: 0.72rem; }
 .sc-title {
@@ -215,9 +184,9 @@ body {
 }
 .sc-check { color: #3cc870; flex-shrink: 0; }
 .sc-arrow { color: #4a80c8; flex-shrink: 0; }
-.sc-meta  { color: #383858; font-size: 0.68rem; margin-top: 3px; padding-left: 16px; }
-.sc-date  { color: #2a2a48; font-size: 0.65rem; margin-top: 4px; }
-.sc-none  { color: #2a2a48; font-size: 0.72rem; margin-top: 8px; }
+.sc-meta  { color: #4a4870; font-size: 0.68rem; margin-top: 3px; padding-left: 16px; }
+.sc-date  { color: #3a3860; font-size: 0.65rem; margin-top: 4px; }
+.sc-none  { color: #3a3860; font-size: 0.72rem; margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -392,22 +361,22 @@ function sp(p) { return p * Math.min(canvas.width / VW, canvas.height / VH); }
 //  COLORS
 // ═══════════════════════════════════════════════
 const C = {
-  floorA:   '#3d2a12',
-  floorB:   '#4a3318',
-  floorDark:'#2e1f0c',
-  wall:     '#1a1428',
-  wallTop:  '#221832',
-  window:   '#0d2038',
-  windowHi: '#1a4870',
-  desk:     '#2e1c0a',
-  deskTop:  '#3a2210',
-  deskEdge: '#1e1006',
-  monitor:  '#080c18',
-  monitorGlow: '#1a3a60',
-  breakFloor:'#1a1228',
-  serverFloor:'#0c180c',
-  serverRack: '#0e180e',
-  shelf:    '#241608',
+  floorA:     '#9a7040',
+  floorB:     '#b08850',
+  floorDark:  '#7a5830',
+  wall:       '#2c2848',
+  wallTop:    '#3c3860',
+  window:     '#1e3c60',
+  windowHi:   '#3472a8',
+  desk:       '#5a3c1c',
+  deskTop:    '#6e4a28',
+  deskEdge:   '#422c14',
+  monitor:    '#141828',
+  monitorGlow:'#1a3a60',
+  breakFloor: '#2c2448',
+  serverFloor:'#182418',
+  serverRack: '#1a2c1a',
+  shelf:      '#42280e',
 };
 
 // ═══════════════════════════════════════════════
@@ -434,39 +403,51 @@ const DESKS = [
 const STAFF = [
   {
     id: 'sakura', name: 'サクラ', role: '社長',
-    bodyColor: '#c050a0', hairColor: '#2a0818', skinColor: '#f0c090', pantsColor: '#280014',
+    bodyColor: '#d060b0', bodyHi: '#e888cc', hairColor: '#3a0c22', hairHi: '#7a2050',
+    skinColor: '#f4c898', eyeColor: '#6a2040', shoeColor: '#2a0818', pantsColor: '#380828',
+    hairStyle: 'bob', accessory: 'crown',
     x: 200, y: 130, vx: 0, vy: 0, walkFrame: 0, facing: 1,
-    patrol: true, patrolIdx: 0,
+    patrol: true,
   },
   {
     id: 'sora', name: 'ソラ', role: 'リサーチ',
-    bodyColor: '#2878e8', hairColor: '#081838', skinColor: '#f0c090', pantsColor: '#082030',
+    bodyColor: '#3888f0', bodyHi: '#60aaff', hairColor: '#0c2048', hairHi: '#1a4080',
+    skinColor: '#f4c898', eyeColor: '#1840a0', shoeColor: '#0c1c38', pantsColor: '#0e2840',
+    hairStyle: 'short', accessory: 'glasses',
     x: DESKS[0].x + 8, y: DESKS[0].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
-    deskX: DESKS[0].x + 8, deskY: DESKS[0].y + 20, patrol: false,
+    patrol: false,
   },
   {
     id: 'erika', name: 'エリカ', role: '発信',
-    bodyColor: '#28a850', hairColor: '#081c10', skinColor: '#f0c090', pantsColor: '#082018',
+    bodyColor: '#30b860', bodyHi: '#58d888', hairColor: '#0a2818', hairHi: '#1c5830',
+    skinColor: '#f4c898', eyeColor: '#1a6030', shoeColor: '#0a2018', pantsColor: '#102818',
+    hairStyle: 'ponytail', accessory: null,
     x: DESKS[1].x + 8, y: DESKS[1].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
-    deskX: DESKS[1].x + 8, deskY: DESKS[1].y + 20, patrol: false,
+    patrol: false,
   },
   {
     id: 'nana', name: 'ナナ', role: '交流',
-    bodyColor: '#7840c8', hairColor: '#180828', skinColor: '#f0c090', pantsColor: '#180828',
+    bodyColor: '#8850d8', bodyHi: '#aa78f0', hairColor: '#1e0a38', hairHi: '#4820708',
+    skinColor: '#f4c898', eyeColor: '#4820a0', shoeColor: '#1a0830', pantsColor: '#20103a',
+    hairStyle: 'long', accessory: 'earring',
     x: DESKS[2].x + 8, y: DESKS[2].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
-    deskX: DESKS[2].x + 8, deskY: DESKS[2].y + 20, patrol: false,
+    patrol: false,
   },
   {
     id: 'yui', name: 'ユイ', role: '制作',
-    bodyColor: '#c07818', hairColor: '#280e04', skinColor: '#f0c090', pantsColor: '#200a04',
+    bodyColor: '#d88828', bodyHi: '#f0aa50', hairColor: '#2e1006', hairHi: '#602010',
+    skinColor: '#f4c898', eyeColor: '#804010', shoeColor: '#1e0e04', pantsColor: '#280e08',
+    hairStyle: 'wavy', accessory: null,
     x: DESKS[3].x + 8, y: DESKS[3].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
-    deskX: DESKS[3].x + 8, deskY: DESKS[3].y + 20, patrol: false,
+    patrol: false,
   },
   {
     id: 'aoi', name: 'アオイ', role: '営業',
-    bodyColor: '#6828a8', hairColor: '#100420', skinColor: '#f0c090', pantsColor: '#100420',
+    bodyColor: '#7030b8', bodyHi: '#9858d8', hairColor: '#140628', hairHi: '#2c1050',
+    skinColor: '#f4c898', eyeColor: '#3818808', shoeColor: '#10041e', pantsColor: '#160830',
+    hairStyle: 'neat', accessory: 'tie',
     x: DESKS[4].x + 8, y: DESKS[4].y + 20, vx: 0, vy: 0, walkFrame: 0, facing: 0,
-    deskX: DESKS[4].x + 8, deskY: DESKS[4].y + 20, patrol: false,
+    patrol: false,
   },
 ];
 
@@ -486,11 +467,8 @@ function fr(vx, vy, vw, vh, color) {
   ctx.fillRect(sx(vx), sy(vy), sx(vw) - sx(0), sy(vh) - sy(0));
 }
 
-// Pixel-art rect: size in "game pixels" (≈2 virtual pixels each)
-const GP = 2; // game pixel = 2 virtual px
-function gp(vx, vy, gw, gh, color) {
-  fr(vx, vy, gw * GP, gh * GP, color);
-}
+// Game pixel size (virtual units per "pixel")
+const GP = 2.8;
 
 // ═══════════════════════════════════════════════
 //  DRAW FLOOR
@@ -527,7 +505,7 @@ function drawWalls() {
     fr(wx, winY, winW, winH, C.window);
     fr(wx, winY, winW / 3, winH / 2, C.windowHi);
     // Frame
-    ctx.strokeStyle = '#0a1828';
+    ctx.strokeStyle = '#1a3858';
     ctx.lineWidth = sp(0.6);
     ctx.strokeRect(sx(wx), sy(winY), sx(wx + winW) - sx(wx), sy(winY + winH) - sy(winY));
   });
@@ -550,15 +528,19 @@ function drawBookshelf() {
 //  DRAW PLANT
 // ═══════════════════════════════════════════════
 function drawPlant(vx, vy) {
-  fr(vx + 4, vy + 16, 10, 10, '#3a2410');  // pot
-  fr(vx + 5, vy + 14, 8, 4, '#2e1c0c');
-  ctx.fillStyle = '#1a4820';
+  fr(vx + 4, vy + 16, 10, 10, '#5a3818');  // pot
+  fr(vx + 5, vy + 14, 8, 4, '#4a2c10');
+  ctx.fillStyle = '#1e5828';
   ctx.beginPath();
   ctx.arc(sx(vx + 9), sy(vy + 8), sp(9), 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = '#246030';
+  ctx.fillStyle = '#2c7038';
   ctx.beginPath();
   ctx.arc(sx(vx + 5), sy(vy + 5), sp(5), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#3a8848';
+  ctx.beginPath();
+  ctx.arc(sx(vx + 12), sy(vy + 6), sp(4), 0, Math.PI * 2);
   ctx.fill();
 }
 
@@ -629,28 +611,37 @@ function drawBreakRoom() {
     }
   }
   // Label
-  ctx.fillStyle = '#3a2858';
+  ctx.fillStyle = '#5a4898';
   ctx.font = `${sp(9)}px sans-serif`;
   ctx.fillText('休憩スペース', sx(BR.x + 6), sy(BR.y + 12));
 
   // Sofa
   const sx2 = BR.x + 14, sy2 = BR.y + 30;
-  fr(sx2, sy2, BR.w - 28, 46, '#4a3060');          // main cushion
-  fr(sx2, sy2, BR.w - 28, 14, '#583870');           // top cushion highlight
-  fr(sx2, sy2 + 40, BR.w - 28, 8, '#301a48');       // base
-  fr(sx2 - 8, sy2, 8, 46, '#3a2050');               // left arm
-  fr(sx2 + BR.w - 20, sy2, 8, 46, '#3a2050');       // right arm
+  fr(sx2, sy2, BR.w - 28, 46, '#6a4898');          // main cushion
+  fr(sx2, sy2, BR.w - 28, 14, '#8860b8');           // top cushion highlight
+  fr(sx2, sy2 + 40, BR.w - 28, 8, '#4a3070');       // base
+  fr(sx2 - 8, sy2, 8, 46, '#583880');               // left arm
+  fr(sx2 + BR.w - 20, sy2, 8, 46, '#583880');       // right arm
 
   // Coffee table
-  fr(BR.x + 20, BR.y + 84, 60, 28, '#281840');
-  fr(BR.x + 22, BR.y + 86, 56, 24, '#321c50');
+  fr(BR.x + 20, BR.y + 84, 60, 28, '#3c2c60');
+  fr(BR.x + 22, BR.y + 86, 56, 24, '#4e3878');
+  // Cup on table
+  fr(BR.x + 44, BR.y + 82, 8, 6, '#f0a050');
+  fr(BR.x + 43, BR.y + 88, 10, 2, '#c07830');
 
-  // Wall art
-  fr(BR.x + BR.w - 48, BR.y + 8, 34, 22, '#1c1030');
-  ctx.fillStyle = '#4a2878';
+  // Wall art frame + abstract
+  fr(BR.x + BR.w - 50, BR.y + 6, 38, 26, '#2a1e48');
+  ctx.fillStyle = '#6a40a8';
   ctx.beginPath();
-  ctx.arc(sx(BR.x + BR.w - 31), sy(BR.y + 19), sp(7), 0, Math.PI * 2);
+  ctx.arc(sx(BR.x + BR.w - 31), sy(BR.y + 19), sp(8), 0, Math.PI * 2);
   ctx.fill();
+  ctx.fillStyle = '#c070e0';
+  ctx.globalAlpha = 0.5;
+  ctx.beginPath();
+  ctx.arc(sx(BR.x + BR.w - 35), sy(BR.y + 15), sp(4), 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
 }
 
 // ═══════════════════════════════════════════════
@@ -658,7 +649,7 @@ function drawBreakRoom() {
 // ═══════════════════════════════════════════════
 function drawServerRoom() {
   fr(SR.x, SR.y, SR.w, SR.h, C.serverFloor);
-  ctx.fillStyle = '#1a3a1a';
+  ctx.fillStyle = '#2a5a2a';
   ctx.font = `${sp(9)}px sans-serif`;
   ctx.fillText('サーバー室', sx(SR.x + 6), sy(SR.y + 12));
 
@@ -677,79 +668,283 @@ function drawServerRoom() {
 }
 
 // ═══════════════════════════════════════════════
-//  DRAW CHARACTER SPRITE  (side-view pixel art)
+//  DRAW CHARACTER SPRITE  (detailed pixel art)
 // ═══════════════════════════════════════════════
 function drawChar(ch) {
-  const p  = sp(GP);         // one game-pixel in canvas coords
+  const p  = sp(GP);
   const cx = sx(ch.x);
   const cy = sy(ch.y);
   const f  = ch.walkFrame;
   const moving = ch.vx !== 0 || ch.vy !== 0;
+  const swing  = moving ? Math.sin(f * 0.28) : 0;
 
-  // Shadow
-  ctx.fillStyle = 'rgba(0,0,0,0.25)';
+  // ── Shadow ──
+  ctx.fillStyle = 'rgba(0,0,0,0.30)';
   ctx.beginPath();
-  ctx.ellipse(cx + p*3, cy + p*13, p*4, p*1.2, 0, 0, Math.PI * 2);
+  ctx.ellipse(cx + p*4, cy + p*17, p*4.5, p*1.4, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Legs (animate when moving)
+  // ── Shoes ──
+  ctx.fillStyle = ch.shoeColor || '#1a1a2a';
+  // left shoe (slight tilt when walking)
+  ctx.save();
+  ctx.translate(cx + p*1.5, cy + p*15.5 + swing * p * 2.2);
+  ctx.fillRect(-p, -p*0.5, p*2.5, p*1.5);
+  ctx.fillRect(-p*0.5, p*0.8, p*3, p*0.8);  // sole
+  ctx.restore();
+  // right shoe
+  ctx.save();
+  ctx.translate(cx + p*5, cy + p*15.5 - swing * p * 2.2);
+  ctx.fillRect(-p, -p*0.5, p*2.5, p*1.5);
+  ctx.fillRect(-p*0.5, p*0.8, p*3, p*0.8);
+  ctx.restore();
+
+  // ── Pants / legs ──
   ctx.fillStyle = ch.pantsColor;
-  if (moving) {
-    const swing = Math.sin(f * 0.35) * p * 1.8;
-    // Left leg
-    ctx.fillRect(cx + p,     cy + p*8 - swing, p*2, p*4);
-    // Right leg
-    ctx.fillRect(cx + p*3,   cy + p*8 + swing, p*2, p*4);
-  } else {
-    ctx.fillRect(cx + p,     cy + p*8,  p*2, p*4);
-    ctx.fillRect(cx + p*3,   cy + p*8,  p*2, p*4);
-  }
+  // left leg
+  ctx.fillRect(cx + p*1, cy + p*10 + swing*p*2.5, p*2.8, p*6);
+  // right leg
+  ctx.fillRect(cx + p*4, cy + p*10 - swing*p*2.5, p*2.8, p*6);
+  // waist join
+  ctx.fillRect(cx + p*1, cy + p*10, p*6, p*2);
 
-  // Body
+  // ── Body / shirt ──
   ctx.fillStyle = ch.bodyColor;
-  ctx.fillRect(cx, cy + p*3, p*6, p*6);
+  ctx.fillRect(cx + p*0.5, cy + p*5.5, p*7, p*5.5);
+  // shirt highlight (top sheen)
+  ctx.fillStyle = ch.bodyHi || ch.bodyColor;
+  ctx.globalAlpha = 0.5;
+  ctx.fillRect(cx + p*0.5, cy + p*5.5, p*7, p*1.5);
+  ctx.globalAlpha = 1;
+  // shirt collar V
+  ctx.fillStyle = ch.skinColor;
+  ctx.beginPath();
+  ctx.moveTo(cx + p*3.2, cy + p*5.5);
+  ctx.lineTo(cx + p*4.8, cy + p*5.5);
+  ctx.lineTo(cx + p*4, cy + p*7.5);
+  ctx.fill();
 
-  // Arms (swing when moving)
-  if (moving) {
-    const aswing = Math.sin(f * 0.35) * p * 1.5;
-    ctx.fillRect(cx - p,     cy + p*3 + aswing, p, p*4);
-    ctx.fillRect(cx + p*6,   cy + p*3 - aswing, p, p*4);
-  } else {
-    ctx.fillRect(cx - p,     cy + p*4, p, p*3);
-    ctx.fillRect(cx + p*6,   cy + p*4, p, p*3);
+  // ── Tie (アオイ) ──
+  if (ch.accessory === 'tie') {
+    ctx.fillStyle = '#a03030';
+    ctx.beginPath();
+    ctx.moveTo(cx + p*3.6, cy + p*5.8);
+    ctx.lineTo(cx + p*4.4, cy + p*5.8);
+    ctx.lineTo(cx + p*4.8, cy + p*9.5);
+    ctx.lineTo(cx + p*4, cy + p*10.5);
+    ctx.lineTo(cx + p*3.2, cy + p*9.5);
+    ctx.fill();
   }
 
-  // Neck
+  // ── Arms ──
+  const armSwing = swing * p * 2.8;
+  // left arm
+  ctx.fillStyle = ch.bodyColor;
+  ctx.fillRect(cx - p*0.8, cy + p*5.5 - armSwing, p*2, p*5);
+  // right arm
+  ctx.fillRect(cx + p*6.8, cy + p*5.5 + armSwing, p*2, p*5);
+  // hands (skin circles)
   ctx.fillStyle = ch.skinColor;
-  ctx.fillRect(cx + p*2, cy + p*2, p*2, p*2);
+  ctx.beginPath();
+  ctx.arc(cx, cy + p*10.5 - armSwing, p*1.3, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx + p*7.8, cy + p*10.5 + armSwing, p*1.3, 0, Math.PI*2);
+  ctx.fill();
 
-  // Head
+  // ── Neck ──
   ctx.fillStyle = ch.skinColor;
-  ctx.fillRect(cx + p, cy, p*4, p*4);
+  ctx.fillRect(cx + p*3, cy + p*4, p*2, p*2.5);
 
-  // Hair
+  // ── Head (round) ──
+  ctx.fillStyle = ch.skinColor;
+  ctx.beginPath();
+  ctx.arc(cx + p*4, cy + p*2.5, p*3.8, 0, Math.PI*2);
+  ctx.fill();
+
+  // ── Hair ──
   ctx.fillStyle = ch.hairColor;
-  ctx.fillRect(cx + p,   cy,       p*4, p);     // top
-  ctx.fillRect(cx + p,   cy,       p,   p*2);   // left side
-  if (ch.facing === 1) {
-    ctx.fillRect(cx + p*4, cy, p, p*2);
+  const hs = ch.hairStyle;
+  if (hs === 'bob') {
+    // round top + side curtains
+    ctx.beginPath();
+    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
+    ctx.lineTo(cx + p*4, cy - p*2);
+    ctx.fill();
+    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*2, p*4.5);   // left curtain
+    ctx.fillRect(cx + p*5.8, cy - p*0.5, p*2, p*4.5);   // right curtain
+    // highlight
+    ctx.fillStyle = ch.hairHi || ch.hairColor;
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath();
+    ctx.arc(cx + p*3, cy + p*0.5, p*1.5, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    // Crown (サクラ)
+    if (ch.accessory === 'crown') {
+      ctx.fillStyle = '#f0c030';
+      ctx.fillRect(cx + p*2, cy - p*2.8, p*4, p*1.5);
+      for (let t = 0; t < 3; t++) {
+        ctx.beginPath();
+        ctx.moveTo(cx + p*(2.3 + t*1.3), cy - p*2.8);
+        ctx.lineTo(cx + p*(2.9 + t*1.3), cy - p*4.2);
+        ctx.lineTo(cx + p*(3.5 + t*1.3), cy - p*2.8);
+        ctx.fill();
+      }
+    }
+  } else if (hs === 'short') {
+    ctx.beginPath();
+    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.15, Math.PI * 1.85);
+    ctx.lineTo(cx + p*4, cy - p*2);
+    ctx.fill();
+    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*1.5, p*3);
+    ctx.fillRect(cx + p*6.3, cy - p*0.5, p*1.5, p*3);
+    // Glasses (ソラ)
+    if (ch.accessory === 'glasses') {
+      ctx.strokeStyle = '#4080d0';
+      ctx.lineWidth = p*0.5;
+      ctx.strokeRect(cx + p*1.5, cy + p*1.8, p*2.2, p*1.6);
+      ctx.strokeRect(cx + p*4.3, cy + p*1.8, p*2.2, p*1.6);
+      ctx.beginPath();
+      ctx.moveTo(cx + p*3.7, cy + p*2.4);
+      ctx.lineTo(cx + p*4.3, cy + p*2.4);
+      ctx.stroke();
+    }
+  } else if (hs === 'ponytail') {
+    ctx.beginPath();
+    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
+    ctx.lineTo(cx + p*4, cy - p*2);
+    ctx.fill();
+    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*1.5, p*3);
+    // Ponytail
+    ctx.fillStyle = ch.hairColor;
+    ctx.beginPath();
+    ctx.moveTo(cx + p*7.5, cy + p*1);
+    ctx.quadraticCurveTo(cx + p*10, cy + p*4, cx + p*8, cy + p*9);
+    ctx.quadraticCurveTo(cx + p*6.5, cy + p*9.5, cx + p*7, cy + p*5);
+    ctx.quadraticCurveTo(cx + p*8.5, cy + p*3, cx + p*7.5, cy + p*1);
+    ctx.fill();
+  } else if (hs === 'long') {
+    ctx.beginPath();
+    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
+    ctx.lineTo(cx + p*4, cy - p*2);
+    ctx.fill();
+    ctx.fillRect(cx + p*0.2, cy - p*0.5, p*1.8, p*8);   // long left
+    ctx.fillRect(cx + p*5.8, cy - p*0.5, p*2, p*8);     // long right
+    // Earring (ナナ)
+    if (ch.accessory === 'earring') {
+      ctx.fillStyle = '#d0a030';
+      ctx.beginPath();
+      ctx.arc(cx + p*0.5, cy + p*3.5, p*0.8, 0, Math.PI*2);
+      ctx.fill();
+    }
+  } else if (hs === 'wavy') {
+    ctx.beginPath();
+    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.1, Math.PI * 1.9);
+    ctx.lineTo(cx + p*4, cy - p*2);
+    ctx.fill();
+    // Wavy side strands
+    for (let w = 0; w < 3; w++) {
+      ctx.beginPath();
+      ctx.moveTo(cx + p*0.5, cy + p*(0.5 + w*2));
+      ctx.quadraticCurveTo(cx - p*1, cy + p*(1.5 + w*2), cx + p*0.5, cy + p*(2.5 + w*2));
+      ctx.lineWidth = p*1.5;
+      ctx.strokeStyle = ch.hairColor;
+      ctx.stroke();
+    }
+  } else { // neat
+    ctx.beginPath();
+    ctx.arc(cx + p*4, cy + p*2, p*3.8, Math.PI * 1.15, Math.PI * 1.85);
+    ctx.lineTo(cx + p*4, cy - p*2);
+    ctx.fill();
+    ctx.fillRect(cx + p*0.3, cy - p*0.5, p*1.2, p*2.5);
+    ctx.fillRect(cx + p*6.5, cy - p*0.5, p*1.2, p*2.5);
+    // Side part line
+    ctx.strokeStyle = ch.hairHi || '#334';
+    ctx.lineWidth = p*0.4;
+    ctx.beginPath();
+    ctx.moveTo(cx + p*4.5, cy - p*1.8);
+    ctx.lineTo(cx + p*3.5, cy + p*0.5);
+    ctx.stroke();
   }
 
-  // Eyes
-  ctx.fillStyle = '#0a0a1c';
-  const eyeOff = ch.facing === 1 ? p : 0;
-  ctx.fillRect(cx + p*2 + eyeOff, cy + p*2, p, p);
+  // ── Face features ──
+  const faceX = cx + p*4;
+  const eyeY  = cy + p*2.4;
 
-  // Name label
+  // Eyebrows
+  ctx.strokeStyle = ch.hairColor;
+  ctx.lineWidth = p*0.5;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(faceX - p*2.2, eyeY - p*1.3);
+  ctx.lineTo(faceX - p*1,   eyeY - p*1.6);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(faceX + p*1,   eyeY - p*1.6);
+  ctx.lineTo(faceX + p*2.2, eyeY - p*1.3);
+  ctx.stroke();
+
+  // Eye whites
+  ctx.fillStyle = '#f8f8ff';
+  ctx.beginPath();
+  ctx.ellipse(faceX - p*1.5, eyeY, p*1.1, p*0.9, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(faceX + p*1.5, eyeY, p*1.1, p*0.9, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Iris
+  ctx.fillStyle = ch.eyeColor || '#2a4a8a';
+  ctx.beginPath();
+  ctx.arc(faceX - p*1.5, eyeY, p*0.65, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(faceX + p*1.5, eyeY, p*0.65, 0, Math.PI*2);
+  ctx.fill();
+
+  // Pupil + catch-light
+  ctx.fillStyle = '#08080f';
+  ctx.beginPath();
+  ctx.arc(faceX - p*1.5 + p*0.1, eyeY, p*0.32, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(faceX + p*1.5 + p*0.1, eyeY, p*0.32, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(faceX - p*1.2, eyeY - p*0.2, p*0.18, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(faceX + p*1.8, eyeY - p*0.2, p*0.18, 0, Math.PI*2);
+  ctx.fill();
+
+  // Nose
+  ctx.strokeStyle = 'rgba(0,0,0,0.18)';
+  ctx.lineWidth = p*0.4;
+  ctx.beginPath();
+  ctx.arc(faceX + p*0.3, eyeY + p*1, p*0.5, 0.3, Math.PI - 0.3);
+  ctx.stroke();
+
+  // Mouth / smile
+  ctx.strokeStyle = '#d07070';
+  ctx.lineWidth = p*0.45;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.arc(faceX, eyeY + p*1.9, p*1.1, 0.15, Math.PI - 0.15);
+  ctx.stroke();
+
+  // ── Name label ──
   const label = `${ch.name}（${ch.role}）`;
   ctx.font = `bold ${sp(7.5)}px sans-serif`;
   const tw = ctx.measureText(label).width;
-  ctx.fillStyle = 'rgba(5,5,16,0.72)';
-  ctx.fillRect(cx + p*3 - tw/2 - 3, cy + p*13 + 1, tw + 6, sp(10));
-  ctx.fillStyle = '#c8c8e8';
+  ctx.fillStyle = 'rgba(10,8,28,0.78)';
+  ctx.fillRect(faceX - tw/2 - 4, cy + p*17.5, tw + 8, sp(10));
+  ctx.fillStyle = '#d8d8f8';
   ctx.textAlign = 'center';
-  ctx.fillText(label, cx + p*3, cy + p*13 + sp(8));
+  ctx.fillText(label, faceX, cy + p*17.5 + sp(8));
   ctx.textAlign = 'left';
+  ctx.lineCap = 'butt';
 }
 
 // ═══════════════════════════════════════════════
