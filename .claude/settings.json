@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"coding\"}' &>/dev/null || true"}]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"reading\"}' &>/dev/null || true"}]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"bash\"}' &>/dev/null || true"}]
+      },
+      {
+        "matcher": "Grep|WebSearch|WebFetch",
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"searching\"}' &>/dev/null || true"}]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"thinking\"}' &>/dev/null || true"}]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"thinking\"}' &>/dev/null || true"}]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"responding\"}' &>/dev/null && sleep 4 && curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"idle\"}' &>/dev/null || true"}]
+      }
+    ]
+  }
+}
