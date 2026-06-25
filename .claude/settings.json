@@ -30,7 +30,7 @@
     ],
     "Stop": [
       {
-        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"responding\"}' &>/dev/null && sleep 4 && curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"idle\"}' &>/dev/null || true"}]
+        "hooks": [{"type": "command", "command": "curl -sf -X POST http://localhost:3001/event -H 'Content-Type: application/json' -d '{\"type\":\"responding\"}' &>/dev/null || true"}]
       }
     ]
   }
