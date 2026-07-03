@@ -5,6 +5,8 @@ token.json
 *.mp3
 *.wav
 *.aiff
+# スクショ用の一時ビルド成果物（CDNをインライン化した派生ファイル）
+*_offline.html
 __pycache__/
 *.pyc
 .venv/
