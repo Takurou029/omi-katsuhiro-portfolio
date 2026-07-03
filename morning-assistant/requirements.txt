@@ -1,19 +1,25 @@
-# --- 共通 ---
+# =========================================================
+#  完全無料スタックで動かすのに必要なのは、この4つだけ。
+#    pip install -r requirements.txt
+# =========================================================
 python-dotenv>=1.0.0
 requests>=2.31.0
 
-# --- ライブ・ダッシュボード用サーバ (server.py) ---
+# ライブ・ダッシュボード用サーバ (server.py)
 fastapi>=0.110.0
 uvicorn>=0.29.0
 
-# --- LLM（台本生成）: どちらか一方でOK。両方入れておけば設定で切替可能 ---
-anthropic>=0.39.0
-openai>=1.40.0
+# =========================================================
+#  以下は「有料/高機能版」に切り替える場合のみ（既定では不要）
+# =========================================================
+# --- LLM を Claude / OpenAI に切り替える場合 ---
+# anthropic>=0.39.0
+# openai>=1.40.0
 
-# --- Google Calendar ---
-google-api-python-client>=2.100.0
-google-auth-httplib2>=0.2.0
-google-auth-oauthlib>=1.2.0
+# --- カレンダーを Google Calendar に切り替える場合 ---
+# google-api-python-client>=2.100.0
+# google-auth-httplib2>=0.2.0
+# google-auth-oauthlib>=1.2.0
 
-# --- ElevenLabs を TTS に使う場合のみ（OpenAI TTS のみなら不要） ---
+# --- TTS を ElevenLabs に切り替える場合（OpenAI TTS は openai で可） ---
 # elevenlabs>=1.0.0

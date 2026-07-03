@@ -1,11 +1,19 @@
 """
-台本生成モジュール（LLM: Anthropic Claude または OpenAI）。
+台本生成モジュール。
 
 天気とスケジュールのテキストを受け取り、
 「有能で親しみやすいAI執事」風の読み上げ台本を生成する。
+
+プロバイダ:
+  ・template  … LLM課金なしのテンプレート生成（既定・完全無料）
+  ・ollama    … ローカルLLM（無料・要インストール）
+  ・anthropic … Claude API（従量課金）
+  ・openai    … OpenAI API（従量課金）
 """
 from __future__ import annotations
 
+import re
+import time
 from datetime import datetime
 from typing import Optional
 
@@ -36,114 +44,165 @@ USER_PROMPT_TEMPLATE = """以下の情報をもとに、本日の朝のメッセ
 def _build_prompts(weather_text: str, schedule_text: str, now: Optional[str] = None):
     now = now or datetime.now().strftime("%H時%M分")
     system = SYSTEM_PROMPT.format(nickname=config.USER_NICKNAME)
-    user = USER_PROMPT_TEMPLATE.format(
-        now=now, weather_text=weather_text, schedule_text=schedule_text
-    )
+    user = USER_PROMPT_TEMPLATE.format(now=now, weather_text=weather_text, schedule_text=schedule_text)
     return system, user
 
 
-def generate_script(
-    weather_text: str,
-    schedule_text: str,
-    provider: Optional[str] = None,
-    now: Optional[str] = None,
-) -> str:
-    """天気・予定テキストから読み上げ台本を生成して返す。"""
-    provider = (provider or config.LLM_PROVIDER).lower()
-    system, user = _build_prompts(weather_text, schedule_text, now)
+# ============================================================
+#  テンプレート生成（LLM不要・完全無料）
+# ============================================================
+def _naturalize_schedule(schedule_text: str) -> str:
+    if ("登録されていません" in schedule_text) or ("取得できませんでした" in schedule_text):
+        return "本日は特にご予定は入っておりません。どうぞゆっくりお過ごしください。"
+    lines = [l[2:] for l in schedule_text.splitlines() if l.startswith("- ")]
+    if not lines:
+        return "本日は特にご予定は入っておりません。どうぞゆっくりお過ごしください。"
+    parts = []
+    for l in lines:
+        m = re.match(r"(\d{1,2}):(\d{2})\s+(.*)", l)
+        if m:
+            h, mi, title = int(m.group(1)), m.group(2), m.group(3)
+            ampm = "午前" if h < 12 else "午後"
+            hh = h if h <= 12 else h - 12
+            mm = "" if mi == "00" else f"{int(mi)}分"
+            if h == 12 and mi == "00":
+                ampm, hh = "", "正午"
+                parts.append(f"{hh}から{title}")
+            else:
+                parts.append(f"{ampm}{hh}時{mm}から{title}")
+        else:
+            parts.append(l.replace("終日: ", "終日の"))
+    return "本日のご予定ですが、" + "、".join(parts) + "が入っております。"
 
-    if provider == "anthropic":
+
+def _template_script(weather_text: str, schedule_text: str, now: Optional[str] = None) -> str:
+    now = now or datetime.now().strftime("%H時%M分")
+    nick = config.USER_NICKNAME
+    sched = _naturalize_schedule(schedule_text)
+    return (
+        f"おはようございます、{nick}。現在の時刻は{now}です。"
+        f"{weather_text}日中の気温差にお気をつけくださいね。"
+        f"{sched}"
+        f"水分補給を忘れずに、{nick}にとって素敵な一日になりますように。"
+    )
+
+
+# ============================================================
+#  公開関数
+# ============================================================
+def generate_script(weather_text: str, schedule_text: str,
+                    provider: Optional[str] = None, now: Optional[str] = None) -> str:
+    provider = (provider or config.LLM_PROVIDER).lower()
+    if provider == "template":
+        return _template_script(weather_text, schedule_text, now)
+    system, user = _build_prompts(weather_text, schedule_text, now)
+    if provider == "ollama":
+        return _generate_ollama(system, user)
+    elif provider == "anthropic":
         return _generate_anthropic(system, user)
     elif provider == "openai":
         return _generate_openai(system, user)
-    else:
-        raise ValueError(f"未知の LLM_PROVIDER: {provider}（'anthropic' か 'openai'）")
+    raise ValueError(f"未知の LLM_PROVIDER: {provider}")
 
 
-def _generate_anthropic(system: str, user: str) -> str:
-    from anthropic import Anthropic
-
-    if not config.ANTHROPIC_API_KEY:
-        raise RuntimeError("ANTHROPIC_API_KEY が設定されていません（.env を確認）。")
-    client = Anthropic(api_key=config.ANTHROPIC_API_KEY)
-    resp = client.messages.create(
-        model="claude-sonnet-5",
-        max_tokens=600,
-        system=system,
-        messages=[{"role": "user", "content": user}],
-    )
-    return "".join(block.text for block in resp.content if block.type == "text").strip()
-
-
-def _generate_openai(system: str, user: str) -> str:
-    from openai import OpenAI
-
-    if not config.OPENAI_API_KEY:
-        raise RuntimeError("OPENAI_API_KEY が設定されていません（.env を確認）。")
-    client = OpenAI(api_key=config.OPENAI_API_KEY)
-    resp = client.chat.completions.create(
-        model="gpt-4o-mini",
-        max_tokens=600,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
-    )
-    return resp.choices[0].message.content.strip()
-
-
-def stream_script(
-    weather_text: str,
-    schedule_text: str,
-    provider: Optional[str] = None,
-    now: Optional[str] = None,
-):
-    """台本を「少しずつ」生成して chunk（文字列）を逐次 yield するジェネレータ。
-
-    ダッシュボードの SSE で「Claudeの回答が1文字ずつ流れる」表示に使う。
-    """
+def stream_script(weather_text: str, schedule_text: str,
+                  provider: Optional[str] = None, now: Optional[str] = None):
+    """台本を chunk（文字列）で逐次 yield（ダッシュボードのSSE表示用）。"""
     provider = (provider or config.LLM_PROVIDER).lower()
+    if provider == "template":
+        script = _template_script(weather_text, schedule_text, now)
+        for ch in script:            # 1文字ずつ「タイプ」して流す
+            yield ch
+            time.sleep(0.025)
+        return
     system, user = _build_prompts(weather_text, schedule_text, now)
-
-    if provider == "anthropic":
+    if provider == "ollama":
+        yield from _stream_ollama(system, user)
+    elif provider == "anthropic":
         yield from _stream_anthropic(system, user)
     elif provider == "openai":
         yield from _stream_openai(system, user)
     else:
-        raise ValueError(f"未知の LLM_PROVIDER: {provider}（'anthropic' か 'openai'）")
+        raise ValueError(f"未知の LLM_PROVIDER: {provider}")
+
+
+# ============================================================
+#  ローカルLLM: Ollama（無料）
+# ============================================================
+def _generate_ollama(system: str, user: str) -> str:
+    import requests
+    resp = requests.post(
+        f"{config.OLLAMA_HOST}/api/chat",
+        json={"model": config.OLLAMA_MODEL, "stream": False,
+              "messages": [{"role": "system", "content": system},
+                           {"role": "user", "content": user}]},
+        timeout=120,
+    )
+    resp.raise_for_status()
+    return resp.json()["message"]["content"].strip()
+
+
+def _stream_ollama(system: str, user: str):
+    import json as _json
+    import requests
+    with requests.post(
+        f"{config.OLLAMA_HOST}/api/chat",
+        json={"model": config.OLLAMA_MODEL, "stream": True,
+              "messages": [{"role": "system", "content": system},
+                           {"role": "user", "content": user}]},
+        stream=True, timeout=120,
+    ) as r:
+        r.raise_for_status()
+        for line in r.iter_lines():
+            if not line:
+                continue
+            obj = _json.loads(line)
+            piece = obj.get("message", {}).get("content", "")
+            if piece:
+                yield piece
+
+
+# ============================================================
+#  クラウドLLM（従量課金）
+# ============================================================
+def _generate_anthropic(system: str, user: str) -> str:
+    from anthropic import Anthropic
+    if not config.ANTHROPIC_API_KEY:
+        raise RuntimeError("ANTHROPIC_API_KEY が設定されていません（.env を確認）。")
+    client = Anthropic(api_key=config.ANTHROPIC_API_KEY)
+    resp = client.messages.create(model="claude-sonnet-5", max_tokens=600,
+                                  system=system, messages=[{"role": "user", "content": user}])
+    return "".join(b.text for b in resp.content if b.type == "text").strip()
 
 
 def _stream_anthropic(system: str, user: str):
     from anthropic import Anthropic
-
     if not config.ANTHROPIC_API_KEY:
         raise RuntimeError("ANTHROPIC_API_KEY が設定されていません（.env を確認）。")
     client = Anthropic(api_key=config.ANTHROPIC_API_KEY)
-    with client.messages.stream(
-        model="claude-sonnet-5",
-        max_tokens=600,
-        system=system,
-        messages=[{"role": "user", "content": user}],
-    ) as stream:
+    with client.messages.stream(model="claude-sonnet-5", max_tokens=600,
+                                system=system, messages=[{"role": "user", "content": user}]) as stream:
         for text in stream.text_stream:
             yield text
 
 
-def _stream_openai(system: str, user: str):
+def _generate_openai(system: str, user: str) -> str:
     from openai import OpenAI
-
     if not config.OPENAI_API_KEY:
         raise RuntimeError("OPENAI_API_KEY が設定されていません（.env を確認）。")
     client = OpenAI(api_key=config.OPENAI_API_KEY)
-    stream = client.chat.completions.create(
-        model="gpt-4o-mini",
-        max_tokens=600,
-        stream=True,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
-    )
+    resp = client.chat.completions.create(model="gpt-4o-mini", max_tokens=600,
+        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}])
+    return resp.choices[0].message.content.strip()
+
+
+def _stream_openai(system: str, user: str):
+    from openai import OpenAI
+    if not config.OPENAI_API_KEY:
+        raise RuntimeError("OPENAI_API_KEY が設定されていません（.env を確認）。")
+    client = OpenAI(api_key=config.OPENAI_API_KEY)
+    stream = client.chat.completions.create(model="gpt-4o-mini", max_tokens=600, stream=True,
+        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}])
     for chunk in stream:
         delta = chunk.choices[0].delta.content
         if delta:
@@ -151,10 +210,9 @@ def _stream_openai(system: str, user: str):
 
 
 if __name__ == "__main__":
-    # 単体動作確認（LLM API を実際に呼びます）
     demo = generate_script(
-        weather_text="横浜の本日の天気は「晴れ」、最高気温は28度、最低気温は20度です。",
-        schedule_text="本日の予定:\n- 10:00 デザインレビュー\n- 15:00 打ち合わせ",
+        weather_text="横浜の本日の天気は「晴れ時々くもり」、最高気温は28度、最低気温は21度です。",
+        schedule_text="本日の予定:\n- 10:00 デザインレビュー\n- 13:30 打ち合わせ\n- 18:00 ジム",
         now="朝の5時",
     )
     print(demo)

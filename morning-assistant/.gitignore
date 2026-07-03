@@ -4,6 +4,7 @@ credentials.json
 token.json
 *.mp3
 *.wav
+*.aiff
 __pycache__/
 *.pyc
 .venv/

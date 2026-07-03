@@ -6,22 +6,26 @@
 - 実装言語: **Python 3.9+**
 - 実行環境: **ローカルの Mac**（音声再生に macOS 標準の `afplay` を使用）
 
-## 機能構成
+> ✅ **既定は「完全無料スタック」** — APIキー・外部登録・課金いっさい不要でそのまま動きます。
+> `.env` の各 `*_PROVIDER` を差し替えると、有料/高機能版にも切り替えられます。
 
-| モジュール | ファイル | 役割 |
-|---|---|---|
-| 天気取得 | `modules/weather.py` | OpenWeatherMap で横浜の本日の天気・最高/最低気温を取得 |
-| カレンダー取得 | `modules/calendar_client.py` | Google Calendar API で本日の予定を取得 |
-| 台本生成 | `modules/script_generator.py` | Claude / OpenAI で「AI執事風」の台本を生成 |
-| 音声合成・再生 | `modules/tts.py` | OpenAI TTS / ElevenLabs で音声化しローカル再生 |
-| 本番実行 | `main.py` | 上記を統合するエントリポイント |
-| 動作確認 | `mock_demo.py` | ダミーデータで音声再生まで確認する簡易版 |
+## 機能構成（★=既定の無料プロバイダ）
+
+| モジュール | ファイル | 無料（既定） | 差し替え可 |
+|---|---|---|---|
+| 天気取得 | `modules/weather.py` | ★ **Open-Meteo**（キー不要） | OpenWeatherMap |
+| カレンダー取得 | `modules/calendar_client.py` | ★ **local** (`schedule.json`) | Google Calendar |
+| 台本生成 | `modules/script_generator.py` | ★ **template**（LLM課金なし） | Ollama(無料) / Claude / OpenAI |
+| 音声合成・再生 | `modules/tts.py` | ★ **say**（macOS標準・無料） | OpenAI TTS / ElevenLabs |
+| 本番実行 | `main.py` | — | — |
+| 動作確認 | `mock_demo.py` | — | — |
+| ダッシュボード | `server.py` / `dashboard*.html` | — | — |
 
 各機能は関数単位で分割されており、`python -m modules.weather` のように単体でも実行・テストできます。
 
 ---
 
-## 1. セットアップ
+## 1. セットアップ（完全無料・キー不要）
 
 ```bash
 cd morning-assistant
@@ -30,45 +34,39 @@ cd morning-assistant
 python3 -m venv .venv
 source .venv/bin/activate
 
-# 依存パッケージのインストール
+# 依存パッケージのインストール（無料スタックはこれだけでOK）
 pip install -r requirements.txt
 
-# 環境変数ファイルを作成
-cp .env.example .env
-# → .env を開いて各種 API キーを設定してください
+# .env は「無くても動く」。呼びかけ名や地域を変えたい場合だけ:
+# cp .env.example .env
+```
+
+これで準備完了です。予定を変えたいときは **`schedule.json`** を編集してください。
+
+```jsonc
+// schedule.json
+[
+  { "start": "10:00", "summary": "デザインレビュー" },
+  { "start": "13:30", "summary": "クライアント打ち合わせ" },
+  { "start": "18:00", "summary": "ジム" }
+]
 ```
 
 ---
 
-## 2. 各API キーの取得方法
+## 2. （任意）有料/高機能版への切り替え
 
-### 2-1. OpenWeatherMap（天気）
-1. https://openweathermap.org/ で無料アカウント登録
-2. 「API keys」からキーを発行
-3. `.env` の `OPENWEATHER_API_KEY` に設定
-   - 対象地域はデフォルトで横浜（緯度 35.4437 / 経度 139.6380）に設定済み
+無料版で十分ですが、精度や自然さを上げたい場合は `.env` で各 `*_PROVIDER` を変更します。
 
-### 2-2. Anthropic（Claude）または OpenAI（台本生成）
-- Claude を使う場合: https://console.anthropic.com/ でキーを発行し `ANTHROPIC_API_KEY` に設定、`LLM_PROVIDER=anthropic`
-- OpenAI を使う場合: https://platform.openai.com/ でキーを発行し `OPENAI_API_KEY` に設定、`LLM_PROVIDER=openai`
+| 機能 | 無料（既定） | 切り替え例 | 必要な設定 |
+|---|---|---|---|
+| 台本 | `LLM_PROVIDER=template` | `ollama`（ローカルLLM・無料） | Ollama インストール＋`ollama pull llama3.1` |
+| 台本 | 〃 | `anthropic` / `openai` | 各 API キー（従量課金）＋`pip install anthropic`（または `openai`） |
+| 天気 | `WEATHER_PROVIDER=open-meteo` | `openweathermap` | `OPENWEATHER_API_KEY`（無料登録） |
+| カレンダー | `CALENDAR_PROVIDER=local` | `google` | OAuth 設定（`credentials.json`）＋`pip install google-api-python-client google-auth-oauthlib` |
+| 音声 | `TTS_PROVIDER=say` | `openai` / `elevenlabs` | 各 API キー（従量課金） |
 
-### 2-3. 音声合成（TTS）
-- OpenAI TTS を使う場合（推奨・設定が簡単）: `OPENAI_API_KEY` を設定、`TTS_PROVIDER=openai`
-- ElevenLabs を使う場合: https://elevenlabs.io/ でキーと Voice ID を取得、`ELEVENLABS_API_KEY` / `ELEVENLABS_VOICE_ID` を設定、`TTS_PROVIDER=elevenlabs`
-
-### 2-4. Google Calendar
-1. [Google Cloud Console](https://console.cloud.google.com/) でプロジェクトを作成
-2. 「APIとサービス」→「ライブラリ」で **Google Calendar API** を有効化
-3. 「APIとサービス」→「OAuth 同意画面」を設定（User Type: 外部、テストユーザーに自分のGoogleアカウントを追加）
-4. 「認証情報」→「認証情報を作成」→「OAuth クライアント ID」→ アプリの種類「**デスクトップアプリ**」
-5. 生成された JSON を **`credentials.json`** としてこのディレクトリに保存
-6. 初回だけ手動で実行し、ブラウザ認証を通す（`token.json` が生成される）:
-   ```bash
-   python -m modules.calendar_client
-   ```
-   以降は `token.json` により自動でトークンが更新され、cron 無人実行が可能です。
-
-> `.env` / `credentials.json` / `token.json` / 生成音声(`*.mp3`) は `.gitignore` 済みでコミットされません。
+> `.env` / `credentials.json` / `token.json` / 生成音声(`*.mp3` `*.aiff`) は `.gitignore` 済みでコミットされません。
 
 ---
 
@@ -77,15 +75,17 @@ cp .env.example .env
 外部の天気API・カレンダーに接続せず、**ダミーデータで音声再生まで**確認できます。
 
 ```bash
-# LLM を呼ばず固定台本で「音声再生だけ」確認（TTS の API キーは必要）
-python mock_demo.py --no-llm
-
-# ダミーの天気/予定 → LLM で台本生成 → 音声再生（LLM + TTS の API キーが必要）
+# ダミーの天気/予定 → テンプレートで台本生成 → say で音声再生（キー不要）
 python mock_demo.py
+
+# LLM を一切使わず固定台本で「音声再生だけ」確認（キー不要）
+python mock_demo.py --no-llm
 
 # 音声を再生せず、生成された台本テキストだけ確認
 python mock_demo.py --print
 ```
+
+> 既定では台本=テンプレート、音声=macOS の `say`（Kyoko）なので、**API キーなしで音声再生まで**確認できます。
 
 ---
 
@@ -118,7 +118,8 @@ crontab -e
 
 > **Mac の注意点**
 > - Mac がスリープ中は cron が動きません。`caffeinate` や「省エネルギー」設定、または `launchd`（`pmset` で自動起動）の併用を検討してください。
-> - 初回のみ手動で `python -m modules.calendar_client` を実行し、OAuth 認証（token.json 生成）を済ませておくこと（cron 実行時にはブラウザ認証はできないため）。
+> - 無料版（`say` / template / local / open-meteo）は認証不要でそのまま cron 実行できます。
+> - `CALENDAR_PROVIDER=google` に切り替える場合のみ、初回に手動で `python -m modules.calendar_client` を実行して OAuth 認証（token.json 生成）を済ませておいてください（cron ではブラウザ認証ができないため）。
 
 ---
 
@@ -157,7 +158,8 @@ python server.py
 
 | 症状 | 対処 |
 |---|---|
-| `OPENWEATHER_API_KEY が設定されていません` | `.env` にキーを設定。発行直後は有効化まで数時間かかる場合あり |
-| カレンダー認証エラー | `credentials.json` の配置と、初回 `python -m modules.calendar_client` の実行を確認 |
-| 音声が再生されない | Mac は `afplay` 標準搭載。それ以外の OS は `ffplay`(ffmpeg) 等の導入が必要 |
-| 台本が英語になる | 台本は日本語プロンプトで生成されます。TTS は多言語対応音声を利用してください |
+| 天気が「取得できませんでした」になる | Open-Meteo はキー不要。ネット接続とプロキシ/ファイアウォールを確認。取得失敗時も台本はフォールバックで生成されます |
+| 音声が出ない / `say が見つかりません` | `say`・`afplay` は macOS 標準。macOS 以外では `TTS_PROVIDER` を変更するか `ffplay`(ffmpeg) 等を導入 |
+| 予定が反映されない | `schedule.json` を編集（`CALENDAR_PROVIDER=local` が既定） |
+| `say` の声を変えたい | `say -v '?'` で一覧確認。`.env` の `SAY_VOICE`（既定 Kyoko）や `SAY_RATE` を変更 |
+| カレンダー認証エラー（google利用時） | `credentials.json` の配置と、初回 `python -m modules.calendar_client` の実行を確認 |
