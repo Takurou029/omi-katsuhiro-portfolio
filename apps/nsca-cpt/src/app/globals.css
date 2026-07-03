@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+/* フォーカスの可視化（アクセシビリティ） */
+:focus-visible {
+  outline: 3px solid #84cc16;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* prefers-reduced-motion 対応：アニメーションを抑制 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* タップ領域を確保しつつ、iOS のタップ時ハイライトを調整 */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* スコアボード風カウンターの数字 */
+.counter-number {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
