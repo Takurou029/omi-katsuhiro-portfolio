@@ -1,0 +1,15 @@
+# --- 共通 ---
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# --- LLM（台本生成）: どちらか一方でOK。両方入れておけば設定で切替可能 ---
+anthropic>=0.39.0
+openai>=1.40.0
+
+# --- Google Calendar ---
+google-api-python-client>=2.100.0
+google-auth-httplib2>=0.2.0
+google-auth-oauthlib>=1.2.0
+
+# --- ElevenLabs を TTS に使う場合のみ（OpenAI TTS のみなら不要） ---
+# elevenlabs>=1.0.0

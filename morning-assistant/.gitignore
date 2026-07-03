@@ -1,0 +1,10 @@
+# 機密情報・生成物はコミットしない
+.env
+credentials.json
+token.json
+*.mp3
+*.wav
+__pycache__/
+*.pyc
+.venv/
+venv/
