@@ -122,6 +122,37 @@ crontab -e
 
 ---
 
+## 6. ダッシュボード（JARVIS 風 UI）
+
+映画「アイアンマン」の J.A.R.V.I.S. 風ダッシュボードを 2 種類用意しています。
+
+### 6-1. 静的版 `dashboard.html`（モックデータ）
+そのまま **Mac でダブルクリックして開くだけ**で動きます（描画に CDN を読むためネット接続のみ必要）。
+
+### 6-2. ライブ版 `server.py` + `dashboard_live.html`（実データ＋Claudeストリーミング）
+天気・カレンダー・Claude を**実際に実行**し、執事の台本が Claude から 1 文字ずつ流れて表示されます。
+
+```bash
+cd morning-assistant
+source .venv/bin/activate
+pip install -r requirements.txt      # fastapi / uvicorn を含む
+
+python server.py
+# → ブラウザで http://localhost:8000 を開く
+```
+
+- APIキー(`.env`)が無くても**モックデータ／固定台本にフォールバック**して起動・表示できます。
+- `.env` にキーを設定すると、本物の天気・予定・Claude の台本ストリーミングに切り替わります。
+- `file://`（ファイル直開き）では Claude と繋がりません。ブラウザでAPIキーを晒さないため、必ず `server.py` 経由（`http://localhost:8000`）で開いてください。
+
+| ファイル | エンドポイント | 役割 |
+|---|---|---|
+| `server.py` | `GET /` | ダッシュボード配信 |
+|  | `GET /api/data` | 天気・予定・統計を JSON で返す |
+|  | `GET /api/stream` | SSE でシステムログ＋Claude台本を逐次配信 |
+
+---
+
 ## トラブルシューティング
 
 | 症状 | 対処 |

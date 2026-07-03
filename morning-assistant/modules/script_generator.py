@@ -92,6 +92,64 @@ def _generate_openai(system: str, user: str) -> str:
     return resp.choices[0].message.content.strip()
 
 
+def stream_script(
+    weather_text: str,
+    schedule_text: str,
+    provider: Optional[str] = None,
+    now: Optional[str] = None,
+):
+    """台本を「少しずつ」生成して chunk（文字列）を逐次 yield するジェネレータ。
+
+    ダッシュボードの SSE で「Claudeの回答が1文字ずつ流れる」表示に使う。
+    """
+    provider = (provider or config.LLM_PROVIDER).lower()
+    system, user = _build_prompts(weather_text, schedule_text, now)
+
+    if provider == "anthropic":
+        yield from _stream_anthropic(system, user)
+    elif provider == "openai":
+        yield from _stream_openai(system, user)
+    else:
+        raise ValueError(f"未知の LLM_PROVIDER: {provider}（'anthropic' か 'openai'）")
+
+
+def _stream_anthropic(system: str, user: str):
+    from anthropic import Anthropic
+
+    if not config.ANTHROPIC_API_KEY:
+        raise RuntimeError("ANTHROPIC_API_KEY が設定されていません（.env を確認）。")
+    client = Anthropic(api_key=config.ANTHROPIC_API_KEY)
+    with client.messages.stream(
+        model="claude-sonnet-5",
+        max_tokens=600,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+    ) as stream:
+        for text in stream.text_stream:
+            yield text
+
+
+def _stream_openai(system: str, user: str):
+    from openai import OpenAI
+
+    if not config.OPENAI_API_KEY:
+        raise RuntimeError("OPENAI_API_KEY が設定されていません（.env を確認）。")
+    client = OpenAI(api_key=config.OPENAI_API_KEY)
+    stream = client.chat.completions.create(
+        model="gpt-4o-mini",
+        max_tokens=600,
+        stream=True,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+    )
+    for chunk in stream:
+        delta = chunk.choices[0].delta.content
+        if delta:
+            yield delta
+
+
 if __name__ == "__main__":
     # 単体動作確認（LLM API を実際に呼びます）
     demo = generate_script(
