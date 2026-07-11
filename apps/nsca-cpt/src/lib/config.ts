@@ -90,6 +90,7 @@ export function defaultSettings(today: Date = new Date()): Settings {
   return {
     examDate: `${yyyy}-${mm}-${dd}`,
     dailyGoal: DEFAULT_DAILY_GOAL,
-    theme: "system",
+    // 既定はライト（白背景）。設定でダーク／端末追従に変更可。
+    theme: "light",
   };
 }

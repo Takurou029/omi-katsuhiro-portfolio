@@ -46,7 +46,7 @@ export default function MockPage() {
   const limitMin = Math.round(limit / 60);
 
   return (
-    <div className="animate-pop-in">
+    <div className="animate-pop-in mx-auto w-full max-w-2xl">
       <PageHeader
         title="模試モード"
         subtitle="本番形式（即時解説なし・制限時間つき）。最後にまとめて採点します。"

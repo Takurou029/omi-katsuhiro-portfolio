@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="animate-pop-in">
+    <div className="animate-pop-in mx-auto w-full max-w-2xl">
       <PageHeader title="このアプリについて" />
       <div className="space-y-4 px-4">
         <Disclaimer />

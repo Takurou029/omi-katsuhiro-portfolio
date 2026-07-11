@@ -4,6 +4,7 @@ import { ProgressProvider } from "@/lib/store";
 import { ThemeApplier } from "@/components/ThemeApplier";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import { BottomNav } from "@/components/BottomNav";
+import { SideNav } from "@/components/SideNav";
 
 export const metadata: Metadata = {
   title: "NSCA-CPT 試験対策",
@@ -19,24 +20,29 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "NSCA-CPT",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0f14",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
 };
 
-// 初期テーマをペイント前に適用してちらつきを防ぐ。
+// 初期テーマをペイント前に適用してちらつきを防ぐ。既定はライト。
 const themeInitScript = `
 (function(){try{
   var raw = localStorage.getItem('nsca-cpt-progress-v1');
-  var theme = 'system';
-  if (raw) { var s = JSON.parse(raw); if (s && s.settings && s.settings.theme) theme = s.settings.theme; }
+  var theme = 'light';
+  if (raw) {
+    var s = JSON.parse(raw);
+    if (s && s.settings && s.settings.theme) theme = s.settings.theme;
+    // v1 データの 'system'（旧既定）はライト扱いに移行する。
+    if (theme === 'system' && (!s.version || s.version < 2)) theme = 'light';
+  }
   var dark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
   document.documentElement.classList.toggle('dark', dark);
 }catch(e){}})();
@@ -49,7 +55,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className="bg-slate-50 text-slate-900 antialiased dark:bg-surface-dark dark:text-slate-100">
+      <body className="bg-white text-slate-900 antialiased dark:bg-surface-dark dark:text-slate-100">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <ProgressProvider>
           <ThemeApplier />
@@ -60,11 +66,15 @@ export default function RootLayout({
           >
             本文へスキップ
           </a>
-          <div className="mx-auto flex min-h-[100dvh] w-full max-w-screen-sm flex-col">
-            <main id="main" className="flex-1 pb-24">
-              {children}
-            </main>
-            <BottomNav />
+          {/* PC: 左サイドバー＋広いコンテンツ / モバイル: 下部ナビ */}
+          <div className="mx-auto flex min-h-[100dvh] w-full max-w-screen-xl">
+            <SideNav />
+            <div className="flex min-w-0 flex-1 flex-col">
+              <main id="main" className="flex-1 pb-24 lg:pb-10">
+                {children}
+              </main>
+              <BottomNav />
+            </div>
           </div>
         </ProgressProvider>
       </body>

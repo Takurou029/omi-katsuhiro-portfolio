@@ -17,6 +17,7 @@ export default function PracticePage() {
   const [domain, setDomain] = useState<string | "mix">("mix");
   const [count, setCount] = useState(10);
   const [session, setSession] = useState<Question[] | null>(null);
+  const [sessionKey, setSessionKey] = useState(0);
 
   const counts = useMemo(() => questionCountByDomain(), []);
 
@@ -25,16 +26,21 @@ export default function PracticePage() {
       domain === "mix" ? QUESTIONS : getQuestionsByDomain(domain);
     // 弱点優先で count 問を抽選する。
     const qs = selectQuestions(pool, state.cards, count);
-    if (qs.length > 0) setSession(qs);
+    if (qs.length > 0) {
+      setSession(qs);
+      setSessionKey((k) => k + 1);
+    }
   };
 
   if (session) {
     return (
       <QuizRunner
+        key={sessionKey}
         questions={session}
         mode="practice"
         title="練習"
         onExit={() => setSession(null)}
+        onOneMore={start}
       />
     );
   }
@@ -43,7 +49,7 @@ export default function PracticePage() {
     domain === "mix" ? QUESTIONS.length : counts[domain] ?? 0;
 
   return (
-    <div className="animate-pop-in">
+    <div className="animate-pop-in mx-auto w-full max-w-2xl">
       <PageHeader
         title="練習モード"
         subtitle="弱点を優先して出題します。解答直後に正誤と解説を表示。"

@@ -32,7 +32,7 @@ export default function ReviewPage() {
   }
 
   return (
-    <div className="animate-pop-in">
+    <div className="animate-pop-in mx-auto w-full max-w-3xl">
       <PageHeader
         title="間違いノート"
         subtitle="直近で誤答した問題を自動で蓄積。ここだけ集中復習できます。"
@@ -43,7 +43,7 @@ export default function ReviewPage() {
         ) : wrongQuestions.length === 0 ? (
           <Card>
             <p className="text-center text-sm text-slate-500">
-              誤答した問題はありません 🎉
+              誤答した問題はありません。
               <br />
               <Link
                 href="/practice"

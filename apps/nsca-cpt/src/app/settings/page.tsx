@@ -24,7 +24,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="animate-pop-in">
+    <div className="animate-pop-in mx-auto w-full max-w-2xl">
       <PageHeader title="設定" subtitle="試験日・ノルマ・表示テーマを変更できます。" />
       <div className="space-y-4 px-4">
         <Card>

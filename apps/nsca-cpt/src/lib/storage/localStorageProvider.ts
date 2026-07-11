@@ -42,9 +42,14 @@ export class LocalStorageProvider implements StorageProvider {
   }
 }
 
-/** 旧バージョンのデータを現行スキーマへ移行する（将来用の受け皿）。 */
+/** 旧バージョンのデータを現行スキーマへ移行する。 */
 function migrate(state: ProgressState): ProgressState {
   if (!state || typeof state !== "object") return state;
-  // 現状はバージョン1のみ。将来ここに変換処理を追加する。
-  return { ...state, version: SCHEMA_VERSION };
+  let next = state;
+  // v1 -> v2: 既定テーマを「端末に従う」から「ライト」へ変更。
+  // ユーザーが明示的に選んだ dark / light はそのまま尊重する。
+  if ((next.version ?? 1) < 2 && next.settings?.theme === "system") {
+    next = { ...next, settings: { ...next.settings, theme: "light" } };
+  }
+  return { ...next, version: SCHEMA_VERSION };
 }

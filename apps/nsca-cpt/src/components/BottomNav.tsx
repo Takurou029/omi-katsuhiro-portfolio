@@ -20,7 +20,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="メインナビゲーション"
-      className="fixed inset-x-0 bottom-0 z-40 mx-auto max-w-screen-sm border-t border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-surface-dark/95"
+      className="fixed inset-x-0 bottom-0 z-40 mx-auto max-w-screen-sm border-t border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-surface-dark/95 lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <ul className="grid grid-cols-5">

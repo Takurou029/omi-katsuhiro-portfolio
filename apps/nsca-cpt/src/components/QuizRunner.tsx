@@ -1,15 +1,20 @@
 "use client";
 
 // 練習／今日の3問／間違いノート／模試 で共通利用する出題ランナー。
-// - feedback モード（practice/daily/review）：解答直後に正誤＋解説を表示
+// - feedback モード（practice/daily/review）：解答直後に正誤＋解説（＋図解）を表示
 // - mock モード：即時解説なし・制限時間つき・最後に採点
+// PC ではキーボード操作に対応（1/2/3 で解答、Enter で次へ）。
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useProgress } from "@/lib/store";
 import { grade, timeLimitSeconds } from "@/lib/mockComposer";
 import { DOMAIN_BY_NAME } from "@/lib/config";
+import { levelFromXp } from "@/lib/progression";
 import { Card, Meter } from "@/components/ui";
+import { getIllustration } from "@/components/Illustrations";
+import { CheckCircleIcon, FlameIcon, KeyboardIcon } from "@/components/icons";
+import { answeredOn, toDateKey } from "@/lib/streak";
 import type { Question, StudyMode } from "@/lib/types";
 
 interface Props {
@@ -17,9 +22,11 @@ interface Props {
   mode: StudyMode;
   title: string;
   onExit: () => void;
+  /** 「もう1セット」用（daily/practice で再抽選して続ける）。 */
+  onOneMore?: () => void;
 }
 
-export function QuizRunner({ questions, mode, title, onExit }: Props) {
+export function QuizRunner({ questions, mode, title, onExit, onOneMore }: Props) {
   const isMock = mode === "mock";
   if (questions.length === 0) {
     return (
@@ -34,15 +41,20 @@ export function QuizRunner({ questions, mode, title, onExit }: Props) {
       </div>
     );
   }
-  return isMock ? (
-    <MockRunner questions={questions} title={title} onExit={onExit} />
-  ) : (
-    <FeedbackRunner
-      questions={questions}
-      mode={mode}
-      title={title}
-      onExit={onExit}
-    />
+  return (
+    <div className="mx-auto w-full max-w-2xl">
+      {isMock ? (
+        <MockRunner questions={questions} title={title} onExit={onExit} />
+      ) : (
+        <FeedbackRunner
+          questions={questions}
+          mode={mode}
+          title={title}
+          onExit={onExit}
+          onOneMore={onOneMore}
+        />
+      )}
+    </div>
   );
 }
 
@@ -64,7 +76,7 @@ function RunnerHeader({
   onExit: () => void;
 }) {
   return (
-    <div className="sticky top-0 z-10 bg-slate-50/90 px-4 pb-2 pt-4 backdrop-blur dark:bg-surface-dark/90">
+    <div className="sticky top-0 z-10 bg-white/90 px-4 pb-2 pt-4 backdrop-blur dark:bg-surface-dark/90">
       <div className="flex items-center justify-between">
         <button
           onClick={onExit}
@@ -80,7 +92,7 @@ function RunnerHeader({
       <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
         <div
           className="h-full rounded-full bg-accent-strong transition-[width] duration-300 dark:bg-accent"
-          style={{ width: `${((index) / total) * 100}%` }}
+          style={{ width: `${(index / total) * 100}%` }}
         />
       </div>
     </div>
@@ -109,6 +121,20 @@ function QuestionBody({ question }: { question: Question }) {
   );
 }
 
+function KeyboardHint() {
+  return (
+    <p className="mt-4 hidden items-center justify-center gap-1.5 px-4 text-center text-[11px] text-slate-400 lg:flex">
+      <KeyboardIcon className="h-4 w-4" />
+      キーボード操作：<kbd className="rounded border border-slate-300 px-1 dark:border-slate-600">1</kbd>
+      <kbd className="rounded border border-slate-300 px-1 dark:border-slate-600">2</kbd>
+      <kbd className="rounded border border-slate-300 px-1 dark:border-slate-600">3</kbd>
+      で解答 /
+      <kbd className="rounded border border-slate-300 px-1 dark:border-slate-600">Enter</kbd>
+      で次へ
+    </p>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /* フィードバック（練習）モード                                        */
 /* ------------------------------------------------------------------ */
@@ -118,11 +144,13 @@ function FeedbackRunner({
   mode,
   title,
   onExit,
+  onOneMore,
 }: {
   questions: Question[];
   mode: StudyMode;
   title: string;
   onExit: () => void;
+  onOneMore?: () => void;
 }) {
   const { recordAnswer } = useProgress();
   const [index, setIndex] = useState(0);
@@ -153,15 +181,35 @@ function FeedbackRunner({
     }
   }, [isLast]);
 
+  // キーボード操作（PC）：1/2/3 で解答、Enter で次へ。
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (finished) return;
+      if (e.key >= "1" && e.key <= String(question.choices.length)) {
+        e.preventDefault();
+        choose(Number(e.key) - 1);
+      } else if (e.key === "Enter" && answered) {
+        e.preventDefault();
+        next();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [choose, next, answered, finished, question.choices.length]);
+
   if (finished) {
     return (
-      <SimpleResult
+      <SessionResult
         total={questions.length}
         correct={correctCount}
+        mode={mode}
         onExit={onExit}
+        onOneMore={onOneMore}
       />
     );
   }
+
+  const illustration = answered ? getIllustration(question.id) : null;
 
   return (
     <div className="animate-pop-in pb-8">
@@ -203,7 +251,7 @@ function FeedbackRunner({
                     ? "○"
                     : answered && isChosen
                       ? "×"
-                      : String.fromCharCode(65 + i)}
+                      : i + 1}
                 </span>
                 <span>{choice}</span>
               </button>
@@ -211,6 +259,8 @@ function FeedbackRunner({
           );
         })}
       </ul>
+
+      {!answered && <KeyboardHint />}
 
       {answered && (
         <div className="mt-4 px-4">
@@ -222,23 +272,29 @@ function FeedbackRunner({
                   : "text-rose-600 dark:text-rose-400"
               }`}
             >
-              {selected === question.answerIndex ? "正解！" : "不正解"}
+              {selected === question.answerIndex ? "正解" : "不正解"}
             </p>
             <p className="mt-2 text-[14px] leading-relaxed text-slate-700 dark:text-slate-300">
               {question.explanation}
             </p>
+            {illustration}
             <p className="mt-2 text-[11px] text-slate-400">
               出典目安：{question.reference.edition}
               {question.reference.chapter
                 ? ` / ${question.reference.chapter}`
                 : ""}
+              ・最終確認は公式テキストで行ってください
             </p>
           </Card>
           <button
             onClick={next}
-            className="mt-4 w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900 active:scale-[0.99]"
+            autoFocus
+            className="mt-4 w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900 hover:bg-accent-soft active:scale-[0.99]"
           >
-            {isLast ? "結果を見る" : "次の問題へ →"}
+            {isLast ? "結果を見る" : "次の問題へ"}
+            <span className="ml-2 hidden text-xs font-bold opacity-60 lg:inline">
+              Enter
+            </span>
           </button>
         </div>
       )}
@@ -246,39 +302,102 @@ function FeedbackRunner({
   );
 }
 
-function SimpleResult({
+/**
+ * セッション結果。習慣化のため
+ * - 今日のノルマ達成を祝福
+ * - 「あとN問でレベルアップ」の次の小目標
+ * - 「もう1セット」導線
+ * を提示する。
+ */
+function SessionResult({
   total,
   correct,
+  mode,
   onExit,
+  onOneMore,
 }: {
   total: number;
   correct: number;
+  mode: StudyMode;
   onExit: () => void;
+  onOneMore?: () => void;
 }) {
+  const { state } = useProgress();
   const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  const todayKey = toDateKey(new Date());
+  const todayCount = answeredOn(state.answers, todayKey);
+  const goal = state.settings.dailyGoal;
+  const goalReached = todayCount >= goal;
+  const level = levelFromXp(state.answers.length);
+  const streak = state.streak.current;
+
   return (
     <div className="animate-pop-in px-4 py-10 text-center">
-      <p className="text-sm font-bold text-slate-500">お疲れさまでした</p>
-      <p className="counter-number mt-3 text-6xl font-black">
+      {goalReached && mode === "daily" ? (
+        <div className="mx-auto mb-6 flex max-w-sm flex-col items-center rounded-3xl bg-emerald-500/10 p-5 text-emerald-700 dark:text-emerald-300">
+          <CheckCircleIcon className="h-10 w-10" />
+          <p className="mt-2 text-lg font-black">今日のノルマ達成</p>
+          <p className="mt-1 flex items-center gap-1 text-sm font-bold">
+            <FlameIcon className="h-4 w-4 text-orange-500" />
+            連続 {streak} 日目。明日も続けるとチェーンが伸びます
+          </p>
+        </div>
+      ) : (
+        <p className="text-sm font-bold text-slate-500">お疲れさまでした</p>
+      )}
+
+      <p className="counter-number mt-2 text-6xl font-black">
         {correct}
         <span className="text-2xl text-slate-400">/{total}</span>
       </p>
-      <p className="mt-1 text-lg font-bold text-accent-strong dark:text-accent">
+      <p className="mt-1 text-lg font-bold text-lime-700 dark:text-accent">
         正答率 {rate}%
       </p>
-      <div className="mx-auto mt-6 max-w-xs">
-        <Meter value={correct / total} />
+      <div className="mx-auto mt-5 max-w-xs">
+        <Meter value={total > 0 ? correct / total : 0} />
       </div>
-      <div className="mt-8 flex flex-col gap-3">
+
+      {/* 次の小目標：レベルアップまでの残り */}
+      <div className="mx-auto mt-6 max-w-sm rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left dark:border-slate-800 dark:bg-slate-800/50">
+        <div className="flex items-baseline justify-between text-sm">
+          <span className="font-bold">
+            Lv.{level.level} → Lv.{level.level + 1}
+          </span>
+          <span className="text-xs font-bold text-lime-700 dark:text-accent">
+            あと {level.remaining} 問
+          </span>
+        </div>
+        <div className="mt-2 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+          <div
+            className="h-full rounded-full bg-accent-strong transition-[width] duration-700"
+            style={{ width: `${Math.round(level.progress * 100)}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="mx-auto mt-8 flex max-w-sm flex-col gap-3">
+        {onOneMore && (
+          <button
+            onClick={onOneMore}
+            className="w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900 hover:bg-accent-soft"
+          >
+            もう1セット（あと{level.remaining <= total ? level.remaining : total}問でも前進）
+          </button>
+        )}
         <button
           onClick={onExit}
-          className="w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900"
+          className={`w-full rounded-2xl py-3 font-bold ${
+            onOneMore
+              ? "bg-slate-200 dark:bg-slate-800"
+              : "bg-accent py-4 text-lg font-black text-slate-900"
+          }`}
         >
-          もう一度
+          {onOneMore ? "今日はここまで" : "もう一度"}
         </button>
         <Link
           href="/"
-          className="w-full rounded-2xl bg-slate-200 py-3 font-bold dark:bg-slate-800"
+          className="w-full rounded-2xl bg-slate-100 py-3 font-bold text-slate-600 dark:bg-slate-800/60 dark:text-slate-300"
         >
           ホームへ戻る
         </Link>
@@ -304,9 +423,10 @@ function MockRunner({
   const [index, setIndex] = useState(0);
   const [responses, setResponses] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
-  const limit = useMemo(() => timeLimitSeconds(questions.length), [
-    questions.length,
-  ]);
+  const limit = useMemo(
+    () => timeLimitSeconds(questions.length),
+    [questions.length],
+  );
   const [remaining, setRemaining] = useState(limit);
   const recordedRef = useRef(false);
 
@@ -325,7 +445,6 @@ function MockRunner({
     return () => clearTimeout(t);
   }, [remaining, submitted, submit]);
 
-  // 採点確定時に一度だけ履歴へ記録する。
   const results = useMemo(() => {
     return questions.map((q, i) => ({
       domain: q.domain,
@@ -333,6 +452,7 @@ function MockRunner({
     }));
   }, [questions, responses]);
 
+  // 採点確定時に一度だけ履歴へ記録する。
   useEffect(() => {
     if (submitted && !recordedRef.current) {
       recordedRef.current = true;
@@ -342,20 +462,44 @@ function MockRunner({
     }
   }, [submitted, questions, responses, recordAnswer]);
 
+  const question = questions[index];
+  const isLast = index === questions.length - 1;
+
+  const select = useCallback(
+    (choiceIndex: number) => {
+      setResponses((r) => ({ ...r, [index]: choiceIndex }));
+    },
+    [index],
+  );
+
+  const goNext = useCallback(() => {
+    setIndex((i) => Math.min(questions.length - 1, i + 1));
+  }, [questions.length]);
+
+  // キーボード操作（PC）：1/2/3 で選択、Enter で次へ。
+  useEffect(() => {
+    if (submitted) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key >= "1" && e.key <= String(question.choices.length)) {
+        e.preventDefault();
+        select(Number(e.key) - 1);
+      } else if (e.key === "Enter" && !isLast) {
+        e.preventDefault();
+        goNext();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [select, goNext, isLast, submitted, question.choices.length]);
+
   if (submitted) {
     return <MockResult results={results} onExit={onExit} />;
   }
 
-  const question = questions[index];
-  const isLast = index === questions.length - 1;
   const answeredCount = Object.keys(responses).length;
   const mm = Math.floor(remaining / 60);
   const ss = String(remaining % 60).padStart(2, "0");
   const lowTime = remaining <= 30;
-
-  const select = (choiceIndex: number) => {
-    setResponses((r) => ({ ...r, [index]: choiceIndex }));
-  };
 
   return (
     <div className="pb-8">
@@ -366,9 +510,7 @@ function MockRunner({
         onExit={onExit}
         right={
           <span
-            className={`tabular-nums font-black ${
-              lowTime ? "text-rose-500" : ""
-            }`}
+            className={`tabular-nums font-black ${lowTime ? "text-rose-500" : ""}`}
             aria-live="polite"
           >
             {mm}:{ss}
@@ -392,7 +534,7 @@ function MockRunner({
                 }`}
               >
                 <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-slate-100 text-sm font-bold dark:bg-slate-800">
-                  {String.fromCharCode(65 + i)}
+                  {i + 1}
                 </span>
                 <span>{choice}</span>
               </button>
@@ -418,7 +560,7 @@ function MockRunner({
           </button>
         ) : (
           <button
-            onClick={() => setIndex((i) => Math.min(questions.length - 1, i + 1))}
+            onClick={goNext}
             className="flex-1 rounded-xl bg-accent-strong py-3 font-black text-slate-900 dark:bg-accent"
           >
             次へ
@@ -428,6 +570,7 @@ function MockRunner({
       <p className="mt-4 px-4 text-center text-[11px] text-slate-400">
         模試モードでは即時解説は表示されません。制限時間内に解答してください。
       </p>
+      <KeyboardHint />
     </div>
   );
 }

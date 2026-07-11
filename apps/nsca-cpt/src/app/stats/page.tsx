@@ -13,6 +13,7 @@ import { dailyCounts } from "@/lib/streak";
 import { NUM_BOXES } from "@/lib/config";
 import { PageHeader, Card, Meter, StatTile } from "@/components/ui";
 import { WeekChart } from "@/components/WeekChart";
+import { Heatmap } from "@/components/Heatmap";
 
 export default function StatsPage() {
   const { state, hydrated } = useProgress();
@@ -50,7 +51,7 @@ export default function StatsPage() {
   const empty = state.answers.length === 0;
 
   return (
-    <div className="animate-pop-in">
+    <div className="animate-pop-in mx-auto w-full max-w-4xl">
       <PageHeader title="統計 / 振り返り" subtitle="学習の積み上げを可視化。" />
 
       {empty ? (
@@ -70,8 +71,8 @@ export default function StatsPage() {
           </Card>
         </div>
       ) : (
-        <div className="space-y-4 px-4">
-          <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid gap-4 px-4 lg:grid-cols-2">
+          <div className="grid grid-cols-3 gap-2.5 lg:col-span-2">
             <StatTile
               value={`${Math.round(overall * 100)}%`}
               label="累計正答率"
@@ -80,6 +81,11 @@ export default function StatsPage() {
             <StatTile value={state.answers.length} label="累計解答" />
             <StatTile value={studyDays} label="学習日数" />
           </div>
+
+          <Card className="lg:col-span-2">
+            <h2 className="mb-3 text-sm font-bold">学習の記録（ヒートマップ）</h2>
+            <Heatmap answers={state.answers} weeks={20} />
+          </Card>
 
           <Card>
             <h2 className="mb-3 text-sm font-bold">正答率の推移（直近10問移動）</h2>
