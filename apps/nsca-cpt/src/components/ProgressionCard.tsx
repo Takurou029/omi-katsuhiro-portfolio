@@ -3,7 +3,13 @@
 // 「積み上げ」カード：レベル・累計・定着数・マイルストーン。
 // 数字が減らない指標だけを見せ、積み上がる実感でモチベーションを支える。
 import { useMemo } from "react";
-import { levelFromXp, milestoneInfo, masteredCount, totalStudyDays } from "@/lib/progression";
+import {
+  levelFromXp,
+  milestoneInfo,
+  masteredCount,
+  almostMasteredCount,
+  totalStudyDays,
+} from "@/lib/progression";
 import { QUESTIONS } from "@/lib/questions";
 import { dailyCounts } from "@/lib/streak";
 import type { AnswerRecord, LeitnerCard } from "@/lib/types";
@@ -20,6 +26,7 @@ export function ProgressionCard({
   const level = levelFromXp(total);
   const milestone = milestoneInfo(total);
   const mastered = masteredCount(cards);
+  const almostMastered = almostMasteredCount(cards);
   const days = totalStudyDays(answers);
 
   // 直近30日の累積カーブ（右肩上がりしか描かれない＝積み上げの実感）。
@@ -98,6 +105,11 @@ export function ProgressionCard({
       <p className="mt-2 text-[10px] leading-relaxed text-slate-400">
         定着＝繰り返し正解して復習間隔が伸びた問題（間違えるとやり直しになります）
       </p>
+      {almostMastered > 0 && (
+        <p className="mt-1 text-xs font-bold text-sky-600 dark:text-sky-400">
+          もうすぐ定着 {almostMastered}問（あと1回正解で定着します）
+        </p>
+      )}
 
       {milestone.next && (
         <p className="mt-2 flex items-center gap-1.5 rounded-xl bg-slate-50 px-3 py-2 text-xs font-medium text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">

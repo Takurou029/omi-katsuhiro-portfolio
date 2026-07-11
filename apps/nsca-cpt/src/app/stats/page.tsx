@@ -161,12 +161,23 @@ function TrendChart({ trend }: { trend: number[] }) {
           strokeDasharray="4"
           strokeWidth="1"
         />
+        {/* 折れ線が70%付近を通っても読めるよう、背景チップ付きで右端に置く */}
+        <rect
+          x={w - 88}
+          y={h * 0.3 - 14}
+          width="86"
+          height="13"
+          rx="4"
+          className="fill-white dark:fill-slate-900"
+          opacity="0.9"
+        />
         <text
-          x="2"
+          x={w - 6}
           y={h * 0.3 - 4}
+          textAnchor="end"
           fontSize="9"
           fill="currentColor"
-          className="text-slate-400"
+          className="text-slate-500 dark:text-slate-400"
         >
           合格ライン 70%
         </text>

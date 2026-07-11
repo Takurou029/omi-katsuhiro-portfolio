@@ -3,6 +3,7 @@ import {
   levelFromXp,
   milestoneInfo,
   masteredCount,
+  almostMasteredCount,
   xpForLevel,
   MILESTONES,
 } from "./progression";
@@ -59,14 +60,20 @@ describe("milestoneInfo", () => {
   });
 });
 
-describe("masteredCount", () => {
+describe("masteredCount / almostMasteredCount", () => {
+  const cards: Record<string, LeitnerCard> = {
+    a: { ...createCard("a"), box: 5 },
+    b: { ...createCard("b"), box: 4 },
+    c: { ...createCard("c"), box: 3 },
+    d: { ...createCard("d"), box: 3 },
+    e: { ...createCard("e"), box: 1 },
+  };
+
   it("ボックス4以上を定着として数える", () => {
-    const cards: Record<string, LeitnerCard> = {
-      a: { ...createCard("a"), box: 5 },
-      b: { ...createCard("b"), box: 4 },
-      c: { ...createCard("c"), box: 3 },
-      d: { ...createCard("d"), box: 1 },
-    };
     expect(masteredCount(cards)).toBe(2);
+  });
+
+  it("ボックス3を「もうすぐ定着」として数える", () => {
+    expect(almostMasteredCount(cards)).toBe(2);
   });
 });

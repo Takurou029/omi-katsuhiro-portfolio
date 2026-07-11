@@ -114,6 +114,17 @@ export function timeLimitSeconds(
   return Math.round(seconds);
 }
 
+/** 残り時間の逼迫度。残り25%で注意（warn）、残り10%で警告（danger）。 */
+export type TimerTone = "normal" | "warn" | "danger";
+
+export function timerTone(remaining: number, limit: number): TimerTone {
+  if (limit <= 0) return "normal";
+  const fraction = remaining / limit;
+  if (fraction <= 0.1) return "danger";
+  if (fraction <= 0.25) return "warn";
+  return "normal";
+}
+
 export interface DomainScore {
   domain: string;
   correct: number;

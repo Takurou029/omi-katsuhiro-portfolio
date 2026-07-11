@@ -641,5 +641,329 @@
     "imageUrl": null,
     "videoUrl": null,
     "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+
+  {
+    "id": "consult-011",
+    "domain": "面談と評価",
+    "difficulty": 2,
+    "question": "推定最大心拍数の最も簡便な算出式として一般的に用いられるのはどれか。",
+    "choices": [
+      "220 − 年齢",
+      "200 − 体重(kg)",
+      "180 + 年齢"
+    ],
+    "answerIndex": 0,
+    "explanation": "推定最大心拍数は「220 − 年齢」が最も簡便な推定式として広く用いられます。個人差が大きい点（±10拍程度）には注意が必要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "consult-012",
+    "domain": "面談と評価",
+    "difficulty": 3,
+    "question": "カルボーネン法（心拍予備法）で用いる「予備心拍数（HRR）」の求め方はどれか。",
+    "choices": [
+      "安静時心拍数 × 2",
+      "最大心拍数 + 安静時心拍数",
+      "最大心拍数 − 安静時心拍数"
+    ],
+    "answerIndex": 2,
+    "explanation": "予備心拍数（HRR）＝最大心拍数 − 安静時心拍数。目標心拍数は「HRR × 運動強度(%) + 安静時心拍数」で求めます（カルボーネン法）。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "consult-013",
+    "domain": "面談と評価",
+    "difficulty": 2,
+    "question": "行動変容ステージモデルで「準備期（preparation）」にあたるクライアントの状態はどれか。",
+    "choices": [
+      "運動の必要性をまったく感じていない",
+      "近いうちに運動を始めるつもりで、具体的な準備を始めている",
+      "すでに6か月以上運動を継続している"
+    ],
+    "answerIndex": 1,
+    "explanation": "準備期は「30日以内など近い将来に行動を起こす意図があり、体験入会や用具の購入など具体的な準備を始めている」段階です。無関心期・維持期との区別を押さえましょう。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "consult-014",
+    "domain": "面談と評価",
+    "difficulty": 1,
+    "question": "座位体前屈（シット・アンド・リーチ）テストが主に評価する部位はどれか。",
+    "choices": [
+      "肩関節の可動域",
+      "腰背部とハムストリングスの柔軟性",
+      "足関節の背屈可動域"
+    ],
+    "answerIndex": 1,
+    "explanation": "座位体前屈は腰背部とハムストリングス（大腿後面）の柔軟性の評価として広く用いられます。肩や足関節の柔軟性は別のテストで評価します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "consult-015",
+    "domain": "面談と評価",
+    "difficulty": 3,
+    "question": "運動開始前に医師への照会（メディカルクリアランス）が最も強く推奨されるのはどれか。",
+    "choices": [
+      "心疾患の既往があり、これから高強度運動を始めようとする人",
+      "健康な20代が中強度のウォーキングを始める場合",
+      "運動習慣のある健康な成人が同じ運動を続ける場合"
+    ],
+    "answerIndex": 0,
+    "explanation": "心血管・代謝・腎疾患の既往や症状がある人が高強度運動を始める場合は、事前の医学的許可が強く推奨されます。健康な人の低〜中強度運動では通常不要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+
+  {
+    "id": "tech-011",
+    "domain": "エクササイズテクニック",
+    "difficulty": 1,
+    "question": "レジスタンス運動時の呼吸の一般原則として正しいのはどれか。",
+    "choices": [
+      "常に息を止めたまま行う",
+      "下ろす（伸張性）局面で息を吐く",
+      "挙上する（短縮性）局面で息を吐く"
+    ],
+    "answerIndex": 2,
+    "explanation": "一般原則は「力を出す（挙上・短縮性）局面で吐き、下ろす（伸張性）局面で吸う」。息を止め続けると血圧が急上昇するため、通常の負荷では避けます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "tech-012",
+    "domain": "エクササイズテクニック",
+    "difficulty": 2,
+    "question": "デッドリフトで高重量時にバーの滑りを防ぐ目的で使われる握り方はどれか。",
+    "choices": [
+      "両手とも順手（オーバーハンド）で浅く握る",
+      "片手を順手・もう片手を逆手にするオルタネイトグリップ",
+      "指先だけで引っかけるフックなしの浅指握り"
+    ],
+    "answerIndex": 1,
+    "explanation": "オルタネイト（交互）グリップは片手順手・片手逆手で握る方法で、バーの回転による滑りを防ぎます。フックグリップも滑り防止に有効です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "tech-013",
+    "domain": "エクササイズテクニック",
+    "difficulty": 1,
+    "question": "プランク（フロントブリッジ）の正しい姿勢はどれか。",
+    "choices": [
+      "頭から踵まで一直線を保ち、腰を反らせたり落としたりしない",
+      "腰をできるだけ高く持ち上げる",
+      "腰を大きく反らせて胸を張る"
+    ],
+    "answerIndex": 0,
+    "explanation": "プランクは頭・肩・股関節・踵が一直線になるよう体幹を固定します。腰の反り（過伸展）や落ち込みは腰部への負担や効果減少につながります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "tech-014",
+    "domain": "エクササイズテクニック",
+    "difficulty": 2,
+    "question": "マシントレーニングがフリーウェイトと比べて優れている点として適切なのはどれか。",
+    "choices": [
+      "バランス能力や安定筋がより多く鍛えられる",
+      "軌道が固定されており、初心者でも比較的安全にフォームを学べる",
+      "あらゆる競技動作への転移が最も高い"
+    ],
+    "answerIndex": 1,
+    "explanation": "マシンは動作軌道が固定されるため、初心者や リハビリ段階でも比較的安全に扱えます。一方、安定筋の動員や競技動作への転移はフリーウェイトが優れます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "tech-015",
+    "domain": "エクササイズテクニック",
+    "difficulty": 2,
+    "question": "ベントオーバーロウ（バーベルロウ）で維持すべき姿勢はどれか。",
+    "choices": [
+      "背中を丸めて反動で引き上げる",
+      "直立に近い姿勢で腕だけで引く",
+      "股関節から前傾し、脊柱をニュートラルに保ったまま引く"
+    ],
+    "answerIndex": 2,
+    "explanation": "ベントオーバーロウは股関節から上体を前傾し、腰椎をニュートラルに保ったまま肘を引きます。腰の丸まりや反動は腰部傷害のリスクを高めます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+
+  {
+    "id": "prog-011",
+    "domain": "プログラムデザイン",
+    "difficulty": 2,
+    "question": "負荷を増やす目安として用いられる「2フォー2ルール」の内容はどれか。",
+    "choices": [
+      "2回連続のセッションで、最終セットが目標回数より2回多くこなせたら負荷を増やす",
+      "2週間ごとに必ず2kgずつ増やす",
+      "2セット目で2回失敗したら負荷を増やす"
+    ],
+    "answerIndex": 0,
+    "explanation": "2フォー2ルール：直近2回のセッションで最終セットを目標回数＋2回以上こなせたら、次回から負荷を漸増する目安です。無理のない漸進的過負荷に役立ちます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "prog-012",
+    "domain": "プログラムデザイン",
+    "difficulty": 1,
+    "question": "健康維持のための有酸素運動として一般的に推奨される週あたりの目安はどれか。",
+    "choices": [
+      "週10分の高強度運動のみ",
+      "中強度で合計150分程度（または高強度75分程度）",
+      "毎日3時間以上"
+    ],
+    "answerIndex": 1,
+    "explanation": "一般的なガイドラインでは、中強度の有酸素運動を週150分程度（または高強度を週75分程度）が健康維持の目安とされています。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "prog-013",
+    "domain": "プログラムデザイン",
+    "difficulty": 1,
+    "question": "ウォームアップの主な目的として最も適切なのはどれか。",
+    "choices": [
+      "筋肉を極限まで疲労させること",
+      "主運動の負荷を完全に置き換えること",
+      "体温・心拍数を徐々に上げ、主運動への身体的準備を整えること"
+    ],
+    "answerIndex": 2,
+    "explanation": "ウォームアップは体温・筋温・心拍数を漸増させ、可動域と神経系の準備を整えて主運動の質を高め、傷害リスクの低減に寄与します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "prog-014",
+    "domain": "プログラムデザイン",
+    "difficulty": 2,
+    "question": "「スーパーセット」の説明として正しいのはどれか。",
+    "choices": [
+      "拮抗する筋群（例：上腕二頭筋と三頭筋）の種目を休息を挟まず続けて行う",
+      "同じ種目を1日に2回行う",
+      "1セットを2人で交互に行う"
+    ],
+    "answerIndex": 0,
+    "explanation": "スーパーセットは拮抗筋どうし（プッシュとプル等）の2種目を休息なしで連続実施する方法。時間効率が高く、筋持久力向上にも用いられます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "prog-015",
+    "domain": "プログラムデザイン",
+    "difficulty": 1,
+    "question": "レジスタンストレーニング初心者の最初の数週間で最も優先すべきことはどれか。",
+    "choices": [
+      "限界重量への挑戦",
+      "正しいフォームの習得と軽負荷からの漸進",
+      "毎日の高強度トレーニング"
+    ],
+    "answerIndex": 1,
+    "explanation": "初心者はまず正しい動作パターンの習得が最優先。軽い負荷でフォームを固め、適応に応じて漸進的に負荷を高めることで安全に効果を得られます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+
+  {
+    "id": "safety-011",
+    "domain": "安全性・法的",
+    "difficulty": 1,
+    "question": "運動を直ちに中止して対応すべき徴候はどれか。",
+    "choices": [
+      "軽い発汗",
+      "運動に伴う適度な筋疲労",
+      "胸の痛み・強いめまい・異常な息切れ"
+    ],
+    "answerIndex": 2,
+    "explanation": "胸痛、強いめまい・ふらつき、異常な息切れ、冷汗などは心血管イベントの前兆の可能性があり、直ちに運動を中止して状態確認・必要なら救急要請を行います。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "safety-012",
+    "domain": "安全性・法的",
+    "difficulty": 2,
+    "question": "クライアント情報の取り扱いとして適切なのはどれか。",
+    "choices": [
+      "本人の同意なく第三者へ開示しない（守秘義務を守る）",
+      "指導の宣伝のため、無断で経過をSNSに投稿する",
+      "他のクライアントに雑談として健康情報を共有する"
+    ],
+    "answerIndex": 0,
+    "explanation": "健康情報・評価結果などの個人情報には守秘義務があります。開示や事例紹介には本人の明示的な同意が必要です。無断公開は信頼と法的リスクの両面で問題になります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "safety-013",
+    "domain": "安全性・法的",
+    "difficulty": 3,
+    "question": "パーソナルトレーナーが専門職賠償責任保険に加入する主な意義はどれか。",
+    "choices": [
+      "医療行為が可能になる",
+      "指導中の事故等で損害賠償を請求された場合に備える",
+      "資格試験が免除される"
+    ],
+    "answerIndex": 1,
+    "explanation": "賠償責任保険は、指導中の傷害等で法的責任を問われた場合の損害賠償・訴訟費用に備えるものです。保険加入は責任の免除ではなく、注意義務の履行が前提です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "safety-014",
+    "domain": "安全性・法的",
+    "difficulty": 2,
+    "question": "トレーニング器具の安全管理として適切なのはどれか。",
+    "choices": [
+      "故障してもそのまま使い続ける",
+      "定期点検を行って記録し、不具合のある器具は使用中止を明示する",
+      "点検は年に1回口頭確認のみで十分である"
+    ],
+    "answerIndex": 1,
+    "explanation": "器具は定期的に点検・清掃し、点検記録を残します。不具合が見つかった器具は「使用中止」を明示して隔離・修理します。記録は事故時の法的保護にも役立ちます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
+  },
+  {
+    "id": "safety-015",
+    "domain": "安全性・法的",
+    "difficulty": 2,
+    "question": "遅発性筋肉痛（DOMS）について正しい記述はどれか。",
+    "choices": [
+      "運動直後に最も強く、数分で消える",
+      "感じた時点で直ちに医療機関の受診が必要である",
+      "運動後24〜72時間でピークに達し、通常は自然に軽快する"
+    ],
+    "answerIndex": 2,
+    "explanation": "DOMSは不慣れな運動や伸張性動作の後、24〜72時間でピークになる筋肉痛で、通常は数日で自然軽快します。強い腫脹や褐色尿を伴う場合は横紋筋融解症を疑い受診が必要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": { "edition": "第3版", "chapter": null, "page": null }
   }
 ]

@@ -76,6 +76,17 @@ export function masteredCount(
   return Object.values(cards).filter((c) => c.box >= threshold).length;
 }
 
+/**
+ * もうすぐ定着（あと1回正解で定着）の問題数。
+ * 「定着 0」の期間が長く続くと折れやすいため、中間の進捗として見せる。
+ */
+export function almostMasteredCount(
+  cards: Record<string, LeitnerCard>,
+  threshold = 4,
+): number {
+  return Object.values(cards).filter((c) => c.box === threshold - 1).length;
+}
+
 /** 学習した日数（ユニーク日数）。 */
 export function totalStudyDays(answers: AnswerRecord[]): number {
   const set = new Set<string>();

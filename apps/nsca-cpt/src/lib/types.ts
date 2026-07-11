@@ -72,6 +72,10 @@ export interface Settings {
   /** 1日の最低ノルマ（「今日の◯問」）。 */
   dailyGoal: number;
   theme: ThemePreference;
+  /** リマインダー（.ics）を作成済みか（ホームでの提案表示の判定に使う）。 */
+  reminderConfigured?: boolean;
+  /** ホームのリマインダー提案を「あとで」で閉じたか。 */
+  reminderPromptDismissed?: boolean;
 }
 
 /** localStorage / 将来のDBに保存する進捗の全体像。 */

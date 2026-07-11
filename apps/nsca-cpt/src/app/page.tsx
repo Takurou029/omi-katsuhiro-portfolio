@@ -30,7 +30,7 @@ import {
 import type { Question } from "@/lib/types";
 
 export default function HomePage() {
-  const { state, hydrated } = useProgress();
+  const { state, hydrated, updateSettings } = useProgress();
   const [session, setSession] = useState<Question[] | null>(null);
   const [sessionKey, setSessionKey] = useState(0);
 
@@ -84,6 +84,11 @@ export default function HomePage() {
   // 昨日休んだが保護で繋がっている状態（今日やれば消費してチェーン継続）。
   const protectedNow = isStreakProtected(state.streak, todayKey);
   const firstRun = state.answers.length === 0;
+  // リマインダー提案：学習が始まった人にだけ、一度だけ出す。
+  const showReminderNudge =
+    !firstRun &&
+    !state.settings.reminderConfigured &&
+    !state.settings.reminderPromptDismissed;
 
   return (
     <div className="animate-pop-in px-4 lg:px-8">
@@ -124,6 +129,7 @@ export default function HomePage() {
               <span className="flex items-center gap-1 font-bold text-sky-600 dark:text-sky-400">
                 <ShieldIcon className="h-3.5 w-3.5" />
                 おやすみ保護 {state.streak.freezes}回分
+                {protectedNow && "（今日つなぐと1回分使います）"}
               </span>
             )}
             {state.streak.longest > streak && state.streak.longest >= 2 && (
@@ -223,6 +229,33 @@ export default function HomePage() {
           </div>
         </button>
       </section>
+
+      {/* リマインダー提案（一度だけ）：開くのを忘れない仕組みづくりへ誘導 */}
+      {showReminderNudge && (
+        <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-4 dark:border-sky-500/30 dark:bg-sky-500/10 sm:flex-row sm:items-center">
+          <p className="flex-1 text-sm leading-relaxed text-sky-900 dark:text-sky-200">
+            <span className="font-bold">続けるコツは「開くのを忘れないこと」。</span>
+            <br className="sm:hidden" />
+            毎日決まった時刻に呼び戻してくれるリマインダーを、カレンダーに登録できます。
+          </p>
+          <div className="flex flex-none gap-2">
+            <Link
+              href="/settings"
+              className="rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-sky-700"
+            >
+              設定でつくる
+            </Link>
+            <button
+              onClick={() =>
+                updateSettings({ reminderPromptDismissed: true })
+              }
+              className="rounded-xl px-4 py-2.5 text-sm font-bold text-sky-700 hover:bg-sky-100 dark:text-sky-300 dark:hover:bg-sky-500/20"
+            >
+              あとで
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 2カラム：積み上げ＋ヒートマップ / 到達度＋アクション */}
       <section className="mt-4 grid gap-4 lg:grid-cols-2">

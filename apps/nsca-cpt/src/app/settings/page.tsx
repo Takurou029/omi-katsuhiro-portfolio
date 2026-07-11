@@ -139,6 +139,7 @@ export default function SettingsPage() {
  * カレンダー予定（.ics）を書き出し、カレンダーの通知で呼び戻す。
  */
 function ReminderCard() {
+  const { updateSettings } = useProgress();
   const [time, setTime] = useState("07:30");
   const [done, setDone] = useState(false);
 
@@ -156,6 +157,8 @@ function ReminderCard() {
     a.remove();
     URL.revokeObjectURL(href);
     setDone(true);
+    // ホームの提案カードを出さないよう記録する。
+    updateSettings({ reminderConfigured: true });
   };
 
   return (

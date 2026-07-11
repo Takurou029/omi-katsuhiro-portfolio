@@ -8,7 +8,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useProgress } from "@/lib/store";
-import { grade, timeLimitSeconds } from "@/lib/mockComposer";
+import { grade, timeLimitSeconds, timerTone } from "@/lib/mockComposer";
 import { DOMAIN_BY_NAME } from "@/lib/config";
 import { levelFromXp } from "@/lib/progression";
 import { Card, Meter } from "@/components/ui";
@@ -28,9 +28,18 @@ interface Props {
   onExit: () => void;
   /** 「もう1セット」用（daily/practice で再抽選して続ける）。 */
   onOneMore?: () => void;
+  /** 模試の「もう一度」用（設定画面を経由せず直接再開始する）。 */
+  onRetry?: () => void;
 }
 
-export function QuizRunner({ questions, mode, title, onExit, onOneMore }: Props) {
+export function QuizRunner({
+  questions,
+  mode,
+  title,
+  onExit,
+  onOneMore,
+  onRetry,
+}: Props) {
   const isMock = mode === "mock";
   if (questions.length === 0) {
     return (
@@ -48,7 +57,12 @@ export function QuizRunner({ questions, mode, title, onExit, onOneMore }: Props)
   return (
     <div className="mx-auto w-full max-w-2xl">
       {isMock ? (
-        <MockRunner questions={questions} title={title} onExit={onExit} />
+        <MockRunner
+          questions={questions}
+          title={title}
+          onExit={onExit}
+          onRetry={onRetry}
+        />
       ) : (
         <FeedbackRunner
           questions={questions}
@@ -473,10 +487,12 @@ function MockRunner({
   questions,
   title,
   onExit,
+  onRetry,
 }: {
   questions: Question[];
   title: string;
   onExit: () => void;
+  onRetry?: () => void;
 }) {
   const { recordAnswer } = useProgress();
   const [index, setIndex] = useState(0);
@@ -572,6 +588,7 @@ function MockRunner({
         questions={questions}
         responses={responses}
         onExit={onExit}
+        onRetry={onRetry}
       />
     );
   }
@@ -580,11 +597,11 @@ function MockRunner({
   const mm = Math.floor(remaining / 60);
   const ss = String(remaining % 60).padStart(2, "0");
   // 残り時間の逼迫度で段階的に色を変える（残り25%で注意・10%で警告）。
-  const fraction = limit > 0 ? remaining / limit : 0;
+  const tone = timerTone(remaining, limit);
   const timeClass =
-    fraction <= 0.1
+    tone === "danger"
       ? "rounded-md bg-rose-100 px-1.5 text-rose-600 dark:bg-rose-500/20 dark:text-rose-300"
-      : fraction <= 0.25
+      : tone === "warn"
         ? "text-amber-600 dark:text-amber-400"
         : "";
 
@@ -668,17 +685,21 @@ function MockResult({
   questions,
   responses,
   onExit,
+  onRetry,
 }: {
   results: { domain: string; correct: boolean }[];
   questions: Question[];
   responses: Record<number, number>;
   onExit: () => void;
+  onRetry?: () => void;
 }) {
   const g = grade(results);
   const wrongItems = questions
     .map((q, i) => ({ q, chosen: responses[i] }))
     .filter(({ q, chosen }) => chosen !== q.answerIndex);
   const [expandAll, setExpandAll] = useState(false);
+  // 「もう一度」は設定画面を経由せず直接再開始する。
+  const retry = onRetry ?? onExit;
 
   // Enter で「もう一度 模試に挑戦」（誤発火防止の猶予つき）。
   useEffect(() => {
@@ -686,11 +707,11 @@ function MockResult({
     const handler = (e: KeyboardEvent) => {
       if (e.key !== "Enter" || Date.now() - mountedAt < 500) return;
       e.preventDefault();
-      onExit();
+      retry();
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [onExit]);
+  }, [retry]);
   const pct = Math.round(g.rate * 100);
   const passPct = Math.round(g.passRate * 100);
   return (
@@ -813,13 +834,19 @@ function MockResult({
 
       <div className="mt-6 flex flex-col gap-3">
         <button
-          onClick={onExit}
+          onClick={retry}
           className="w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900"
         >
           もう一度 模試に挑戦
           <span className="ml-2 hidden text-xs font-bold opacity-60 lg:inline">
             Enter
           </span>
+        </button>
+        <button
+          onClick={onExit}
+          className="w-full rounded-2xl bg-slate-200 py-3 font-bold dark:bg-slate-800"
+        >
+          問題数を変えて挑戦
         </button>
         <Link
           href="/review"

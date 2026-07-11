@@ -4,6 +4,7 @@ import {
   composeMock,
   grade,
   timeLimitSeconds,
+  timerTone,
 } from "./mockComposer";
 import type { Question } from "./types";
 
@@ -122,6 +123,21 @@ describe("timeLimitSeconds", () => {
     expect(timeLimitSeconds(155)).toBe(10800);
     // 半分の問題数なら概ね半分の時間
     expect(timeLimitSeconds(31)).toBe(Math.round(10800 * (31 / 155)));
+  });
+});
+
+describe("timerTone", () => {
+  it("残り25%以下で warn、10%以下で danger", () => {
+    expect(timerTone(100, 100)).toBe("normal");
+    expect(timerTone(26, 100)).toBe("normal");
+    expect(timerTone(25, 100)).toBe("warn");
+    expect(timerTone(11, 100)).toBe("warn");
+    expect(timerTone(10, 100)).toBe("danger");
+    expect(timerTone(0, 100)).toBe("danger");
+  });
+
+  it("limit が 0 以下なら常に normal", () => {
+    expect(timerTone(10, 0)).toBe("normal");
   });
 });
 

@@ -266,6 +266,51 @@ function BloodPressure() {
   );
 }
 
+/** SMART 目標設定 */
+function SmartGoal() {
+  const items = [
+    { k: "S", label: "Specific", ja: "具体的" },
+    { k: "M", label: "Measurable", ja: "測定可能" },
+    { k: "A", label: "Achievable", ja: "達成可能" },
+    { k: "R", label: "Relevant", ja: "関連性" },
+    { k: "T", label: "Time-bound", ja: "期限" },
+  ];
+  return (
+    <Fig caption="SMART な目標設定の5要素" viewBox="0 0 320 110">
+      {items.map((it, i) => (
+        <g key={it.k} transform={`translate(${8 + i * 62} 14)`}>
+          <rect x="0" y="0" width="56" height="34" rx="8" fill={i === 1 ? "#a3e635" : "#e2e8f0"} className={i === 1 ? "" : "dark:opacity-20"} />
+          <text x="28" y="23" fontSize="18" fontWeight="bold" fill="#1e293b" textAnchor="middle">{it.k}</text>
+          <text x="28" y="52" fontSize="8.5" fill={INK} opacity="0.75" textAnchor="middle">{it.label}</text>
+          <text x="28" y="66" fontSize="10" fill={INK} fontWeight="bold" textAnchor="middle">{it.ja}</text>
+        </g>
+      ))}
+      <text x="160" y="94" fontSize="10" fill={ACCENT} fontWeight="bold" textAnchor="middle">M = Measurable（測定可能）</text>
+    </Fig>
+  );
+}
+
+/** 緊急時対応計画（EAP）に含める要素 */
+function EapChecklist() {
+  const items = [
+    "緊急連絡の手順（119番・施設内連絡網）",
+    "AED の設置場所と使用手順・救急要請",
+    "スタッフの役割分担と搬送経路",
+    "定期的な訓練と記録",
+  ];
+  return (
+    <Fig caption="緊急時対応計画（EAP）に含める主な要素" viewBox="0 0 320 120">
+      {items.map((t, i) => (
+        <g key={t} transform={`translate(12 ${12 + i * 26})`}>
+          <rect x="0" y="0" width="18" height="18" rx="4" fill="none" stroke={GOOD} strokeWidth="2" />
+          <path d="m4 9 5 5 7-9" stroke={GOOD} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <text x="28" y="13" fontSize="11" fill={INK} fontWeight="bold">{t}</text>
+        </g>
+      ))}
+    </Fig>
+  );
+}
+
 /** 問題ID → 図解のマッピング。 */
 const MAP: Record<string, () => ReactNode> = {
   "tech-001": SquatDepth,
@@ -280,6 +325,8 @@ const MAP: Record<string, () => ReactNode> = {
   "prog-006": RestPeriods,
   "consult-003": BmiFormula,
   "consult-008": BloodPressure,
+  "consult-005": SmartGoal,
+  "safety-004": EapChecklist,
 };
 
 /** 問題に対応する図解があれば返す。無ければ null。 */

@@ -21,6 +21,7 @@ const OPTIONS = [10, DEFAULT_MOCK_QUESTIONS, 40];
 export default function MockPage() {
   const [count, setCount] = useState(DEFAULT_MOCK_QUESTIONS);
   const [session, setSession] = useState<Question[] | null>(null);
+  const [sessionKey, setSessionKey] = useState(0);
 
   const maxAvailable = QUESTIONS.length;
 
@@ -28,15 +29,18 @@ export default function MockPage() {
     const size = Math.min(n, maxAvailable);
     const { questions } = composeMock(QUESTIONS, size, DOMAIN_WEIGHTS);
     setSession(questions);
+    setSessionKey((k) => k + 1);
   };
 
   if (session) {
     return (
       <QuizRunner
+        key={sessionKey}
         questions={session}
         mode="mock"
         title="模試"
         onExit={() => setSession(null)}
+        onRetry={() => start(count)}
       />
     );
   }
