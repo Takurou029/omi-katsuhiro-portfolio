@@ -146,7 +146,7 @@ function QuestionBody({ question }: { question: Question }) {
 
 function KeyboardHint() {
   return (
-    <p className="mt-4 hidden items-center justify-center gap-1.5 px-4 text-center text-[11px] text-slate-400 lg:flex">
+    <p className="mt-4 hidden items-center justify-center gap-1.5 px-4 text-center text-xs text-slate-500 dark:text-slate-400 lg:flex">
       <KeyboardIcon className="h-4 w-4" />
       キーボード操作：<kbd className="rounded border border-slate-300 px-1 dark:border-slate-600">1</kbd>
       <kbd className="rounded border border-slate-300 px-1 dark:border-slate-600">2</kbd>
@@ -355,6 +355,20 @@ function SessionResult({
   const level = levelFromXp(state.answers.length);
   const streak = state.streak.current;
 
+  // Enter で主アクション（もう1セット／もう一度）。
+  // 直前の「結果を見る」の Enter 押しっぱなしで誤発火しないよう猶予を置く。
+  useEffect(() => {
+    const mountedAt = Date.now();
+    const handler = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || Date.now() - mountedAt < 500) return;
+      e.preventDefault();
+      if (onOneMore) onOneMore();
+      else onExit();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onOneMore, onExit]);
+
   return (
     <div className="animate-pop-in px-4 py-10 text-center">
       {goalReached && mode === "daily" ? (
@@ -421,7 +435,10 @@ function SessionResult({
             onClick={onOneMore}
             className="w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900 hover:bg-accent-soft"
           >
-            もう1セット（あと{level.remaining <= total ? level.remaining : total}問でも前進）
+            もう1セット
+            <span className="ml-2 hidden text-xs font-bold opacity-60 lg:inline">
+              Enter
+            </span>
           </button>
         )}
         <button
@@ -562,7 +579,14 @@ function MockRunner({
   const answeredCount = Object.keys(responses).length;
   const mm = Math.floor(remaining / 60);
   const ss = String(remaining % 60).padStart(2, "0");
-  const lowTime = remaining <= 30;
+  // 残り時間の逼迫度で段階的に色を変える（残り25%で注意・10%で警告）。
+  const fraction = limit > 0 ? remaining / limit : 0;
+  const timeClass =
+    fraction <= 0.1
+      ? "rounded-md bg-rose-100 px-1.5 text-rose-600 dark:bg-rose-500/20 dark:text-rose-300"
+      : fraction <= 0.25
+        ? "text-amber-600 dark:text-amber-400"
+        : "";
 
   return (
     <div className="pb-8">
@@ -574,7 +598,7 @@ function MockRunner({
         confirmExit
         right={
           <span
-            className={`tabular-nums font-black ${lowTime ? "text-rose-500" : ""}`}
+            className={`tabular-nums font-black ${timeClass}`}
             aria-live="polite"
           >
             {mm}:{ss}
@@ -654,6 +678,19 @@ function MockResult({
   const wrongItems = questions
     .map((q, i) => ({ q, chosen: responses[i] }))
     .filter(({ q, chosen }) => chosen !== q.answerIndex);
+  const [expandAll, setExpandAll] = useState(false);
+
+  // Enter で「もう一度 模試に挑戦」（誤発火防止の猶予つき）。
+  useEffect(() => {
+    const mountedAt = Date.now();
+    const handler = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || Date.now() - mountedAt < 500) return;
+      e.preventDefault();
+      onExit();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onExit]);
   const pct = Math.round(g.rate * 100);
   const passPct = Math.round(g.passRate * 100);
   return (
@@ -673,6 +710,12 @@ function MockResult({
         <span className="mt-1 text-sm">
           {g.correct} / {g.total} 問正解（合格ライン {passPct}%）
         </span>
+        {!g.passed && wrongItems.length > 0 && (
+          <span className="mt-2 text-xs font-medium opacity-90">
+            間違えた{wrongItems.length}問は下で確認できます。
+            間違いノートで1問ずつ潰していきましょう。
+          </span>
+        )}
       </div>
 
       <div className="mt-4">
@@ -708,13 +751,24 @@ function MockResult({
       {/* 間違えた問題の振り返り：結果画面から離れずに確認できる */}
       {wrongItems.length > 0 && (
         <section className="mt-6">
-          <h3 className="mb-2 text-sm font-bold">
-            間違えた問題（{wrongItems.length}問）
-          </h3>
+          <div className="mb-2 flex items-center justify-between">
+            <h3 className="text-sm font-bold">
+              間違えた問題（{wrongItems.length}問）
+            </h3>
+            <button
+              onClick={() => setExpandAll((v) => !v)}
+              className="rounded-lg px-2 py-1 text-xs font-bold text-lime-700 hover:bg-slate-100 dark:text-accent dark:hover:bg-slate-800"
+            >
+              {expandAll ? "すべて閉じる" : "すべて展開"}
+            </button>
+          </div>
           <ul className="space-y-2">
             {wrongItems.map(({ q, chosen }) => (
-              <li key={q.id}>
-                <details className="group rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/60">
+              <li key={`${q.id}-${expandAll}`}>
+                <details
+                  open={expandAll}
+                  className="group rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/60"
+                >
                   <summary className="cursor-pointer list-none px-4 py-3">
                     <span className="text-[11px] font-bold text-slate-400">
                       {DOMAIN_BY_NAME[q.domain]?.shortName ?? q.domain}
@@ -763,6 +817,9 @@ function MockResult({
           className="w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900"
         >
           もう一度 模試に挑戦
+          <span className="ml-2 hidden text-xs font-bold opacity-60 lg:inline">
+            Enter
+          </span>
         </button>
         <Link
           href="/review"

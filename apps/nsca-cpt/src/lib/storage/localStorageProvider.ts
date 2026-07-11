@@ -51,5 +51,9 @@ function migrate(state: ProgressState): ProgressState {
   if ((next.version ?? 1) < 2 && next.settings?.theme === "system") {
     next = { ...next, settings: { ...next.settings, theme: "light" } };
   }
+  // v2 -> v3: ストリーク保護（freezes）を導入。既存ユーザーにも1つ付与する。
+  if ((next.version ?? 1) < 3 && next.streak && next.streak.freezes == null) {
+    next = { ...next, streak: { ...next.streak, freezes: 1 } };
+  }
   return { ...next, version: SCHEMA_VERSION };
 }

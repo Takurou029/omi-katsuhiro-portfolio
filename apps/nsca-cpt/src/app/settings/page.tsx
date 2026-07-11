@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useProgress } from "@/lib/store";
 import { PageHeader, Card } from "@/components/ui";
+import { buildDailyReminderIcs, isValidTime } from "@/lib/reminder";
 import type { ThemePreference } from "@/lib/types";
 
 const THEMES: { value: ThemePreference; label: string }[] = [
@@ -67,6 +68,8 @@ export default function SettingsPage() {
           </div>
         </Card>
 
+        <ReminderCard />
+
         <Card>
           <p className="text-sm font-bold">表示テーマ</p>
           <div className="mt-2 flex items-center gap-2">
@@ -127,5 +130,65 @@ export default function SettingsPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+/**
+ * 毎日のリマインダー。
+ * 静的アプリのためプッシュ通知は使えない。代わりに毎日繰り返しの
+ * カレンダー予定（.ics）を書き出し、カレンダーの通知で呼び戻す。
+ */
+function ReminderCard() {
+  const [time, setTime] = useState("07:30");
+  const [done, setDone] = useState(false);
+
+  const download = () => {
+    if (!isValidTime(time)) return;
+    const url = typeof window !== "undefined" ? window.location.origin : "";
+    const ics = buildDailyReminderIcs(time, url);
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const href = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = href;
+    a.download = "nsca-cpt-daily-reminder.ics";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(href);
+    setDone(true);
+  };
+
+  return (
+    <Card>
+      <p className="text-sm font-bold">毎日のリマインダー</p>
+      <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+        続かない一番の原因は「開くのを忘れること」。毎日決まった時刻の予定を
+        カレンダーに登録して、通知に呼び戻してもらいましょう
+        （.icsファイルをダウンロードし、Google/Apple/Outlookカレンダーで開くだけ）。
+      </p>
+      <div className="mt-3 flex items-center gap-2">
+        <label htmlFor="reminderTime" className="sr-only">
+          リマインダーの時刻
+        </label>
+        <input
+          id="reminderTime"
+          type="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          className="rounded-xl border border-slate-300 bg-white px-3 py-3 text-base tabular-nums dark:border-slate-700 dark:bg-slate-900"
+        />
+        <button
+          onClick={download}
+          className="flex-1 rounded-xl bg-accent py-3 font-bold text-slate-900 hover:bg-accent-soft"
+        >
+          カレンダー予定を作成（.ics）
+        </button>
+      </div>
+      {done && (
+        <p className="mt-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+          ダウンロードしました。ファイルを開いてカレンダーに追加してください。
+        </p>
+      )}
+    </Card>
   );
 }

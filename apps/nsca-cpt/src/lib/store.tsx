@@ -31,7 +31,8 @@ export function createInitialState(now: Date = new Date()): ProgressState {
     version: SCHEMA_VERSION,
     answers: [],
     cards: {},
-    streak: { current: 0, longest: 0, lastStudyDate: null },
+    // freezes: 初回から1つ持たせる（1日休んでも切れない安心感を最初に与える）。
+    streak: { current: 0, longest: 0, lastStudyDate: null, freezes: 1 },
     settings: defaultSettings(now),
     createdAt: now.toISOString(),
   };

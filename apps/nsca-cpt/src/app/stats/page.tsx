@@ -84,7 +84,8 @@ export default function StatsPage() {
 
           <Card className="lg:col-span-2">
             <h2 className="mb-3 text-sm font-bold">学習の記録（ヒートマップ）</h2>
-            <Heatmap answers={state.answers} weeks={20} />
+            {/* ホームと同じ期間（14週）に統一して混乱を避ける */}
+            <Heatmap answers={state.answers} />
           </Card>
 
           <Card>
@@ -146,11 +147,38 @@ function TrendChart({ trend }: { trend: number[] }) {
       <svg
         viewBox={`0 0 ${w} ${h}`}
         className="h-24 w-full"
-        preserveAspectRatio="none"
         role="img"
-        aria-label={`直近の正答率は約${last}%`}
+        aria-label={`直近の正答率は約${last}%。点線は合格ライン70%。`}
       >
-        <line x1="0" y1={h * 0.3} x2={w} y2={h * 0.3} stroke="currentColor" className="text-slate-200 dark:text-slate-700" strokeDasharray="4" strokeWidth="1" />
+        {/* 合格ライン（70%） */}
+        <line
+          x1="0"
+          y1={h * 0.3}
+          x2={w}
+          y2={h * 0.3}
+          stroke="currentColor"
+          className="text-slate-300 dark:text-slate-600"
+          strokeDasharray="4"
+          strokeWidth="1"
+        />
+        <text
+          x="2"
+          y={h * 0.3 - 4}
+          fontSize="9"
+          fill="currentColor"
+          className="text-slate-400"
+        >
+          合格ライン 70%
+        </text>
+        <text
+          x="2"
+          y={h - 2}
+          fontSize="8"
+          fill="currentColor"
+          className="text-slate-300 dark:text-slate-600"
+        >
+          0%
+        </text>
         <polyline
           points={pts.join(" ")}
           fill="none"

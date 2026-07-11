@@ -14,4 +14,4 @@ export interface StorageProvider {
 }
 
 /** 現在のスキーマバージョン。 */
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;

@@ -6,7 +6,12 @@ import { useProgress } from "@/lib/store";
 import { QUESTIONS } from "@/lib/questions";
 import { selectQuestions, wrongNoteIds } from "@/lib/leitner";
 import { domainProficiency } from "@/lib/stats";
-import { displayStreak, toDateKey, answeredOn } from "@/lib/streak";
+import {
+  displayStreak,
+  isStreakProtected,
+  toDateKey,
+  answeredOn,
+} from "@/lib/streak";
 import { Card, Meter } from "@/components/ui";
 import { Heatmap } from "@/components/Heatmap";
 import { ProgressionCard } from "@/components/ProgressionCard";
@@ -20,6 +25,7 @@ import {
   NoteIcon,
   TargetIcon,
   ArrowRightIcon,
+  ShieldIcon,
 } from "@/components/icons";
 import type { Question } from "@/lib/types";
 
@@ -75,6 +81,9 @@ export default function HomePage() {
   // ストリークが途切れた直後（過去に学習歴があるのに現在0）は励ましの文言に。
   const hadHistory = state.answers.length > 0;
   const streakBroken = streak === 0 && hadHistory;
+  // 昨日休んだが保護で繋がっている状態（今日やれば消費してチェーン継続）。
+  const protectedNow = isStreakProtected(state.streak, todayKey);
+  const firstRun = state.answers.length === 0;
 
   return (
     <div className="animate-pop-in px-4 lg:px-8">
@@ -98,21 +107,29 @@ export default function HomePage() {
             <span className="mb-1.5 text-2xl font-black text-slate-400">日</span>
           </div>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            {streakBroken
-              ? "今日の1セットで再スタートしましょう。継続は今日から数え直せます。"
-              : streak > 0
-                ? todayCount === 0
-                  ? `今日の分を終えると ${streak + 1} 日連続になります。`
-                  : goalDone
-                    ? "今日の分は完了。いい流れです。"
-                    : `あと ${goal - todayCount} 問で今日のノルマ達成です。`
-                : "最初の1日を今日にしましょう。"}
+            {protectedNow
+              ? "昨日はおやすみ保護でつながっています。今日やれば連続記録はそのまま続きます。"
+              : streakBroken
+                ? "今日の1セットで再スタートしましょう。継続は今日から数え直せます。"
+                : streak > 0
+                  ? todayCount === 0
+                    ? `今日の分を終えると ${streak + 1} 日連続になります。`
+                    : goalDone
+                      ? "今日の分は完了。いい流れです。"
+                      : `あと ${goal - todayCount} 問で今日のノルマ達成です。`
+                  : "最初の1日を今日にしましょう。"}
           </p>
-          {state.streak.longest > streak && state.streak.longest >= 2 && (
-            <p className="mt-1 text-xs text-slate-400">
-              最長記録 {state.streak.longest} 日
-            </p>
-          )}
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
+            {state.streak.freezes > 0 && (
+              <span className="flex items-center gap-1 font-bold text-sky-600 dark:text-sky-400">
+                <ShieldIcon className="h-3.5 w-3.5" />
+                おやすみ保護 {state.streak.freezes}回分
+              </span>
+            )}
+            {state.streak.longest > streak && state.streak.longest >= 2 && (
+              <span>最長記録 {state.streak.longest} 日</span>
+            )}
+          </div>
           <p className="mt-3 border-t border-slate-100 pt-3 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
             {daysLeft !== null ? (
               daysLeft >= 0 ? (
@@ -210,14 +227,56 @@ export default function HomePage() {
       {/* 2カラム：積み上げ＋ヒートマップ / 到達度＋アクション */}
       <section className="mt-4 grid gap-4 lg:grid-cols-2">
         <div className="space-y-4">
-          <ProgressionCard answers={state.answers} cards={state.cards} />
-          <Card>
-            <h2 className="mb-3 text-sm font-bold">学習の記録</h2>
-            <Heatmap answers={state.answers} />
-          </Card>
+          {firstRun ? (
+            // 初回はまだ見せるデータがないため、空のグラフの代わりに
+            // 「何がどう積み上がるか」を先に伝える。
+            <Card>
+              <h2 className="text-sm font-bold">このアプリの使い方</h2>
+              <ol className="mt-3 space-y-3">
+                {[
+                  {
+                    step: "1",
+                    title: "今日の3問をやる（約3分）",
+                    desc: "上の緑のボタンから。正解も不正解も、解くだけで積み上がります。",
+                  },
+                  {
+                    step: "2",
+                    title: "間違えても大丈夫",
+                    desc: "間違えた問題ほど後日くり返し出題され、自然に覚えられます。",
+                  },
+                  {
+                    step: "3",
+                    title: "明日もう一度開く",
+                    desc: "連続日数・レベル・学習の記録がここに積み上がっていきます。",
+                  },
+                ].map((s) => (
+                  <li key={s.step} className="flex gap-3">
+                    <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-accent font-black text-slate-900">
+                      {s.step}
+                    </span>
+                    <span>
+                      <span className="block text-sm font-bold">{s.title}</span>
+                      <span className="block text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                        {s.desc}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </Card>
+          ) : (
+            <>
+              <ProgressionCard answers={state.answers} cards={state.cards} />
+              <Card>
+                <h2 className="mb-3 text-sm font-bold">学習の記録</h2>
+                <Heatmap answers={state.answers} />
+              </Card>
+            </>
+          )}
         </div>
 
         <div className="space-y-4">
+          {!firstRun && (
           <Card>
             <div className="mb-3 flex items-center justify-between">
               <h2 className="flex items-center gap-1.5 text-sm font-bold">
@@ -247,6 +306,7 @@ export default function HomePage() {
               ))}
             </div>
           </Card>
+          )}
 
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             <ActionLink

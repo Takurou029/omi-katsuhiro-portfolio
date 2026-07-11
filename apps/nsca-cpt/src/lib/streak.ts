@@ -18,11 +18,18 @@ export function previousDateKey(dateKey: string): string {
   return toDateKey(date);
 }
 
+/** ストリーク保護の最大保有数。 */
+export const MAX_FREEZES = 2;
+/** この日数継続するごとに保護を1つ獲得する。 */
+export const FREEZE_EARN_INTERVAL = 7;
+
 /**
  * 学習が発生した日を反映してストリークを更新する（純粋関数）。
  * - 同日中の再学習：変化なし
  * - 前日から連続：current +1
- * - それ以外（間が空いた／初回）：current = 1
+ * - ちょうど1日休み＋保護あり：保護を1つ消費してチェーン継続（current +1）
+ * - それ以外（2日以上空いた／初回）：current = 1
+ * 7日継続ごと（current が 7 の倍数到達時）に保護を1つ獲得（上限 MAX_FREEZES）。
  */
 export function updateStreak(
   streak: StreakState,
@@ -31,28 +38,65 @@ export function updateStreak(
   if (streak.lastStudyDate === todayKey) {
     return streak;
   }
+  const yesterday = previousDateKey(todayKey);
+  const dayBefore = previousDateKey(yesterday);
+
   let current: number;
-  if (streak.lastStudyDate && previousDateKey(todayKey) === streak.lastStudyDate) {
+  let freezes = streak.freezes ?? 0;
+
+  if (streak.lastStudyDate === yesterday) {
+    current = streak.current + 1;
+  } else if (streak.lastStudyDate === dayBefore && freezes > 0) {
+    // 1日だけ休んだ：保護を消費してチェーンを繋ぐ。
+    freezes -= 1;
     current = streak.current + 1;
   } else {
     current = 1;
   }
+
+  // 継続の報酬として保護を付与する。
+  if (current > 0 && current % FREEZE_EARN_INTERVAL === 0) {
+    freezes = Math.min(MAX_FREEZES, freezes + 1);
+  }
+
   return {
     current,
     longest: Math.max(streak.longest, current),
     lastStudyDate: todayKey,
+    freezes,
   };
 }
 
 /**
- * ストリークの「表示用」現在値。最終学習日が今日でも昨日でもなければ
- * 途切れているので 0 を返す（保存値は書き換えない）。
+ * ストリークの「表示用」現在値。
+ * 最終学習日が今日・昨日、または一昨日でも保護が残っていれば現在値を返す。
+ * それ以外は途切れているので 0（保存値は書き換えない）。
  */
 export function displayStreak(streak: StreakState, todayKey: string): number {
   if (!streak.lastStudyDate) return 0;
+  const yesterday = previousDateKey(todayKey);
   if (streak.lastStudyDate === todayKey) return streak.current;
-  if (previousDateKey(todayKey) === streak.lastStudyDate) return streak.current;
+  if (streak.lastStudyDate === yesterday) return streak.current;
+  if (
+    streak.lastStudyDate === previousDateKey(yesterday) &&
+    (streak.freezes ?? 0) > 0
+  ) {
+    return streak.current;
+  }
   return 0;
+}
+
+/**
+ * 「昨日休んだが保護で繋がっている」状態か。
+ * この状態で今日学習すると保護を1つ消費してチェーンが継続する。
+ */
+export function isStreakProtected(
+  streak: StreakState,
+  todayKey: string,
+): boolean {
+  if (!streak.lastStudyDate) return false;
+  const dayBefore = previousDateKey(previousDateKey(todayKey));
+  return streak.lastStudyDate === dayBefore && (streak.freezes ?? 0) > 0;
 }
 
 export interface DailyCount {

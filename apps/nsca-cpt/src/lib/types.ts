@@ -56,6 +56,11 @@ export interface StreakState {
   longest: number;
   /** 最後に学習した日（ローカル YYYY-MM-DD）。未学習は null。 */
   lastStudyDate: string | null;
+  /**
+   * ストリーク保護（おやすみ）の残り回数。
+   * 1日だけ休んでも消費してチェーンを繋ぐ。7日継続ごとに1回付与（上限あり）。
+   */
+  freezes: number;
 }
 
 export type ThemePreference = "system" | "light" | "dark";
