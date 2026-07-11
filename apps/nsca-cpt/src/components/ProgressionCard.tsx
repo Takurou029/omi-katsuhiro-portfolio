@@ -95,8 +95,12 @@ export function ProgressionCard({
         </div>
       </div>
 
+      <p className="mt-2 text-[10px] leading-relaxed text-slate-400">
+        定着＝繰り返し正解して復習間隔が伸びた問題（間違えるとやり直しになります）
+      </p>
+
       {milestone.next && (
-        <p className="mt-3 flex items-center gap-1.5 rounded-xl bg-slate-50 px-3 py-2 text-xs font-medium text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">
+        <p className="mt-2 flex items-center gap-1.5 rounded-xl bg-slate-50 px-3 py-2 text-xs font-medium text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">
           <TrophyIcon className="h-4 w-4 flex-none text-amber-500" />
           累計{milestone.next}問まであと {milestone.next - total} 問
         </p>

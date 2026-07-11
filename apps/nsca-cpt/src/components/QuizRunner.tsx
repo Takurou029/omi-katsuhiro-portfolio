@@ -15,7 +15,11 @@ import { Card, Meter } from "@/components/ui";
 import { getIllustration } from "@/components/Illustrations";
 import { CheckCircleIcon, FlameIcon, KeyboardIcon } from "@/components/icons";
 import { answeredOn, toDateKey } from "@/lib/streak";
+import { QUESTIONS } from "@/lib/questions";
 import type { Question, StudyMode } from "@/lib/types";
+
+/** 収録問題の総数（模試結果の注記に使う）。 */
+const QUESTIONS_TOTAL = QUESTIONS.length;
 
 interface Props {
   questions: Question[];
@@ -68,21 +72,40 @@ function RunnerHeader({
   total,
   right,
   onExit,
+  confirmExit = false,
 }: {
   title: string;
   index: number;
   total: number;
   right?: React.ReactNode;
   onExit: () => void;
+  /** true の場合、誤タップで解答が消えないよう2段階で中断する。 */
+  confirmExit?: boolean;
 }) {
+  const [confirming, setConfirming] = useState(false);
+
+  const handleExit = () => {
+    if (confirmExit && !confirming) {
+      setConfirming(true);
+      // 数秒で自動キャンセル（誤タップ保護）。
+      setTimeout(() => setConfirming(false), 4000);
+      return;
+    }
+    onExit();
+  };
+
   return (
     <div className="sticky top-0 z-10 bg-white/90 px-4 pb-2 pt-4 backdrop-blur dark:bg-surface-dark/90">
       <div className="flex items-center justify-between">
         <button
-          onClick={onExit}
-          className="rounded-lg px-2 py-1 text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+          onClick={handleExit}
+          className={`rounded-lg px-2 py-1 text-sm font-medium ${
+            confirming
+              ? "bg-rose-100 font-bold text-rose-600 dark:bg-rose-500/20 dark:text-rose-300"
+              : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+          }`}
         >
-          ← 中断
+          {confirming ? "解答を破棄して中断する" : "← 中断"}
         </button>
         <span className="text-sm font-bold">{title}</span>
         <span className="min-w-[52px] text-right text-sm tabular-nums text-slate-500">
@@ -351,11 +374,27 @@ function SessionResult({
         {correct}
         <span className="text-2xl text-slate-400">/{total}</span>
       </p>
-      <p className="mt-1 text-lg font-bold text-lime-700 dark:text-accent">
+      {/* 正答率が低い日に祝福色で見せると白々しいので、色は成績に応じて変える。 */}
+      <p
+        className={`mt-1 text-lg font-bold ${
+          rate >= 70
+            ? "text-lime-700 dark:text-accent"
+            : "text-slate-500 dark:text-slate-400"
+        }`}
+      >
         正答率 {rate}%
       </p>
+      {rate < 50 && (
+        <p className="mx-auto mt-2 max-w-sm text-sm text-slate-500 dark:text-slate-400">
+          正答率は今は気にしなくて大丈夫。間違えた問題ほど
+          この後くり返し出題されて、だんだん解けるようになります。
+        </p>
+      )}
       <div className="mx-auto mt-5 max-w-xs">
-        <Meter value={total > 0 ? correct / total : 0} />
+        <Meter
+          value={total > 0 ? correct / total : 0}
+          color={rate >= 70 ? "#84cc16" : "#94a3b8"}
+        />
       </div>
 
       {/* 次の小目標：レベルアップまでの残り */}
@@ -395,8 +434,11 @@ function SessionResult({
         >
           {onOneMore ? "今日はここまで" : "もう一度"}
         </button>
+        {/* デイリーはホーム上のローカルstateで動くため、Link単体では戻れない。
+            onExit で session を解除しつつ遷移する。 */}
         <Link
           href="/"
+          onClick={onExit}
           className="w-full rounded-2xl bg-slate-100 py-3 font-bold text-slate-600 dark:bg-slate-800/60 dark:text-slate-300"
         >
           ホームへ戻る
@@ -477,23 +519,44 @@ function MockRunner({
   }, [questions.length]);
 
   // キーボード操作（PC）：1/2/3 で選択、Enter で次へ。
+  // 最終問題で全問解答済みなら Enter で採点までつながる（リズムを切らさない）。
   useEffect(() => {
     if (submitted) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key >= "1" && e.key <= String(question.choices.length)) {
         e.preventDefault();
         select(Number(e.key) - 1);
-      } else if (e.key === "Enter" && !isLast) {
+      } else if (e.key === "Enter") {
         e.preventDefault();
-        goNext();
+        if (!isLast) {
+          goNext();
+        } else if (Object.keys(responses).length === questions.length) {
+          submit();
+        }
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [select, goNext, isLast, submitted, question.choices.length]);
+  }, [
+    select,
+    goNext,
+    isLast,
+    submitted,
+    question.choices.length,
+    responses,
+    questions.length,
+    submit,
+  ]);
 
   if (submitted) {
-    return <MockResult results={results} onExit={onExit} />;
+    return (
+      <MockResult
+        results={results}
+        questions={questions}
+        responses={responses}
+        onExit={onExit}
+      />
+    );
   }
 
   const answeredCount = Object.keys(responses).length;
@@ -508,6 +571,7 @@ function MockRunner({
         index={index}
         total={questions.length}
         onExit={onExit}
+        confirmExit
         right={
           <span
             className={`tabular-nums font-black ${lowTime ? "text-rose-500" : ""}`}
@@ -577,12 +641,19 @@ function MockRunner({
 
 function MockResult({
   results,
+  questions,
+  responses,
   onExit,
 }: {
   results: { domain: string; correct: boolean }[];
+  questions: Question[];
+  responses: Record<number, number>;
   onExit: () => void;
 }) {
   const g = grade(results);
+  const wrongItems = questions
+    .map((q, i) => ({ q, chosen: responses[i] }))
+    .filter(({ q, chosen }) => chosen !== q.answerIndex);
   const pct = Math.round(g.rate * 100);
   const passPct = Math.round(g.passRate * 100);
   return (
@@ -634,7 +705,59 @@ function MockResult({
         })}
       </div>
 
-      <div className="mt-8 flex flex-col gap-3">
+      {/* 間違えた問題の振り返り：結果画面から離れずに確認できる */}
+      {wrongItems.length > 0 && (
+        <section className="mt-6">
+          <h3 className="mb-2 text-sm font-bold">
+            間違えた問題（{wrongItems.length}問）
+          </h3>
+          <ul className="space-y-2">
+            {wrongItems.map(({ q, chosen }) => (
+              <li key={q.id}>
+                <details className="group rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/60">
+                  <summary className="cursor-pointer list-none px-4 py-3">
+                    <span className="text-[11px] font-bold text-slate-400">
+                      {DOMAIN_BY_NAME[q.domain]?.shortName ?? q.domain}
+                    </span>
+                    <span className="mt-0.5 block text-sm font-medium leading-relaxed">
+                      {q.question}
+                    </span>
+                    <span className="mt-1 block text-xs text-slate-400 group-open:hidden">
+                      タップで正解と解説を表示
+                    </span>
+                  </summary>
+                  <div className="border-t border-slate-100 px-4 py-3 text-sm dark:border-slate-800">
+                    <p>
+                      <span className="font-bold text-rose-600 dark:text-rose-400">
+                        あなたの解答：
+                      </span>
+                      {chosen != null && chosen >= 0
+                        ? q.choices[chosen]
+                        : "未解答"}
+                    </p>
+                    <p className="mt-1">
+                      <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                        正解：
+                      </span>
+                      {q.choices[q.answerIndex]}
+                    </p>
+                    <p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-300">
+                      {q.explanation}
+                    </p>
+                  </div>
+                </details>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <p className="mt-4 text-center text-[11px] leading-relaxed text-slate-400">
+        本模試は収録{QUESTIONS_TOTAL}問からの出題のため、学習が進むと既出問題を含みます。
+        スコアはあくまで概算の実力目安としてご利用ください。
+      </p>
+
+      <div className="mt-6 flex flex-col gap-3">
         <button
           onClick={onExit}
           className="w-full rounded-2xl bg-accent py-4 text-lg font-black text-slate-900"

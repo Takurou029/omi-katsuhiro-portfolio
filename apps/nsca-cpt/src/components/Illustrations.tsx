@@ -199,13 +199,13 @@ function LoadRepContinuum() {
       <text x="18" y="70" fontSize="11" fill={INK} opacity="0.7" textAnchor="middle" transform="rotate(-90 18 70)">負荷（%1RM）</text>
       {/* 斜めの帯（負荷が高いほど低レップ） */}
       <polygon points="40,25 90,25 300,105 300,115 40,45" fill="#94a3b8" opacity="0.25" />
-      {/* ゾーン */}
-      <rect x="42" y="28" width="70" height="20" rx="4" fill="#f87171" opacity="0.85" />
-      <text x="77" y="42" fontSize="10" fill="#fff" fontWeight="bold" textAnchor="middle">筋力 ≥85% ×1-6</text>
-      <rect x="115" y="55" width="95" height="20" rx="4" fill="#a3e635" opacity="0.95" />
-      <text x="162" y="69" fontSize="10" fill="#1a2e05" fontWeight="bold" textAnchor="middle">筋肥大 67-85% ×6-12</text>
-      <rect x="205" y="85" width="100" height="20" rx="4" fill="#38bdf8" opacity="0.9" />
-      <text x="255" y="99" fontSize="10" fill="#082f49" fontWeight="bold" textAnchor="middle">筋持久力 軽負荷 ×15+</text>
+      {/* ゾーン（ラベルが軸や図外に食い込まないよう幅を確保する） */}
+      <rect x="45" y="28" width="112" height="20" rx="4" fill="#f87171" opacity="0.9" />
+      <text x="101" y="42" fontSize="10" fill="#fff" fontWeight="bold" textAnchor="middle">筋力 ≥85% ×1〜6</text>
+      <rect x="110" y="55" width="128" height="20" rx="4" fill="#a3e635" opacity="0.95" />
+      <text x="174" y="69" fontSize="10" fill="#1a2e05" fontWeight="bold" textAnchor="middle">筋肥大 67〜85% ×6〜12</text>
+      <rect x="185" y="85" width="125" height="20" rx="4" fill="#38bdf8" opacity="0.9" />
+      <text x="247" y="99" fontSize="10" fill="#082f49" fontWeight="bold" textAnchor="middle">筋持久力 軽負荷 ×15+</text>
       {/* 軸メモリ */}
       <text x="45" y="134" fontSize="9" fill={INK} opacity="0.6">1</text>
       <text x="160" y="134" fontSize="9" fill={INK} opacity="0.6">10</text>

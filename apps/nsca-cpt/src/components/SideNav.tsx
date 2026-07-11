@@ -76,7 +76,7 @@ export function SideNav() {
             />
             連続 {streak} 日
           </p>
-          {daysLeft !== null && daysLeft >= 0 && (
+          {daysLeft !== null && daysLeft >= 0 ? (
             <p className="text-slate-500 dark:text-slate-400">
               本番まで{" "}
               <span className="font-black text-slate-900 dark:text-white">
@@ -84,6 +84,13 @@ export function SideNav() {
               </span>{" "}
               日
             </p>
+          ) : (
+            <Link
+              href="/settings"
+              className="block text-xs font-bold text-lime-700 underline dark:text-accent"
+            >
+              試験日を設定する
+            </Link>
           )}
         </div>
       )}

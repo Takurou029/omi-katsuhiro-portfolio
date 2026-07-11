@@ -80,15 +80,14 @@ export const DEFAULT_MOCK_QUESTIONS = 30;
 /** 「今日の◯問」の既定ノルマ。 */
 export const DEFAULT_DAILY_GOAL = 3;
 
-/** 設定の初期値。試験日は今日から約90日後を仮設定（設定画面で変更可）。 */
-export function defaultSettings(today: Date = new Date()): Settings {
-  const exam = new Date(today);
-  exam.setDate(exam.getDate() + 90);
-  const yyyy = exam.getFullYear();
-  const mm = String(exam.getMonth() + 1).padStart(2, "0");
-  const dd = String(exam.getDate()).padStart(2, "0");
+/**
+ * 設定の初期値。
+ * 試験日は未設定スタート（勝手に仮の日付を出すと初見で混乱するため、
+ * ユーザー自身に設定してもらい、それまでカウントダウンは表示しない）。
+ */
+export function defaultSettings(_today: Date = new Date()): Settings {
   return {
-    examDate: `${yyyy}-${mm}-${dd}`,
+    examDate: null,
     dailyGoal: DEFAULT_DAILY_GOAL,
     // 既定はライト（白背景）。設定でダーク／端末追従に変更可。
     theme: "light",

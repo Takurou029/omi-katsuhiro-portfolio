@@ -101,9 +101,18 @@ export default function HomePage() {
             {streakBroken
               ? "今日の1セットで再スタートしましょう。継続は今日から数え直せます。"
               : streak > 0
-                ? `この積み重ねを絶やさないように。最長記録は ${state.streak.longest} 日。`
+                ? todayCount === 0
+                  ? `今日の分を終えると ${streak + 1} 日連続になります。`
+                  : goalDone
+                    ? "今日の分は完了。いい流れです。"
+                    : `あと ${goal - todayCount} 問で今日のノルマ達成です。`
                 : "最初の1日を今日にしましょう。"}
           </p>
+          {state.streak.longest > streak && state.streak.longest >= 2 && (
+            <p className="mt-1 text-xs text-slate-400">
+              最長記録 {state.streak.longest} 日
+            </p>
+          )}
           <p className="mt-3 border-t border-slate-100 pt-3 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
             {daysLeft !== null ? (
               daysLeft >= 0 ? (
@@ -168,6 +177,22 @@ export default function HomePage() {
               <PlayIcon className="h-6 w-6" />
             </span>
           </div>
+
+          {/* 開始前の不安を下げる情報チップ（所要時間・復習待ち・今日の進み） */}
+          <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold">
+            <span className="rounded-full bg-black/10 px-3 py-1.5">
+              所要 約{Math.max(1, goal)}分
+            </span>
+            <span className="rounded-full bg-black/10 px-3 py-1.5">
+              苦手な問題から自動で出題
+            </span>
+            {wrongCount > 0 && (
+              <span className="rounded-full bg-black/10 px-3 py-1.5">
+                復習待ち {wrongCount}問
+              </span>
+            )}
+          </div>
+
           <div className="mt-5 flex w-full items-center gap-2 text-xs font-bold opacity-90">
             <div className="h-2 flex-1 overflow-hidden rounded-full bg-black/15">
               <div
