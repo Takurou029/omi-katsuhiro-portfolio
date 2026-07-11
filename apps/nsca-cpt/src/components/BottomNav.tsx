@@ -3,6 +3,7 @@
 // モバイルファーストの下部ナビ。片手操作しやすいよう大きめのタップ領域。
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { handleNavClick } from "@/lib/navEvent";
 
 const ITEMS = [
   { href: "/", label: "ホーム", icon: HomeIcon },
@@ -34,6 +35,7 @@ export function BottomNav() {
             <li key={item.href}>
               <Link
                 href={item.href}
+                onClick={handleNavClick}
                 aria-current={active ? "page" : undefined}
                 className={`flex min-h-[60px] flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors ${
                   active

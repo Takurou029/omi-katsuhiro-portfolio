@@ -15,6 +15,7 @@ import { Card, Meter } from "@/components/ui";
 import { getIllustration } from "@/components/Illustrations";
 import { CheckCircleIcon, FlameIcon, KeyboardIcon } from "@/components/icons";
 import { answeredOn, toDateKey } from "@/lib/streak";
+import { NAV_RESET_EVENT, setNavGuard } from "@/lib/navEvent";
 import { QUESTIONS } from "@/lib/questions";
 import type { Question, StudyMode } from "@/lib/types";
 
@@ -208,6 +209,14 @@ function FeedbackRunner({
     },
     [answered, question, recordAnswer, mode],
   );
+
+  // ナビ（サイドバー等）クリック時はセッションを終了する。
+  // 解答は1問ごとに保存済みなので、途中終了しても損失はない。
+  useEffect(() => {
+    const handler = () => onExit();
+    window.addEventListener(NAV_RESET_EVENT, handler);
+    return () => window.removeEventListener(NAV_RESET_EVENT, handler);
+  }, [onExit]);
 
   const next = useCallback(() => {
     if (isLast) {
@@ -509,6 +518,23 @@ function MockRunner({
     setSubmitted(true);
   }, []);
 
+  // ナビ（サイドバー等）クリック時の扱い：
+  // 採点前は解答が消えるため、ガードで確認してから（拒否なら遷移ごと中止）。
+  // 許可された場合はイベントを受けてセッションを終了する（採点後は損失なし）。
+  useEffect(() => {
+    const releaseGuard = setNavGuard(() =>
+      submitted
+        ? true
+        : window.confirm("模試を中断しますか？ここまでの解答は保存されません。"),
+    );
+    const handler = () => onExit();
+    window.addEventListener(NAV_RESET_EVENT, handler);
+    return () => {
+      releaseGuard();
+      window.removeEventListener(NAV_RESET_EVENT, handler);
+    };
+  }, [submitted, onExit]);
+
   // タイマー
   useEffect(() => {
     if (submitted) return;
@@ -798,7 +824,7 @@ function MockResult({
                       {q.question}
                     </span>
                     <span className="mt-1 block text-xs text-slate-400 group-open:hidden">
-                      タップで正解と解説を表示
+                      クリック / タップで正解と解説を表示
                     </span>
                   </summary>
                   <div className="border-t border-slate-100 px-4 py-3 text-sm dark:border-slate-800">

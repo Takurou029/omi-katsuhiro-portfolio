@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { useProgress } from "@/lib/store";
 import { displayStreak, toDateKey } from "@/lib/streak";
+import { handleNavClick } from "@/lib/navEvent";
 import { FlameIcon } from "./icons";
 
 const ITEMS = [
@@ -53,6 +54,7 @@ export function SideNav() {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  onClick={handleNavClick}
                   aria-current={active ? "page" : undefined}
                   className={`block rounded-xl px-4 py-2.5 text-sm font-bold transition-colors ${
                     active

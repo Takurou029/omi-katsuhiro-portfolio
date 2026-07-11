@@ -126,10 +126,15 @@ export default function HomePage() {
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
             {state.streak.freezes > 0 && (
-              <span className="flex items-center gap-1 font-bold text-sky-600 dark:text-sky-400">
+              <span
+                className="flex items-center gap-1 font-bold text-sky-600 dark:text-sky-400"
+                title="1日休んでも連続記録が途切れない保険です。7日続けるごとに1回もらえます（最大2回）。"
+              >
                 <ShieldIcon className="h-3.5 w-3.5" />
                 おやすみ保護 {state.streak.freezes}回分
-                {protectedNow && "（今日つなぐと1回分使います）"}
+                {protectedNow
+                  ? "（今日つなぐと1回分使います）"
+                  : "＝1日休んでも記録が続く保険"}
               </span>
             )}
             {state.streak.longest > streak && state.streak.longest >= 2 && (
@@ -280,7 +285,7 @@ export default function HomePage() {
                   {
                     step: "3",
                     title: "明日もう一度開く",
-                    desc: "連続日数・レベル・学習の記録がここに積み上がっていきます。",
+                    desc: "連続日数・レベル・学習の記録が積み上がります。1日休んでも「おやすみ保護」が記録を守ってくれます（7日続けるごとに1回もらえる）。",
                   },
                 ].map((s) => (
                   <li key={s.step} className="flex gap-3">

@@ -9,10 +9,8 @@ import {
   domainProficiency,
   overallAccuracy,
 } from "@/lib/stats";
-import { dailyCounts } from "@/lib/streak";
 import { NUM_BOXES } from "@/lib/config";
 import { PageHeader, Card, Meter, StatTile } from "@/components/ui";
-import { WeekChart } from "@/components/WeekChart";
 import { Heatmap } from "@/components/Heatmap";
 
 export default function StatsPage() {
@@ -31,7 +29,6 @@ export default function StatsPage() {
     () => boxDistribution(state.cards, NUM_BOXES),
     [state.cards],
   );
-  const week = useMemo(() => dailyCounts(state.answers, 7), [state.answers]);
 
   const studyDays = useMemo(() => {
     const set = new Set(
@@ -113,11 +110,6 @@ export default function StatsPage() {
           </Card>
 
           <Card>
-            <h2 className="mb-3 text-sm font-bold">直近7日の学習</h2>
-            <WeekChart data={week} />
-          </Card>
-
-          <Card>
             <div className="mb-1 flex items-center justify-between">
               <h2 className="text-sm font-bold">定着度（Leitner ボックス分布）</h2>
             </div>
@@ -150,7 +142,32 @@ function TrendChart({ trend }: { trend: number[] }) {
         role="img"
         aria-label={`直近の正答率は約${last}%。点線は合格ライン70%。`}
       >
-        {/* 合格ライン（70%） */}
+        {/* 目盛り（100% / 50%）と合格ライン（70%） */}
+        {[
+          { p: 1, label: "100%" },
+          { p: 0.5, label: "50%" },
+        ].map(({ p, label }) => (
+          <g key={label}>
+            <line
+              x1="0"
+              y1={h * (1 - p)}
+              x2={w}
+              y2={h * (1 - p)}
+              stroke="currentColor"
+              className="text-slate-200 dark:text-slate-700"
+              strokeWidth="0.75"
+            />
+            <text
+              x="2"
+              y={h * (1 - p) + 9}
+              fontSize="8"
+              fill="currentColor"
+              className="text-slate-400 dark:text-slate-500"
+            >
+              {label}
+            </text>
+          </g>
+        ))}
         <line
           x1="0"
           y1={h * 0.3}
