@@ -161,7 +161,16 @@ function TrendChart({ trend }: { trend: number[] }) {
           strokeDasharray="4"
           strokeWidth="1"
         />
-        {/* 折れ線が70%付近を通っても読めるよう、背景チップ付きで右端に置く */}
+        <polyline
+          points={pts.join(" ")}
+          fill="none"
+          stroke="#84cc16"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+        {/* ラベル類は折れ線より後に描画し（SVGは後勝ち）、
+            背景チップ付きで線が重なっても読めるようにする */}
         <rect
           x={w - 88}
           y={h * 0.3 - 14}
@@ -181,23 +190,24 @@ function TrendChart({ trend }: { trend: number[] }) {
         >
           合格ライン 70%
         </text>
+        <rect
+          x="0"
+          y={h - 11}
+          width="18"
+          height="11"
+          rx="3"
+          className="fill-white dark:fill-slate-900"
+          opacity="0.9"
+        />
         <text
           x="2"
           y={h - 2}
           fontSize="8"
           fill="currentColor"
-          className="text-slate-300 dark:text-slate-600"
+          className="text-slate-400 dark:text-slate-500"
         >
           0%
         </text>
-        <polyline
-          points={pts.join(" ")}
-          fill="none"
-          stroke="#84cc16"
-          strokeWidth="2.5"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-        />
       </svg>
       <p className="mt-1 text-right text-xs font-bold text-accent-strong dark:text-accent">
         直近 {last}%
