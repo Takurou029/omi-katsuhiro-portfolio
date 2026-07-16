@@ -89,6 +89,21 @@ omi-katsuhiro-portfolio/
 
 ---
 
+## 4-3. SNSアカウント監視システム（sns-monitor/）
+
+自社運用のInstagram / TikTokアカウントを毎日自動チェックするシステムを同梱しています。
+投稿の急伸・不振やフォロワーの異常をアラート通知し、データをSQLiteに毎日蓄積、
+日次レポートも自動生成します（GitHub Actionsで毎朝9時に実行）。
+セットアップ方法は **`sns-monitor/README.md`** を参照してください。
+APIキーなしで試せるデモモードもあります：
+
+```bash
+cd sns-monitor && pip install -r requirements.txt
+python -m monitor.main --demo
+```
+
+---
+
 ## 5. 今後の拡張（フェーズ2以降の案）
 
 - **Journey ページ**：「海→石→泡」の変遷を物語として読ませる

@@ -1,0 +1,78 @@
+# SNSアカウント日次モニタリング
+#
+# 毎朝9時(JST)に Instagram / TikTok の運用状況をチェックし、
+# データベース(SQLite)と日次レポートをリポジトリにコミットする。
+# 異常（急伸・不振・フォロワー減少など）はWebhookで通知される。
+#
+# 必要なリポジトリSecrets（Settings > Secrets and variables > Actions）:
+#   IG_ACCESS_TOKEN         Instagram Graph APIの長期アクセストークン
+#   IG_USER_ID              InstagramビジネスアカウントのユーザーID
+#   TIKTOK_ACCESS_TOKEN     TikTok APIのアクセストークン
+#   TIKTOK_CLIENT_KEY       （任意）トークン自動リフレッシュ用
+#   TIKTOK_CLIENT_SECRET    （任意）同上
+#   TIKTOK_REFRESH_TOKEN    （任意）同上
+#   SNS_MONITOR_WEBHOOK_URL Slack/DiscordのIncoming Webhook URL
+#
+# 注意: scheduleトリガーはデフォルトブランチ(main)にマージされてから有効になる。
+
+name: SNS Monitor
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # 毎日 00:00 UTC = 09:00 JST
+  workflow_dispatch:       # 手動実行も可能
+    inputs:
+      demo:
+        description: 'デモモードで実行（APIキー不要の動作確認）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sns-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r sns-monitor/requirements.txt
+
+      - name: Run monitor
+        working-directory: sns-monitor
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          TIKTOK_ACCESS_TOKEN: ${{ secrets.TIKTOK_ACCESS_TOKEN }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+          SNS_MONITOR_WEBHOOK_URL: ${{ secrets.SNS_MONITOR_WEBHOOK_URL }}
+        run: |
+          if [ "${{ inputs.demo }}" = "true" ]; then
+            python -m monitor.main --demo
+          else
+            python -m monitor.main
+          fi
+
+      - name: Commit database & reports
+        run: |
+          git config user.name "sns-monitor-bot"
+          git config user.email "actions@github.com"
+          git add sns-monitor/data/
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "SNSモニタリング: $(TZ=Asia/Tokyo date +%Y-%m-%d) のデータ・レポートを追加"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

@@ -1,0 +1,40 @@
+# SNSモニタリング設定
+# このファイルを config.yaml にコピーして編集する（config.yaml はgit管理外）。
+# 何も変えなくてもデフォルト値で動作します。
+
+timezone: Asia/Tokyo
+
+# データの保存先（sns-monitor/ からの相対パス）
+database: data/sns_monitor.db
+reports_dir: data/reports
+
+# 投稿後この日数までを「監視中の投稿」として毎日分析する
+post_max_age_days: 14
+
+# この日数投稿がなければお知らせする
+no_post_alert_days: 3
+
+# 同じアラートをこの日数は再発報しない（通知のうるささ防止）
+alert_dedup_days: 3
+
+# 異常検知のしきい値
+thresholds:
+  spike_z: 2.5             # 急伸判定: ロバストzスコアがこれ以上
+  spike_ratio: 3.0         # 急伸判定: 過去中央値のこの倍数以上
+  slump_ratio: 0.3         # 不振判定: 過去中央値のこの割合以下
+  slump_max_age_days: 3    # 不振判定は投稿後この日数以内が対象
+  min_baseline_posts: 4    # 判定に必要な過去投稿の最低数
+  min_engagement: 10       # これ未満のエンゲージメントはノイズとして無視
+  follower_z: 2.5          # フォロワー増減の異常判定zスコア
+  follower_drop_pct: 1.0   # 1日でこの%以上フォロワーが減ったら即警告
+
+# プラットフォームごとの有効/無効
+instagram:
+  enabled: true            # 環境変数 IG_ACCESS_TOKEN, IG_USER_ID が必要
+tiktok:
+  enabled: true            # 環境変数 TIKTOK_ACCESS_TOKEN が必要
+
+# 通知設定
+notify:
+  webhook_env: SNS_MONITOR_WEBHOOK_URL   # Webhook URLを入れる環境変数名
+  always_send_summary: true              # 異常なしの日もサマリーを送る

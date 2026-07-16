@@ -1,1 +1,8 @@
 .vercel
+
+# SNSモニタリング
+__pycache__/
+*.pyc
+sns-monitor/config.yaml
+sns-monitor/data/tiktok_token.json
+sns-monitor/data/demo_*.db
