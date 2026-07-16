@@ -51,19 +51,48 @@ Instagramを**プロアカウント（ビジネス/クリエイター）**にし
 
 → `IG_ACCESS_TOKEN` と `IG_USER_ID` を設定
 
-### 2. TikTok（Display API）
+### 2. TikTok — APIキー不要の手動入力モード（推奨・デフォルト）
 
-1. [TikTok for Developers](https://developers.tiktok.com/) でアプリを作成
-2. `user.info.stats`, `video.list` スコープでOAuth認証しトークンを取得
+TikTokのAPIは開発者登録・アプリ審査・24時間で切れるトークン管理と
+ハードルが高いため、**手動入力（CSV）モードがデフォルト**です。
+TikTokアプリの「クリエイターツール → インサイト」の数字を、
+リポジトリ内のCSVに書き足すだけで、API連携と同じ分析・アラートが動きます。
 
-→ `TIKTOK_ACCESS_TOKEN` を設定。アクセストークンは24時間で失効するため、
-`TIKTOK_CLIENT_KEY` / `TIKTOK_CLIENT_SECRET` / `TIKTOK_REFRESH_TOKEN` も
-設定しておくと自動でリフレッシュされます。
+**入力はGitHubのWeb画面（スマホでも可）でCSVを開いて編集 → コミットするだけ。**
+翌朝の自動実行が取り込みます。毎日でなくても、書いた分だけ蓄積・分析されます。
+
+`sns-monitor/manual/tiktok_account.csv` … アカウント全体（1行=1日分）:
+
+```csv
+date,followers,following,video_count
+2026-07-16,12800,310,45
+2026-07-17,12850,310,46
+```
+
+`sns-monitor/manual/tiktok_posts.csv` … 投稿ごと（同じ投稿は確認のたびに行を追加）:
+
+```csv
+date,post_id,posted_at,title,url,views,likes,comments,shares
+2026-07-16,v001,2026-07-15,新作メイキング,https://www.tiktok.com/...,54000,1200,80,45
+2026-07-17,v001,2026-07-15,新作メイキング,https://www.tiktok.com/...,98000,2100,150,90
+```
+
+- `date` = 数字を確認した日 / `posted_at` = その動画を投稿した日
+- 数字のカンマ区切り（12,800）はそのままでもOK
+
+API連携に切り替えたい場合は `config.yaml` で `tiktok.mode: api` にし、
+[TikTok for Developers](https://developers.tiktok.com/) のトークンを
+`TIKTOK_ACCESS_TOKEN` に設定（自動リフレッシュ用に `TIKTOK_CLIENT_KEY` /
+`TIKTOK_CLIENT_SECRET` / `TIKTOK_REFRESH_TOKEN` も推奨）。
+TikTokを監視しない場合は `tiktok.mode: off`。
 
 ### 3. 通知先（Slack または Discord）
 
-- Slack: ワークスペースで Incoming Webhook を作成
-- Discord: チャンネル設定 → 連携サービス → ウェブフック
+毎朝の実行結果が、指定したチャンネルにチャットメッセージとして届きます。
+スマホにSlack/Discordアプリを入れていれば**プッシュ通知**でも気づけます。
+
+- Slack: ワークスペースで Incoming Webhook を作成（App管理 → Incoming Webhooks）
+- Discord: 通知用チャンネルの設定 → 連携サービス → ウェブフック → URLをコピー（無料・最も簡単）
 
 → そのURLを `SNS_MONITOR_WEBHOOK_URL` に設定
 

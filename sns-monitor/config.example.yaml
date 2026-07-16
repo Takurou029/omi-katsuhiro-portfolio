@@ -28,11 +28,15 @@ thresholds:
   follower_z: 2.5          # フォロワー増減の異常判定zスコア
   follower_drop_pct: 1.0   # 1日でこの%以上フォロワーが減ったら即警告
 
-# プラットフォームごとの有効/無効
+# プラットフォームごとの設定
 instagram:
   enabled: true            # 環境変数 IG_ACCESS_TOKEN, IG_USER_ID が必要
 tiktok:
-  enabled: true            # 環境変数 TIKTOK_ACCESS_TOKEN が必要
+  # csv = 手動入力モード（推奨・APIキー不要）: manual/tiktok_*.csv に数字を書き足すだけ
+  # api = TikTok Display API連携（環境変数 TIKTOK_ACCESS_TOKEN が必要）
+  # off = TikTokは監視しない
+  mode: csv
+  username: your_tiktok_name   # 通知・レポートに表示する名前
 
 # 通知設定
 notify:

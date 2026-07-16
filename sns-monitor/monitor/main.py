@@ -48,11 +48,14 @@ def store(db: Database, cfg, data: AccountData, snapshot_date: str):
     db.commit()
 
 
-def collect_all(db: Database, cfg, snapshot_date: str) -> list[str]:
-    """有効な全プラットフォームからデータを取得。失敗はエラーメッセージとして返す。"""
+def collect_all(db: Database, cfg, snapshot_date: str) -> tuple[list[str], int]:
+    """有効な全プラットフォームからデータを取得。
+    (エラーメッセージのリスト, 収集を試みたプラットフォーム数) を返す。"""
     errors = []
+    attempted = 0
 
     if cfg.instagram_enabled:
+        attempted += 1
         if os.environ.get("IG_ACCESS_TOKEN") and os.environ.get("IG_USER_ID"):
             try:
                 from .collectors.instagram import InstagramCollector
@@ -63,16 +66,25 @@ def collect_all(db: Database, cfg, snapshot_date: str) -> list[str]:
         else:
             errors.append("Instagram: IG_ACCESS_TOKEN / IG_USER_ID が未設定のためスキップ")
 
-    if cfg.tiktok_enabled:
+    if cfg.tiktok_mode == "api":
+        attempted += 1
         try:
             from .collectors.tiktok import TikTokCollector
             collector = TikTokCollector(token_file=cfg.tiktok_token_file)
             store(db, cfg, collector.collect(), snapshot_date)
-            print("✅ TikTok: 取得完了")
+            print("✅ TikTok(API): 取得完了")
         except Exception as e:
             errors.append(f"TikTokの取得に失敗: {e}")
+    elif cfg.tiktok_mode == "csv":
+        attempted += 1
+        try:
+            from .collectors.manual_tiktok import import_csv
+            n_account, n_posts = import_csv(db, cfg, cfg.manual_dir)
+            print(f"✅ TikTok(手動CSV): アカウント{n_account}行・投稿{n_posts}行を取り込み")
+        except Exception as e:
+            errors.append(f"TikTokのCSV取り込みに失敗: {e}")
 
-    return errors
+    return errors, attempted
 
 
 def main():
@@ -94,6 +106,7 @@ def main():
 
     print(f"=== SNSモニタリング {snapshot_date} ===")
     errors: list[str] = []
+    attempted = 0
     try:
         # 1-2. 収集・蓄積
         if args.demo:
@@ -101,7 +114,7 @@ def main():
             seed_history(db, cfg, snapshot_date)
             print("✅ デモデータ（過去30日分）を生成しました")
         else:
-            errors = collect_all(db, cfg, snapshot_date)
+            errors, attempted = collect_all(db, cfg, snapshot_date)
             for e in errors:
                 print(f"⚠️  {e}")
 
@@ -122,7 +135,7 @@ def main():
         db.close()
 
     # 全プラットフォームの取得に失敗した日は異常終了にする（Actionsで気づけるように）
-    if errors and len(errors) >= (cfg.instagram_enabled + cfg.tiktok_enabled):
+    if attempted and len(errors) >= attempted:
         sys.exit(1)
 
 

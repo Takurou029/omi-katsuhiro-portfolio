@@ -31,7 +31,9 @@ class Config:
     no_post_alert_days: int = 3     # この日数投稿がなければ知らせる
     alert_dedup_days: int = 3       # 同じアラートをこの日数は再発報しない
     instagram_enabled: bool = True
-    tiktok_enabled: bool = True
+    tiktok_mode: str = "csv"        # csv=手動入力（推奨・API不要） / api / off
+    tiktok_username: str = "tiktok"
+    manual_dir: Path = BASE_DIR / "manual"
     webhook_env: str = "SNS_MONITOR_WEBHOOK_URL"
     always_send_summary: bool = True
     thresholds: Thresholds = field(default_factory=Thresholds)
@@ -57,13 +59,15 @@ def load_config(path: Path | None = None) -> Config:
                 "alert_dedup_days", "webhook_env", "always_send_summary"):
         if key in raw:
             setattr(cfg, key, raw[key])
-    for key in ("database", "reports_dir", "tiktok_token_file"):
+    for key in ("database", "reports_dir", "tiktok_token_file", "manual_dir"):
         if key in raw:
             p = Path(raw[key])
             setattr(cfg, key, p if p.is_absolute() else BASE_DIR / p)
 
     cfg.instagram_enabled = (raw.get("instagram") or {}).get("enabled", True)
-    cfg.tiktok_enabled = (raw.get("tiktok") or {}).get("enabled", True)
+    tiktok = raw.get("tiktok") or {}
+    cfg.tiktok_mode = tiktok.get("mode", "off" if tiktok.get("enabled") is False else "csv")
+    cfg.tiktok_username = tiktok.get("username", cfg.tiktok_username)
     notify = raw.get("notify") or {}
     cfg.webhook_env = notify.get("webhook_env", cfg.webhook_env)
     cfg.always_send_summary = notify.get("always_send_summary", cfg.always_send_summary)
