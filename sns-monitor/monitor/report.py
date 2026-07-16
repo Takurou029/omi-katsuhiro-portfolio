@@ -6,10 +6,9 @@ data/reports/YYYY-MM-DD.md に保存し、最新版を latest.md にも複製す
 
 from pathlib import Path
 
+from . import PLATFORM_LABEL
 from .config import Config
 from .db import Database
-
-PLATFORM_LABEL = {"instagram": "Instagram", "tiktok": "TikTok"}
 
 
 def _fmt(n) -> str:

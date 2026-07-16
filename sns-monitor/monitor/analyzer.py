@@ -20,6 +20,7 @@ import statistics
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
+from . import PLATFORM_LABEL
 from .config import Config
 from .db import Database
 
@@ -81,7 +82,9 @@ class Analyzer:
 
     def _analyze_posts(self, account, snapshot_date: str, dedup_since: str) -> list[Alert]:
         alerts = []
-        name = f"{account['platform']} @{account['username']}"
+        is_rival = account["platform"] == "instagram_rival"
+        label = PLATFORM_LABEL.get(account["platform"], account["platform"])
+        name = f"{label} @{account['username']}"
 
         for snap in self.db.post_snapshots_on(
             account["id"], snapshot_date, self.cfg.post_max_age_days
@@ -109,7 +112,8 @@ class Analyzer:
                      or ratio >= self.th.spike_ratio)
             )
             is_slump = (
-                snap["age_days"] <= self.th.slump_max_age_days
+                not is_rival  # 競合の不振は自社のアクションにつながらないので通知しない
+                and snap["age_days"] <= self.th.slump_max_age_days
                 and median >= self.th.min_engagement
                 and ratio <= self.th.slump_ratio
             )
@@ -117,10 +121,16 @@ class Analyzer:
             if is_spike and not self.db.recent_alert_exists(
                 account["id"], snap["post_id"], "spike", dedup_since
             ):
-                advice = (
-                    "この投稿の形式・テーマ・投稿時間帯を分析し、"
-                    "同系統のコンテンツを近日中に追加投稿するのがおすすめです。"
-                )
+                if is_rival:
+                    advice = (
+                        "競合がバズっています。テーマ・構成・フックを分析して"
+                        "自社コンテンツに取り入れることを検討してください。"
+                    )
+                else:
+                    advice = (
+                        "この投稿の形式・テーマ・投稿時間帯を分析し、"
+                        "同系統のコンテンツを近日中に追加投稿するのがおすすめです。"
+                    )
                 alerts.append(Alert(
                     account["id"], snap["post_id"], "spike", "warning",
                     f"📈【急伸】{name}「{label}」が急速に伸びています。{detail}。{advice}"
@@ -148,7 +158,9 @@ class Analyzer:
         if len(history) < 2 or history[0]["snapshot_date"] != snapshot_date:
             return []
 
-        name = f"{account['platform']} @{account['username']}"
+        is_rival = account["platform"] == "instagram_rival"
+        label = PLATFORM_LABEL.get(account["platform"], account["platform"])
+        name = f"{label} @{account['username']}"
         followers = history[0]["followers"]
         delta = followers - history[1]["followers"]
         past_deltas = [
@@ -164,25 +176,35 @@ class Analyzer:
 
         if delta <= min(drop_limit, -1) or (z is not None and z <= -self.th.follower_z and delta < 0):
             if not self.db.recent_alert_exists(account["id"], None, "follower_drop", dedup_since):
-                alerts.append(Alert(
-                    account["id"], None, "follower_drop", "critical",
-                    f"⚠️【フォロワー減少】{name} のフォロワーが1日で {delta:+,} 人"
-                    f"（現在 {_fmt(followers)} 人）。直近の投稿内容への反応や、"
-                    f"アカウントの状態（制限・シャドウバン等）を確認してください。",
-                ))
+                if is_rival:
+                    msg = (f"📊【競合フォロワー減少】{name} のフォロワーが1日で {delta:+,} 人"
+                           f"（現在 {_fmt(followers)} 人）。")
+                    severity = "info"
+                else:
+                    msg = (f"⚠️【フォロワー減少】{name} のフォロワーが1日で {delta:+,} 人"
+                           f"（現在 {_fmt(followers)} 人）。直近の投稿内容への反応や、"
+                           f"アカウントの状態（制限・シャドウバン等）を確認してください。")
+                    severity = "critical"
+                alerts.append(Alert(account["id"], None, "follower_drop", severity, msg))
         elif z is not None and z >= self.th.follower_z and delta > 0:
             if not self.db.recent_alert_exists(account["id"], None, "follower_spike", dedup_since):
+                if is_rival:
+                    advice = "急増の要因になった投稿を分析してみましょう。"
+                else:
+                    advice = "流入元になった投稿を特定して横展開しましょう。"
                 alerts.append(Alert(
                     account["id"], None, "follower_spike", "info",
                     f"🎉【フォロワー急増】{name} のフォロワーが1日で {delta:+,} 人"
                     f"（普段の中央値 {_fmt(statistics.median(past_deltas))} 人/日、現在 {_fmt(followers)} 人）。"
-                    f"流入元になった投稿を特定して横展開しましょう。",
+                    + advice,
                 ))
         return alerts
 
     # --- 投稿の途絶 ------------------------------------------------------------
 
     def _check_no_post(self, account, snapshot_date: str, dedup_since: str) -> list[Alert]:
+        if account["platform"] == "instagram_rival":
+            return []  # 競合の投稿頻度は自社の運用アラート対象外
         last = self.db.last_post_date(account["id"])
         if not last:
             return []
@@ -193,7 +215,8 @@ class Analyzer:
             return []
         if self.db.recent_alert_exists(account["id"], None, "no_post", dedup_since):
             return []
-        name = f"{account['platform']} @{account['username']}"
+        label = PLATFORM_LABEL.get(account["platform"], account["platform"])
+        name = f"{label} @{account['username']}"
         return [Alert(
             account["id"], None, "no_post", "info",
             f"🗓️【投稿なし】{name} は最終投稿から {days} 日経過しています"

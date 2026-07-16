@@ -59,8 +59,23 @@ def collect_all(db: Database, cfg, snapshot_date: str) -> tuple[list[str], int]:
         if os.environ.get("IG_ACCESS_TOKEN") and os.environ.get("IG_USER_ID"):
             try:
                 from .collectors.instagram import InstagramCollector
-                store(db, cfg, InstagramCollector().collect(), snapshot_date)
+                collector = InstagramCollector()
+                store(db, cfg, collector.collect(), snapshot_date)
                 print("✅ Instagram: 取得完了")
+
+                # 競合アカウント（IG_COMPETITORS="a,b,c"）も同じトークンで取得
+                competitors = [
+                    u.strip().lstrip("@")
+                    for u in os.environ.get("IG_COMPETITORS", "").split(",")
+                    if u.strip()
+                ]
+                for username in competitors:
+                    try:
+                        store(db, cfg, collector.collect_competitor(username),
+                              snapshot_date)
+                        print(f"✅ Instagram競合 @{username}: 取得完了")
+                    except Exception as e:
+                        errors.append(f"Instagram競合 @{username} の取得に失敗: {e}")
             except Exception as e:  # 片方が失敗してももう片方は続行する
                 errors.append(f"Instagramの取得に失敗: {e}")
         else:

@@ -5,3 +5,9 @@ Instagram / TikTok の毎日の運用状況をチェックし、
 """
 
 __version__ = "1.0.0"
+
+PLATFORM_LABEL = {
+    "instagram": "Instagram",
+    "instagram_rival": "Instagram競合",
+    "tiktok": "TikTok",
+}

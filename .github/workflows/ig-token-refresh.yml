@@ -1,0 +1,89 @@
+# Instagramアクセストークンの検証・自動延長
+#
+# Metaの長期トークンは60日で失効するため、毎月自動で新しい長期トークンに
+# 交換してGitHub Secretsを更新する。手動実行では検証のみも選べる。
+#
+# 必要なSecrets:
+#   IG_ACCESS_TOKEN  現在の長期アクセストークン
+#   FB_APP_ID        Metaアプリ ID
+#   FB_APP_SECRET    Metaアプリシークレット
+#   GH_PAT           Secrets更新用のFine-grained PAT（権限: このリポジトリのSecrets=Read and write）
+#                    未設定の場合、延長はできるがSecrets自動更新はスキップされる
+#
+# ※ このリポジトリは公開のため、トークンをログに出力しない設計を厳守すること。
+
+name: IG Token Refresh
+
+on:
+  schedule:
+    - cron: '0 1 1 * *'   # 毎月1日 10:00 JST（60日期限に対して十分な頻度）
+  workflow_dispatch:
+    inputs:
+      action:
+        description: '実行内容'
+        type: choice
+        options: [verify, refresh]
+        default: verify
+
+permissions:
+  contents: read
+
+jobs:
+  token:
+    runs-on: ubuntu-latest
+    env:
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      FB_APP_ID: ${{ secrets.FB_APP_ID }}
+      FB_APP_SECRET: ${{ secrets.FB_APP_SECRET }}
+    steps:
+      - name: Verify current token
+        run: |
+          set -euo pipefail
+          if [ -z "$IG_ACCESS_TOKEN" ] || [ -z "$FB_APP_ID" ] || [ -z "$FB_APP_SECRET" ]; then
+            echo "::error::IG_ACCESS_TOKEN / FB_APP_ID / FB_APP_SECRET のSecretsを設定してください"
+            exit 1
+          fi
+          RES=$(curl -sS "https://graph.facebook.com/v21.0/debug_token" \
+            --data-urlencode "input_token=${IG_ACCESS_TOKEN}" \
+            --data-urlencode "access_token=${FB_APP_ID}|${FB_APP_SECRET}" -G)
+          IS_VALID=$(echo "$RES" | jq -r '.data.is_valid // false')
+          EXPIRES=$(echo "$RES" | jq -r '.data.expires_at // 0')
+          echo "トークン有効: $IS_VALID"
+          if [ "$EXPIRES" = "0" ]; then
+            echo "有効期限: 無期限"
+          else
+            echo "有効期限: $(date -u -d @${EXPIRES} '+%Y-%m-%d %H:%M UTC')"
+          fi
+          echo "権限: $(echo "$RES" | jq -c '.data.scopes // []')"
+          if [ "$IS_VALID" != "true" ]; then
+            echo "::error::トークンが失効しています。Graph API Explorerで再発行してください: https://developers.facebook.com/tools/explorer/"
+            echo "$RES" | jq '.data.error // empty'
+            exit 1
+          fi
+
+      - name: Exchange for new long-lived token
+        if: github.event_name == 'schedule' || inputs.action == 'refresh'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -euo pipefail
+          RES=$(curl -sS "https://graph.facebook.com/v21.0/oauth/access_token" \
+            --data-urlencode "grant_type=fb_exchange_token" \
+            --data-urlencode "client_id=${FB_APP_ID}" \
+            --data-urlencode "client_secret=${FB_APP_SECRET}" \
+            --data-urlencode "fb_exchange_token=${IG_ACCESS_TOKEN}" -G)
+          NEW_TOKEN=$(echo "$RES" | jq -r '.access_token // empty')
+          if [ -z "$NEW_TOKEN" ]; then
+            echo "::error::トークン交換に失敗しました"
+            echo "$RES" | jq '.error // empty'
+            exit 1
+          fi
+          echo "::add-mask::$NEW_TOKEN"
+          echo "✅ 新しい長期トークン（60日有効）を取得しました"
+
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::GH_PAT が未設定のためSecretsを自動更新できません。手動で IG_ACCESS_TOKEN を更新してください（トークンは安全のためログに表示しません。GH_PATを設定すると全自動になります）"
+            exit 0
+          fi
+          echo "$NEW_TOKEN" | gh secret set IG_ACCESS_TOKEN --repo "$GITHUB_REPOSITORY"
+          echo "✅ Secret IG_ACCESS_TOKEN を更新しました"
