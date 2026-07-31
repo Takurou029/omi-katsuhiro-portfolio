@@ -12,18 +12,43 @@ import type { Question } from "@/lib/types";
 
 const COUNTS = [5, 10, 20];
 
+/** 分野内のサブ分野一覧（収録数つき）を返す。 */
+function topicsOf(questions: Question[]): { topic: string; count: number }[] {
+  const map = new Map<string, number>();
+  for (const q of questions) {
+    const t = q.topic ?? "その他";
+    map.set(t, (map.get(t) ?? 0) + 1);
+  }
+  return [...map.entries()].map(([topic, count]) => ({ topic, count }));
+}
+
 export default function PracticePage() {
   const { state, hydrated } = useProgress();
   const [domain, setDomain] = useState<string | "mix">("mix");
+  const [topic, setTopic] = useState<string | null>(null);
   const [count, setCount] = useState(10);
   const [session, setSession] = useState<Question[] | null>(null);
   const [sessionKey, setSessionKey] = useState(0);
 
   const counts = useMemo(() => questionCountByDomain(), []);
 
+  // 選択中の分野に属する問題（サブ分野が選ばれていれば絞り込む）。
+  const pool = useMemo(() => {
+    const base = domain === "mix" ? QUESTIONS : getQuestionsByDomain(domain);
+    return topic ? base.filter((q) => (q.topic ?? "その他") === topic) : base;
+  }, [domain, topic]);
+
+  const topics = useMemo(
+    () => (domain === "mix" ? [] : topicsOf(getQuestionsByDomain(domain))),
+    [domain],
+  );
+
+  const selectDomain = (next: string | "mix") => {
+    setDomain(next);
+    setTopic(null); // 分野を変えたらサブ分野の選択は解除する
+  };
+
   const start = () => {
-    const pool =
-      domain === "mix" ? QUESTIONS : getQuestionsByDomain(domain);
     // 弱点優先で count 問を抽選する。
     const qs = selectQuestions(pool, state.cards, count);
     if (qs.length > 0) {
@@ -45,8 +70,7 @@ export default function PracticePage() {
     );
   }
 
-  const poolSize =
-    domain === "mix" ? QUESTIONS.length : counts[domain] ?? 0;
+  const poolSize = pool.length;
 
   return (
     <div className="animate-pop-in mx-auto w-full max-w-2xl">
@@ -60,7 +84,7 @@ export default function PracticePage() {
           <div className="grid grid-cols-2 gap-2">
             <SelectChip
               active={domain === "mix"}
-              onClick={() => setDomain("mix")}
+              onClick={() => selectDomain("mix")}
               label="全分野ミックス"
               sub={`${QUESTIONS.length}問`}
             />
@@ -68,13 +92,52 @@ export default function PracticePage() {
               <SelectChip
                 key={d.id}
                 active={domain === d.name}
-                onClick={() => setDomain(d.name)}
+                onClick={() => selectDomain(d.name)}
                 label={d.shortName}
                 sub={`${counts[d.name] ?? 0}問`}
                 color={d.color}
               />
             ))}
           </div>
+
+          {/* サブ分野で更に絞り込む（試験範囲を細かく潰したいとき用） */}
+          {topics.length > 0 && (
+            <div className="mt-4 border-t border-slate-100 pt-3 dark:border-slate-800">
+              <h3 className="mb-2 text-xs font-bold text-slate-500">
+                さらに絞り込む（任意）
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setTopic(null)}
+                  aria-pressed={topic === null}
+                  className={`rounded-full px-3 py-1.5 text-xs font-bold transition ${
+                    topic === null
+                      ? "bg-accent text-slate-900"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
+                  }`}
+                >
+                  すべて
+                </button>
+                {topics.map((t) => (
+                  <button
+                    key={t.topic}
+                    onClick={() => setTopic(t.topic)}
+                    aria-pressed={topic === t.topic}
+                    className={`rounded-full px-3 py-1.5 text-xs font-bold transition ${
+                      topic === t.topic
+                        ? "bg-accent text-slate-900"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
+                    }`}
+                  >
+                    {t.topic}
+                    <span className="ml-1 font-medium opacity-60">
+                      {t.count}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </Card>
 
         <Card>

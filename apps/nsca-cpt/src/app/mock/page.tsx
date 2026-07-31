@@ -16,7 +16,8 @@ import { QuizRunner } from "@/components/QuizRunner";
 import { Disclaimer } from "@/components/Disclaimer";
 import type { Question } from "@/lib/types";
 
-const OPTIONS = [10, DEFAULT_MOCK_QUESTIONS, 40];
+// 10問（すきま時間）／30問（標準）／70問（本番の半分相当）
+const OPTIONS = [10, DEFAULT_MOCK_QUESTIONS, 70];
 
 export default function MockPage() {
   const [count, setCount] = useState(DEFAULT_MOCK_QUESTIONS);

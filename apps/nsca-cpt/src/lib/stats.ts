@@ -33,6 +33,60 @@ export function domainProficiency(
   });
 }
 
+export interface TopicCoverage {
+  domain: string;
+  topic: string;
+  /** その分野の色。 */
+  color: string;
+  /** 収録問題数。 */
+  total: number;
+  /** 一度でも解答した問題数。 */
+  attempted: number;
+  /** 定着（Leitnerボックスが閾値以上）の問題数。 */
+  mastered: number;
+}
+
+/**
+ * サブ分野（試験範囲）ごとのカバレッジ。
+ * 「まだ手をつけていない範囲」を可視化して、試験範囲の網羅を支援する。
+ */
+export function topicCoverage(
+  questions: { id: string; domain: string; topic?: string }[],
+  cards: Record<string, LeitnerCard>,
+  masteryBox = 4,
+): TopicCoverage[] {
+  const map = new Map<string, TopicCoverage>();
+  for (const q of questions) {
+    const topic = q.topic ?? "その他";
+    const key = `${q.domain}／${topic}`;
+    const entry =
+      map.get(key) ??
+      {
+        domain: q.domain,
+        topic,
+        color: DOMAINS.find((d) => d.name === q.domain)?.color ?? "#94a3b8",
+        total: 0,
+        attempted: 0,
+        mastered: 0,
+      };
+    entry.total += 1;
+    const card = cards[q.id];
+    if (card && card.lastSeen > 0) {
+      entry.attempted += 1;
+      if (card.box >= masteryBox) entry.mastered += 1;
+    }
+    map.set(key, entry);
+  }
+  // 分野の定義順 → 未着手が多い順に並べる。
+  const domainOrder = new Map(DOMAINS.map((d, i) => [d.name, i]));
+  return [...map.values()].sort((a, b) => {
+    const da = domainOrder.get(a.domain) ?? 99;
+    const db = domainOrder.get(b.domain) ?? 99;
+    if (da !== db) return da - db;
+    return b.total - a.total;
+  });
+}
+
 /** 累計正答率（0〜1）。 */
 export function overallAccuracy(answers: AnswerRecord[]): number {
   if (answers.length === 0) return 0;

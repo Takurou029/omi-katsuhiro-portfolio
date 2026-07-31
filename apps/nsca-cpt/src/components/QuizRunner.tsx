@@ -122,7 +122,15 @@ function RunnerHeader({
         >
           {confirming ? "解答を破棄して中断する" : "← 中断"}
         </button>
-        <span className="text-sm font-bold">{title}</span>
+        <span className="text-sm font-bold">
+          {title}
+          {/* 右側がタイマー等で占有される場合も、進捗が分かるよう併記する */}
+          {right && (
+            <span className="ml-2 font-medium tabular-nums text-slate-500">
+              {index + 1}/{total}
+            </span>
+          )}
+        </span>
         <span className="min-w-[52px] text-right text-sm tabular-nums text-slate-500">
           {right ?? `${index + 1}/${total}`}
         </span>
@@ -148,6 +156,11 @@ function QuestionBody({ question }: { question: Question }) {
         >
           {domain?.shortName ?? question.domain}
         </span>
+        {question.topic && (
+          <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+            {question.topic}
+          </span>
+        )}
         <span className="text-[11px] text-slate-400">
           難易度 {"★".repeat(question.difficulty)}
         </span>

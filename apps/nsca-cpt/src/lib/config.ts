@@ -18,37 +18,38 @@ export interface Domain {
 }
 
 /**
- * 分野定義。mockWeight は本番配点の概算：
- * エクササイズテクニック ≒31% / プログラムデザイン ≒31% /
- * 面談と評価 ≒25% / 安全性・法的 ≒13%
+ * 分野定義。mockWeight は公式の出題内容概要（DCO）に基づく比率。
+ * 採点対象140問の内訳：面談と評価32問 / プログラムデザイン45問 /
+ * エクササイズテクニック43問 / 安全性・法的20問。
+ * ※比率は設定値。最新の公式情報で要確認。
  */
 export const DOMAINS: Domain[] = [
   {
     id: "consultation",
     name: "面談と評価",
     shortName: "面談・評価",
-    mockWeight: 0.25,
+    mockWeight: 32 / 140,
     color: "#38bdf8",
   },
   {
     id: "technique",
     name: "エクササイズテクニック",
     shortName: "テクニック",
-    mockWeight: 0.31,
+    mockWeight: 43 / 140,
     color: "#a3e635",
   },
   {
     id: "program",
     name: "プログラムデザイン",
     shortName: "プログラム",
-    mockWeight: 0.31,
+    mockWeight: 45 / 140,
     color: "#fb923c",
   },
   {
     id: "safety",
     name: "安全性・法的",
     shortName: "安全・法的",
-    mockWeight: 0.13,
+    mockWeight: 20 / 140,
     color: "#f472b6",
   },
 ];

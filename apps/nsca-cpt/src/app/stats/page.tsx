@@ -8,7 +8,9 @@ import {
   boxDistribution,
   domainProficiency,
   overallAccuracy,
+  topicCoverage,
 } from "@/lib/stats";
+import { QUESTIONS } from "@/lib/questions";
 import { NUM_BOXES } from "@/lib/config";
 import { PageHeader, Card, Meter, StatTile } from "@/components/ui";
 import { Heatmap } from "@/components/Heatmap";
@@ -27,6 +29,10 @@ export default function StatsPage() {
   );
   const boxes = useMemo(
     () => boxDistribution(state.cards, NUM_BOXES),
+    [state.cards],
+  );
+  const coverage = useMemo(
+    () => topicCoverage(QUESTIONS, state.cards),
     [state.cards],
   );
 
@@ -106,6 +112,48 @@ export default function StatsPage() {
                   }
                 />
               ))}
+            </div>
+          </Card>
+
+          <Card className="lg:col-span-2">
+            <h2 className="text-sm font-bold">試験範囲のカバレッジ</h2>
+            <p className="mb-3 mt-1 text-[11px] text-slate-400">
+              サブ分野ごとの「解いた問題数／収録数」。手つかずの範囲を把握できます。
+            </p>
+            <div className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+              {coverage.map((c) => {
+                const rate = c.total > 0 ? c.attempted / c.total : 0;
+                return (
+                  <div key={`${c.domain}-${c.topic}`}>
+                    <div className="mb-1 flex items-baseline justify-between gap-2 text-xs">
+                      <span className="flex min-w-0 items-center gap-1.5 font-medium">
+                        <span
+                          className="h-2 w-2 flex-none rounded-full"
+                          style={{ backgroundColor: c.color }}
+                        />
+                        <span className="truncate">{c.topic}</span>
+                      </span>
+                      <span className="flex-none tabular-nums text-slate-400">
+                        {c.attempted}/{c.total}
+                        {c.mastered > 0 && (
+                          <span className="ml-1 text-sky-600 dark:text-sky-400">
+                            定着{c.mastered}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                      <div
+                        className="h-full rounded-full transition-[width] duration-500"
+                        style={{
+                          width: `${Math.round(rate * 100)}%`,
+                          backgroundColor: c.color,
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </Card>
 

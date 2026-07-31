@@ -11,6 +11,8 @@ export interface Question {
   id: string;
   /** 分野名（日本語）。DOMAINS の name と一致する。 */
   domain: string;
+  /** サブ分野（公式DCOのサブドメイン相当）。未設定可。 */
+  topic?: string;
   /** 難易度 1〜3。 */
   difficulty: 1 | 2 | 3;
   question: string;

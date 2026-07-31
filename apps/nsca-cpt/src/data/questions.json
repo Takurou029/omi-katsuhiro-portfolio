@@ -2,6 +2,7 @@
   {
     "id": "consult-001",
     "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
     "difficulty": 1,
     "question": "運動プログラム開始前に用いる PAR-Q（身体活動準備状況質問票）の主な目的はどれか。",
     "choices": [
@@ -13,236 +14,310 @@
     "explanation": "PAR-Q は運動開始前に心血管・整形外科的リスクなどを簡易に把握し、医師への照会が必要かを判断するためのスクリーニングツールです。測定や体組成推定が目的ではありません。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-002",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 1,
     "question": "安静時心拍数を触診で測定する部位として一般的に適切なのはどれか。",
     "choices": [
-      "橈骨動脈（手首）",
+      "前脛骨筋",
       "大腿四頭筋",
-      "前脛骨筋"
+      "橈骨動脈（手首）"
     ],
-    "answerIndex": 0,
+    "answerIndex": 2,
     "explanation": "心拍数は動脈を触知して測定します。手首の橈骨動脈や首の頸動脈が一般的です。筋（大腿四頭筋・前脛骨筋）では脈は測れません。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-003",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 1,
     "question": "BMI（体格指数）の計算式として正しいのはどれか。",
     "choices": [
-      "体重(kg) × 身長(m)",
+      "体重(kg) ÷ 身長(m) の2乗",
       "体重(kg) ÷ 身長(cm)",
-      "体重(kg) ÷ 身長(m) の2乗"
+      "体重(kg) × 身長(m)"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "BMI = 体重(kg) ÷ 身長(m)²。身長はメートルで2乗する点に注意します。BMIは体組成そのものではなく体格の指標です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-004",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 2,
     "question": "ウエスト／ヒップ比が高いことが主に示唆する健康リスクはどれか。",
     "choices": [
-      "内臓脂肪型（上半身）肥満と心血管疾患リスクの上昇",
       "柔軟性が高いこと",
+      "内臓脂肪型（上半身）肥満と心血管疾患リスクの上昇",
       "筋持久力が高いこと"
     ],
-    "answerIndex": 0,
+    "answerIndex": 1,
     "explanation": "ウエスト／ヒップ比が高い＝上半身（内臓脂肪型）に脂肪が多い傾向で、心血管・代謝疾患リスクの上昇と関連します。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-005",
     "domain": "面談と評価",
+    "topic": "初回面談・契約",
     "difficulty": 1,
     "question": "SMART な目標設定における「M」が表すものはどれか。",
     "choices": [
       "Motivation（動機）",
-      "Measurable（測定可能）",
-      "Muscle（筋肉）"
+      "Muscle（筋肉）",
+      "Measurable（測定可能）"
     ],
-    "answerIndex": 1,
+    "answerIndex": 2,
     "explanation": "SMART は Specific（具体的）／Measurable（測定可能）／Achievable（達成可能）／Relevant（関連性）／Time-bound（期限）。「M」は測定可能を指します。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-006",
     "domain": "面談と評価",
+    "topic": "初回面談・契約",
     "difficulty": 2,
     "question": "動機づけ面接（motivational interviewing）で重視される姿勢はどれか。",
     "choices": [
-      "恐怖を喚起して行動を変えさせる",
+      "クライアントの自律性を尊重し、共感的に傾聴する",
       "指示的に命令して従わせる",
-      "クライアントの自律性を尊重し、共感的に傾聴する"
+      "恐怖を喚起して行動を変えさせる"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "動機づけ面接は、共感・傾聴とクライアント自身の自律性を尊重し、内発的な変化への動機を引き出す手法です。命令や恐怖喚起は行いません。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-007",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 2,
     "question": "上腕三頭筋部や腹部などをキャリパーで測定する評価はどれか。",
     "choices": [
-      "皮下脂肪厚（皮脂厚）測定による体脂肪率の推定",
       "血圧測定",
+      "皮下脂肪厚（皮脂厚）測定による体脂肪率の推定",
       "肺活量の測定"
     ],
-    "answerIndex": 0,
+    "answerIndex": 1,
     "explanation": "スキンフォールドキャリパーで皮下脂肪厚を数か所測定し、推定式から体脂肪率を求めます。測定部位と手技の標準化が精度に重要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-008",
     "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
     "difficulty": 3,
     "question": "近年のガイドラインで高血圧に分類されやすい安静時血圧の目安はどれか。",
     "choices": [
       "収縮期 90 / 拡張期 60 mmHg 前後",
-      "収縮期 130 以上 / 拡張期 80 mmHg 以上",
-      "収縮期 110 / 拡張期 70 mmHg 前後"
+      "収縮期 110 / 拡張期 70 mmHg 前後",
+      "収縮期 130 以上 / 拡張期 80 mmHg 以上"
     ],
-    "answerIndex": 1,
+    "answerIndex": 2,
     "explanation": "一般に収縮期130mmHg以上または拡張期80mmHg以上が高血圧域とされます（基準は指針により異なるため最新の公式情報で要確認）。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-009",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 2,
     "question": "YMCA 踏み台昇降テストが主に評価する体力要素はどれか。",
     "choices": [
-      "最大筋力",
+      "心肺持久力（有酸素能力）",
       "関節可動域",
-      "心肺持久力（有酸素能力）"
+      "最大筋力"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "一定リズムの踏み台昇降後の回復心拍数などから心肺持久力を推定します。筋力や柔軟性の評価ではありません。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-010",
     "domain": "面談と評価",
+    "topic": "初回面談・契約",
     "difficulty": 1,
     "question": "初回面談の初期段階で最初に行うべきこととして最も適切なのはどれか。",
     "choices": [
-      "健康歴・既往歴の把握とリスクの層別化",
       "いきなり高強度の1RM測定を行う",
+      "健康歴・既往歴の把握とリスクの層別化",
       "最初にプライオメトリクスを実施する"
     ],
-    "answerIndex": 0,
+    "answerIndex": 1,
     "explanation": "まず健康歴・既往歴・生活習慣を把握してリスクを層別化し、安全に評価・プログラムへ進めるかを判断します。高強度テストはその後です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
-
   {
     "id": "tech-001",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 1,
     "question": "バックスクワットで一般的に指導される深さの目安はどれか。",
     "choices": [
-      "膝が15度ほど曲がる程度で止める",
+      "可動域が許す範囲で大腿が床と平行かそれ以下まで下ろす",
       "つま先立ちのまま行う",
-      "可動域が許す範囲で大腿が床と平行かそれ以下まで下ろす"
+      "膝が15度ほど曲がる程度で止める"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "個人の可動域・柔軟性が許す範囲で、大腿が床と平行かそれ以下（パラレル〜フル）まで下ろすのが一般的な目安です。腰が丸まらない範囲で行います。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-002",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 1,
     "question": "デッドリフトのセットアップで適切な脊柱の姿勢はどれか。",
     "choices": [
-      "脊柱をニュートラル（自然な弯曲）に保つ",
       "腰を丸めて持ち上げる",
+      "脊柱をニュートラル（自然な弯曲）に保つ",
       "膝を完全に伸ばしたまま腰だけで持ち上げる"
     ],
-    "answerIndex": 0,
+    "answerIndex": 1,
     "explanation": "デッドリフトは脊柱をニュートラルに保ち、股関節と膝を使って挙上します。腰椎の屈曲（丸まり）は椎間板への負荷を高め傷害リスクになります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-003",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 2,
     "question": "ベンチプレスで肩を保護するために推奨されるのはどれか。",
     "choices": [
       "肩をすくめて挙上する",
-      "肩甲骨を寄せて下制し、バーを胸の中部あたりへ下ろす",
-      "肘を真横（外転90度以上）に開いて下ろす"
+      "肘を真横（外転90度以上）に開いて下ろす",
+      "肩甲骨を寄せて下制し、バーを胸の中部あたりへ下ろす"
     ],
-    "answerIndex": 1,
+    "answerIndex": 2,
     "explanation": "肩甲骨を内転・下制して安定した土台をつくり、バーは胸の中部へ。肘を過度に外へ張ると肩関節前方へのストレスが増します。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-004",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 1,
     "question": "スポッター（補助者）が最も必要とされる種目はどれか。",
     "choices": [
-      "ケーブルプレスダウン",
+      "バーベルバックスクワットやベンチプレス",
       "軽量のバイセップスカール",
-      "バーベルバックスクワットやベンチプレス"
+      "ケーブルプレスダウン"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "バーが体の上・後ろを通り、失敗時に自力で外しにくいフリーウェイト種目（スクワット、ベンチプレスなど）ではスポッターが重要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-005",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 2,
     "question": "オーバーヘッドプレスで腰部を守るために避けるべき動作はどれか。",
     "choices": [
-      "過度な腰椎の反り（過伸展）",
       "体幹を締めて安定させる",
+      "過度な腰椎の反り（過伸展）",
       "脊柱をニュートラルに保つ"
     ],
-    "answerIndex": 0,
+    "answerIndex": 1,
     "explanation": "頭上へ押し上げる際に腰を過度に反らすと腰椎への負担が増します。体幹を締め、肋骨を締めてニュートラルを保つことが重要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-006",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 3,
     "question": "バルサルバ法（息こらえ）に関する記述として正しいのはどれか。",
     "choices": [
@@ -254,11 +329,16 @@
     "explanation": "バルサルバ法は短時間の体幹安定に寄与しますが血圧を大きく上昇させます。心血管リスクのある人には注意が必要で、一般には短時間に留めます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-007",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 1,
     "question": "ダンベル・ワンハンドロウで主に鍛えられる筋群はどれか。",
     "choices": [
@@ -270,11 +350,16 @@
     "explanation": "ロウ系は広背筋・僧帽筋中部・菱形筋など背部の引く筋群を主に動員します。大胸筋はプレス系、大腿四頭筋は下肢種目が主です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-008",
     "domain": "エクササイズテクニック",
+    "topic": "パフォーマンス系種目",
     "difficulty": 2,
     "question": "ボックスジャンプなどプライオメトリック動作で重要な着地はどれか。",
     "choices": [
@@ -286,11 +371,16 @@
     "explanation": "着地では股関節・膝・足関節を軽く曲げて衝撃を分散・吸収します。膝を伸ばしたままや硬い着地は傷害リスクを高めます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-009",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 2,
     "question": "フォワードランジにおける膝のアライメント指導として適切なのはどれか。",
     "choices": [
@@ -302,11 +392,16 @@
     "explanation": "膝は第2〜3趾の方向を向くように保ち、内側への崩れ（ニーイン）を避けます。ニーインは膝関節へのストレスを高めます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-010",
     "domain": "エクササイズテクニック",
+    "topic": "マシン種目",
     "difficulty": 1,
     "question": "ラットプルダウンの適切なフォームはどれか。",
     "choices": [
@@ -318,92 +413,121 @@
     "explanation": "バーは鎖骨〜上胸部の前方へ引き、肩甲骨を下制して背部を使います。首の後ろへ引くフォームや過度な反動は肩・頸部の傷害リスクを高めます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
-
   {
     "id": "prog-001",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 2,
     "question": "筋肥大（ハイパートロフィー）を主目的とする一般的な負荷・反復回数の目安はどれか。",
     "choices": [
       "最大負荷で1〜2回のみ",
-      "中程度負荷（およそ67〜85%1RM）で6〜12回",
-      "超低負荷で30回以上のみ"
+      "超低負荷で30回以上のみ",
+      "中程度負荷（およそ67〜85%1RM）で6〜12回"
     ],
-    "answerIndex": 1,
+    "answerIndex": 2,
     "explanation": "筋肥大は中程度負荷（約67〜85%1RM）・6〜12回・中程度の量を複数セット行うのが一般的な目安です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-002",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 2,
     "question": "最大筋力の向上に一般的に推奨される強度・反復はどれか。",
     "choices": [
-      "自体重のみで多回数",
+      "高強度（およそ85%1RM以上）・低反復",
       "低強度・高反復",
-      "高強度（およそ85%1RM以上）・低反復"
+      "自体重のみで多回数"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "最大筋力の向上には高強度（約85%1RM以上）・低反復（およそ6回以下）・十分な休息が有効とされます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-003",
     "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
     "difficulty": 1,
     "question": "漸進性過負荷（progressive overload）の原則の説明として正しいのはどれか。",
     "choices": [
-      "徐々に負荷やストレスを高めて適応を促す",
       "毎回まったく同じ負荷を維持し続ける",
+      "徐々に負荷やストレスを高めて適応を促す",
       "負荷を継続的に下げていく"
     ],
-    "answerIndex": 0,
+    "answerIndex": 1,
     "explanation": "身体は与えられた刺激に適応するため、継続して発達させるには重量・回数・量などを段階的に高めていく必要があります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-004",
     "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
     "difficulty": 2,
     "question": "特異性の原則（SAID の原理）が意味するものはどれか。",
     "choices": [
-      "課された要求に対して特異的に適応する",
+      "休養だけで筋力が向上する",
       "どんな運動でも同じ効果が得られる",
-      "休養だけで筋力が向上する"
+      "課された要求に対して特異的に適応する"
     ],
-    "answerIndex": 0,
+    "answerIndex": 2,
     "explanation": "SAID（Specific Adaptation to Imposed Demands）は、トレーニングで課された特定の要求（速度・可動域・エネルギー系など）に応じて適応が起こるという原則です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-005",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 3,
     "question": "パワー向上を狙うトレーニングの一般的な特徴はどれか。",
     "choices": [
-      "常に最大負荷でできるだけゆっくり挙上する",
+      "比較的軽〜中程度の負荷を高速で挙上する",
       "可動域を制限して行う",
-      "比較的軽〜中程度の負荷を高速で挙上する"
+      "常に最大負荷でできるだけゆっくり挙上する"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "パワー＝力×速度。パワー系トレーニングは比較的軽〜中負荷を意図的に高速で動かし、爆発的な力発揮を狙います。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-006",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 2,
     "question": "高強度のレジスタンストレーニング（筋力向上）における一般的なセット間休息はどれか。",
     "choices": [
@@ -415,11 +539,16 @@
     "explanation": "高強度・低反復で筋力・パワーを狙う場合、神経系とエネルギー（クレアチンリン酸系）の回復のため約2〜5分の長めの休息が推奨されます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-007",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 3,
     "question": "ピリオダイゼーション（期分け）の主な目的はどれか。",
     "choices": [
@@ -431,11 +560,16 @@
     "explanation": "ピリオダイゼーションは、量と強度を計画的に変動させて適応を最大化し、停滞やオーバートレーニングを避け、目標時期にピークを合わせる手法です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-008",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 1,
     "question": "レジスタンストレーニング初心者に一般的に推奨される頻度はどれか。",
     "choices": [
@@ -447,11 +581,16 @@
     "explanation": "初心者は全身を週2〜3回、間に回復日を挟む頻度が一般的に推奨されます。毎日同一部位を高強度で行うと回復が不十分になります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-009",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 2,
     "question": "一般的なトレーニング種目の順序の原則はどれか。",
     "choices": [
@@ -463,11 +602,16 @@
     "explanation": "疲労の影響が大きい多関節・大筋群種目（スクワット、デッドリフト等）を先に行い、単関節・小筋群種目を後に配置するのが一般原則です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-010",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 1,
     "question": "筋持久力の向上を狙う場合の一般的な反復回数・休息の目安はどれか。",
     "choices": [
@@ -479,12 +623,16 @@
     "explanation": "筋持久力は比較的軽い負荷で高反復（約15回以上）・短い休息（約30秒〜1分）で行うのが一般的です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
-
   {
     "id": "safety-001",
     "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
     "difficulty": 3,
     "question": "パーソナルトレーナーに求められる「注意義務（standard of care）」の説明として正しいのはどれか。",
     "choices": [
@@ -496,11 +644,16 @@
     "explanation": "注意義務とは、同様の状況で合理的かつ慎重な専門家が取るであろう行動水準を指します。これを下回ると過失（negligence）が問われ得ます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-002",
     "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
     "difficulty": 2,
     "question": "インフォームド・コンセント（説明と同意）の主な目的はどれか。",
     "choices": [
@@ -512,11 +665,16 @@
     "explanation": "インフォームド・コンセントは、プログラムの内容・目的・リスクを説明し、クライアントが理解した上で参加に同意する手続きです。責任の完全免除や診断とは異なります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-003",
     "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
     "difficulty": 2,
     "question": "パーソナルトレーナーの業務範囲（スコープ・オブ・プラクティス）として不適切なものはどれか。",
     "choices": [
@@ -528,11 +686,16 @@
     "explanation": "医療的診断や治療的な食事処方は医師・管理栄養士など有資格者の領域で、トレーナーの業務範囲外です。範囲を超える行為は法的リスクになります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-004",
     "domain": "安全性・法的",
+    "topic": "緊急時対応",
     "difficulty": 2,
     "question": "緊急時対応計画（EAP：Emergency Action Plan）に含めるべき内容はどれか。",
     "choices": [
@@ -544,11 +707,16 @@
     "explanation": "EAP には、緊急時の連絡手順、AED・救急要請、応急処置、役割分担、搬送経路などを明確に定めます。定期的な訓練も重要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-005",
     "domain": "安全性・法的",
+    "topic": "施設・器具の安全",
     "difficulty": 1,
     "question": "トレーニング施設の器具配置に関して安全上重要なのはどれか。",
     "choices": [
@@ -560,11 +728,16 @@
     "explanation": "器具間に十分な間隔と通路を確保し、非常口を塞がないことが安全上重要です。密集配置や非常口の閉塞は事故・避難遅延の原因になります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-006",
     "domain": "安全性・法的",
+    "topic": "緊急時対応",
     "difficulty": 1,
     "question": "パーソナルトレーナーが保持を強く推奨される認定はどれか。",
     "choices": [
@@ -576,11 +749,16 @@
     "explanation": "緊急時に一次救命処置ができるよう、有効な CPR / AED 認定の保持が求められます。多くの認定団体で必須または強く推奨されます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-007",
     "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
     "difficulty": 3,
     "question": "過失責任（negligence）が問われやすい状況はどれか。",
     "choices": [
@@ -592,11 +770,16 @@
     "explanation": "注意義務を果たさず（適切な指導・監督を怠り）、それが原因で傷害が生じた場合に過失責任が問われやすくなります。適切な対応をしていれば責任は生じにくくなります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-008",
     "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
     "difficulty": 2,
     "question": "記録（ドキュメンテーション）を残すことの意義として正しいのはどれか。",
     "choices": [
@@ -608,76 +791,100 @@
     "explanation": "同意書、アセスメント結果、プログラム、進捗、インシデントなどの記録は、質の高い指導と、万一の際の法的保護・リスク管理の両面で重要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-009",
     "domain": "安全性・法的",
+    "topic": "安全手順",
     "difficulty": 2,
     "question": "オーバートレーニング（過負荷）の兆候として注意すべきものはどれか。",
     "choices": [
-      "慢性的な疲労・パフォーマンス低下・睡眠障害",
+      "気分の安定と回復の速さ",
       "持続的な体力の向上",
-      "気分の安定と回復の速さ"
+      "慢性的な疲労・パフォーマンス低下・睡眠障害"
     ],
-    "answerIndex": 0,
+    "answerIndex": 2,
     "explanation": "オーバートレーニングでは、慢性的疲労、パフォーマンス低下、睡眠・気分の障害、傷害・感染の増加などがみられます。回復（休養・栄養・睡眠）の確保が重要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-010",
     "domain": "安全性・法的",
+    "topic": "安全手順",
     "difficulty": 1,
     "question": "暑熱環境での運動における熱中症予防として適切なのはどれか。",
     "choices": [
-      "水分をできるだけ制限する",
+      "こまめな水分補給を行い、暑熱環境では強度・時間を調整する",
       "高温多湿でも通常どおり高強度を継続する",
-      "こまめな水分補給を行い、暑熱環境では強度・時間を調整する"
+      "水分をできるだけ制限する"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "こまめな水分・電解質補給、暑熱順化、強度と時間の調整、休憩と冷却が熱中症予防に重要です。水分制限や無理な高強度継続は危険です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
-
   {
     "id": "consult-011",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 2,
     "question": "推定最大心拍数の最も簡便な算出式として一般的に用いられるのはどれか。",
     "choices": [
-      "220 − 年齢",
+      "180 + 年齢",
       "200 − 体重(kg)",
-      "180 + 年齢"
+      "220 − 年齢"
     ],
-    "answerIndex": 0,
+    "answerIndex": 2,
     "explanation": "推定最大心拍数は「220 − 年齢」が最も簡便な推定式として広く用いられます。個人差が大きい点（±10拍程度）には注意が必要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-012",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 3,
     "question": "カルボーネン法（心拍予備法）で用いる「予備心拍数（HRR）」の求め方はどれか。",
     "choices": [
-      "安静時心拍数 × 2",
+      "最大心拍数 − 安静時心拍数",
       "最大心拍数 + 安静時心拍数",
-      "最大心拍数 − 安静時心拍数"
+      "安静時心拍数 × 2"
     ],
-    "answerIndex": 2,
+    "answerIndex": 0,
     "explanation": "予備心拍数（HRR）＝最大心拍数 − 安静時心拍数。目標心拍数は「HRR × 運動強度(%) + 安静時心拍数」で求めます（カルボーネン法）。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-013",
     "domain": "面談と評価",
+    "topic": "初回面談・契約",
     "difficulty": 2,
     "question": "行動変容ステージモデルで「準備期（preparation）」にあたるクライアントの状態はどれか。",
     "choices": [
@@ -689,27 +896,37 @@
     "explanation": "準備期は「30日以内など近い将来に行動を起こす意図があり、体験入会や用具の購入など具体的な準備を始めている」段階です。無関心期・維持期との区別を押さえましょう。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-014",
     "domain": "面談と評価",
+    "topic": "体力評価",
     "difficulty": 1,
     "question": "座位体前屈（シット・アンド・リーチ）テストが主に評価する部位はどれか。",
     "choices": [
       "肩関節の可動域",
-      "腰背部とハムストリングスの柔軟性",
-      "足関節の背屈可動域"
+      "足関節の背屈可動域",
+      "腰背部とハムストリングスの柔軟性"
     ],
-    "answerIndex": 1,
+    "answerIndex": 2,
     "explanation": "座位体前屈は腰背部とハムストリングス（大腿後面）の柔軟性の評価として広く用いられます。肩や足関節の柔軟性は別のテストで評価します。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "consult-015",
     "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
     "difficulty": 3,
     "question": "運動開始前に医師への照会（メディカルクリアランス）が最も強く推奨されるのはどれか。",
     "choices": [
@@ -721,44 +938,58 @@
     "explanation": "心血管・代謝・腎疾患の既往や症状がある人が高強度運動を始める場合は、事前の医学的許可が強く推奨されます。健康な人の低〜中強度運動では通常不要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
-
   {
     "id": "tech-011",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 1,
     "question": "レジスタンス運動時の呼吸の一般原則として正しいのはどれか。",
     "choices": [
       "常に息を止めたまま行う",
-      "下ろす（伸張性）局面で息を吐く",
-      "挙上する（短縮性）局面で息を吐く"
+      "挙上する（短縮性）局面で息を吐く",
+      "下ろす（伸張性）局面で息を吐く"
     ],
-    "answerIndex": 2,
+    "answerIndex": 1,
     "explanation": "一般原則は「力を出す（挙上・短縮性）局面で吐き、下ろす（伸張性）局面で吸う」。息を止め続けると血圧が急上昇するため、通常の負荷では避けます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-012",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 2,
     "question": "デッドリフトで高重量時にバーの滑りを防ぐ目的で使われる握り方はどれか。",
     "choices": [
       "両手とも順手（オーバーハンド）で浅く握る",
-      "片手を順手・もう片手を逆手にするオルタネイトグリップ",
-      "指先だけで引っかけるフックなしの浅指握り"
+      "指先だけで引っかけるフックなしの浅指握り",
+      "片手を順手・もう片手を逆手にするオルタネイトグリップ"
     ],
-    "answerIndex": 1,
+    "answerIndex": 2,
     "explanation": "オルタネイト（交互）グリップは片手順手・片手逆手で握る方法で、バーの回転による滑りを防ぎます。フックグリップも滑り防止に有効です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-013",
     "domain": "エクササイズテクニック",
+    "topic": "自体重・スタビリティ",
     "difficulty": 1,
     "question": "プランク（フロントブリッジ）の正しい姿勢はどれか。",
     "choices": [
@@ -770,11 +1001,16 @@
     "explanation": "プランクは頭・肩・股関節・踵が一直線になるよう体幹を固定します。腰の反り（過伸展）や落ち込みは腰部への負担や効果減少につながります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-014",
     "domain": "エクササイズテクニック",
+    "topic": "マシン種目",
     "difficulty": 2,
     "question": "マシントレーニングがフリーウェイトと比べて優れている点として適切なのはどれか。",
     "choices": [
@@ -786,11 +1022,16 @@
     "explanation": "マシンは動作軌道が固定されるため、初心者や リハビリ段階でも比較的安全に扱えます。一方、安定筋の動員や競技動作への転移はフリーウェイトが優れます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "tech-015",
     "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
     "difficulty": 2,
     "question": "ベントオーバーロウ（バーベルロウ）で維持すべき姿勢はどれか。",
     "choices": [
@@ -802,12 +1043,16 @@
     "explanation": "ベントオーバーロウは股関節から上体を前傾し、腰椎をニュートラルに保ったまま肘を引きます。腰の丸まりや反動は腰部傷害のリスクを高めます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
-
   {
     "id": "prog-011",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 2,
     "question": "負荷を増やす目安として用いられる「2フォー2ルール」の内容はどれか。",
     "choices": [
@@ -819,11 +1064,16 @@
     "explanation": "2フォー2ルール：直近2回のセッションで最終セットを目標回数＋2回以上こなせたら、次回から負荷を漸増する目安です。無理のない漸進的過負荷に役立ちます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-012",
     "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
     "difficulty": 1,
     "question": "健康維持のための有酸素運動として一般的に推奨される週あたりの目安はどれか。",
     "choices": [
@@ -835,11 +1085,16 @@
     "explanation": "一般的なガイドラインでは、中強度の有酸素運動を週150分程度（または高強度を週75分程度）が健康維持の目安とされています。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-013",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 1,
     "question": "ウォームアップの主な目的として最も適切なのはどれか。",
     "choices": [
@@ -851,11 +1106,16 @@
     "explanation": "ウォームアップは体温・筋温・心拍数を漸増させ、可動域と神経系の準備を整えて主運動の質を高め、傷害リスクの低減に寄与します。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-014",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 2,
     "question": "「スーパーセット」の説明として正しいのはどれか。",
     "choices": [
@@ -867,11 +1127,16 @@
     "explanation": "スーパーセットは拮抗筋どうし（プッシュとプル等）の2種目を休息なしで連続実施する方法。時間効率が高く、筋持久力向上にも用いられます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "prog-015",
     "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
     "difficulty": 1,
     "question": "レジスタンストレーニング初心者の最初の数週間で最も優先すべきことはどれか。",
     "choices": [
@@ -883,60 +1148,79 @@
     "explanation": "初心者はまず正しい動作パターンの習得が最優先。軽い負荷でフォームを固め、適応に応じて漸進的に負荷を高めることで安全に効果を得られます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
-
   {
     "id": "safety-011",
     "domain": "安全性・法的",
+    "topic": "安全手順",
     "difficulty": 1,
     "question": "運動を直ちに中止して対応すべき徴候はどれか。",
     "choices": [
       "軽い発汗",
-      "運動に伴う適度な筋疲労",
-      "胸の痛み・強いめまい・異常な息切れ"
+      "胸の痛み・強いめまい・異常な息切れ",
+      "運動に伴う適度な筋疲労"
     ],
-    "answerIndex": 2,
+    "answerIndex": 1,
     "explanation": "胸痛、強いめまい・ふらつき、異常な息切れ、冷汗などは心血管イベントの前兆の可能性があり、直ちに運動を中止して状態確認・必要なら救急要請を行います。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-012",
     "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
     "difficulty": 2,
     "question": "クライアント情報の取り扱いとして適切なのはどれか。",
     "choices": [
-      "本人の同意なく第三者へ開示しない（守秘義務を守る）",
+      "他のクライアントに雑談として健康情報を共有する",
       "指導の宣伝のため、無断で経過をSNSに投稿する",
-      "他のクライアントに雑談として健康情報を共有する"
+      "本人の同意なく第三者へ開示しない（守秘義務を守る）"
     ],
-    "answerIndex": 0,
+    "answerIndex": 2,
     "explanation": "健康情報・評価結果などの個人情報には守秘義務があります。開示や事例紹介には本人の明示的な同意が必要です。無断公開は信頼と法的リスクの両面で問題になります。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-013",
     "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
     "difficulty": 3,
     "question": "パーソナルトレーナーが専門職賠償責任保険に加入する主な意義はどれか。",
     "choices": [
-      "医療行為が可能になる",
       "指導中の事故等で損害賠償を請求された場合に備える",
+      "医療行為が可能になる",
       "資格試験が免除される"
     ],
-    "answerIndex": 1,
+    "answerIndex": 0,
     "explanation": "賠償責任保険は、指導中の傷害等で法的責任を問われた場合の損害賠償・訴訟費用に備えるものです。保険加入は責任の免除ではなく、注意義務の履行が前提です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-014",
     "domain": "安全性・法的",
+    "topic": "施設・器具の安全",
     "difficulty": 2,
     "question": "トレーニング器具の安全管理として適切なのはどれか。",
     "choices": [
@@ -948,11 +1232,16 @@
     "explanation": "器具は定期的に点検・清掃し、点検記録を残します。不具合が見つかった器具は「使用中止」を明示して隔離・修理します。記録は事故時の法的保護にも役立ちます。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
   },
   {
     "id": "safety-015",
     "domain": "安全性・法的",
+    "topic": "安全手順",
     "difficulty": 2,
     "question": "遅発性筋肉痛（DOMS）について正しい記述はどれか。",
     "choices": [
@@ -964,6 +1253,2950 @@
     "explanation": "DOMSは不慣れな運動や伸張性動作の後、24〜72時間でピークになる筋肉痛で、通常は数日で自然軽快します。強い腫脹や褐色尿を伴う場合は横紋筋融解症を疑い受診が必要です。",
     "imageUrl": null,
     "videoUrl": null,
-    "reference": { "edition": "第3版", "chapter": null, "page": null }
+    "reference": {
+      "edition": "第3版",
+      "chapter": null,
+      "page": null
+    }
+  },
+  {
+    "id": "consult-016",
+    "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
+    "difficulty": 2,
+    "question": "冠動脈疾患の「陽性リスクファクター」に該当するものはどれか。",
+    "choices": [
+      "HDLコレステロールが高い（60mg/dL以上）",
+      "喫煙習慣がある",
+      "定期的な有酸素運動の習慣がある"
+    ],
+    "answerIndex": 1,
+    "explanation": "喫煙・高血圧・脂質異常・肥満・身体不活動・家族歴・高血糖などが陽性リスクファクターです。HDLが高い（60mg/dL以上）ことは「陰性（防御的）リスクファクター」として1つ差し引いて数えます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-017",
+    "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
+    "difficulty": 3,
+    "question": "β遮断薬を服用しているクライアントの運動強度設定で注意すべき点はどれか。",
+    "choices": [
+      "薬の影響はないので通常どおり心拍数で管理する",
+      "心拍数が通常より高く出るため、目標心拍数を下げる",
+      "心拍数の上昇が抑制されるため、心拍数のみで強度を判断せずRPEなども併用する"
+    ],
+    "answerIndex": 2,
+    "explanation": "β遮断薬は安静時・運動時の心拍数を低下させるため、心拍数ベースの強度設定が実際の負担を反映しません。自覚的運動強度（RPE）やトークテストを併用します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-018",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 3,
+    "question": "同日に複数の体力測定を行う場合の一般的な実施順序として適切なのはどれか。",
+    "choices": [
+      "安静時測定 → 体組成・柔軟性 → パワー・アジリティ → 筋力 → 筋持久力 → 有酸素持久力",
+      "有酸素持久力 → 最大筋力 → パワー → 安静時測定",
+      "最大筋力 → 安静時測定 → 有酸素持久力 → パワー"
+    ],
+    "answerIndex": 0,
+    "explanation": "疲労が後の測定に影響しないよう、安静時測定・非疲労性の測定を先に行い、疲労の大きい持久系テストを最後にします。パワーやアジリティは筋持久力・有酸素の前に配置します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第10章 体力評価の選択と実施",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-019",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "1RM（最大挙上重量）テストの実施が最も適切でないのはどれか。",
+    "choices": [
+      "動作を習得済みで、レジスタンストレーニング経験のある健康な成人",
+      "その種目のフォームをまだ習得していない初心者",
+      "定期的にトレーニングしている競技者"
+    ],
+    "answerIndex": 1,
+    "explanation": "1RMテストは正しい動作技術の習得が前提です。フォーム未習得の初心者では傷害リスクが高いため、複数回反復（3RM・10RMなど）からの推定や、まずは技術習得を優先します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-020",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 3,
+    "question": "反復回数から1RMを推定する方法について正しい記述はどれか。",
+    "choices": [
+      "反復回数が多いほど推定精度が高くなる",
+      "反復回数と推定精度には関係がない",
+      "反復回数が少ない（10回以下程度）ほど推定精度が高い"
+    ],
+    "answerIndex": 2,
+    "explanation": "推定式は反復回数が少ないほど誤差が小さくなります。おおむね10回以下で限界となる負荷を用いるのが望ましく、高反復では持久力の影響が大きく精度が落ちます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-021",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "生体電気インピーダンス法（BIA）による体組成測定で結果に影響する要因はどれか。",
+    "choices": [
+      "測定時の体水分状態（脱水や直前の運動・飲食）",
+      "測定者の身長",
+      "室内の照明の明るさ"
+    ],
+    "answerIndex": 0,
+    "explanation": "BIAは体内の電気抵抗から推定するため、脱水・過剰な水分摂取・直前の運動・飲酒などで大きく変動します。測定条件（時間帯・水分状態）を標準化することが重要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-022",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "体重80kg・体脂肪率25%のクライアントの除脂肪体重（LBM）はどれか。",
+    "choices": [
+      "20kg",
+      "60kg",
+      "55kg"
+    ],
+    "answerIndex": 1,
+    "explanation": "脂肪量＝80×0.25＝20kg。除脂肪体重＝80−20＝60kgです。目標体重の算出（目標LBM÷(1−目標体脂肪率)）にも用いる基本計算です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-023",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 1,
+    "question": "腕立て伏せ（プッシュアップ）テストが評価する体力要素はどれか。",
+    "choices": [
+      "心肺持久力",
+      "最大パワー",
+      "上半身の筋持久力"
+    ],
+    "answerIndex": 2,
+    "explanation": "決められたフォームで反復できる回数を数えるプッシュアップテストは、上半身（大胸筋・上腕三頭筋など）の筋持久力の指標です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-024",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 1,
+    "question": "垂直跳び（バーティカルジャンプ）テストが主に評価するのはどれか。",
+    "choices": [
+      "下肢の無酸素性パワー",
+      "柔軟性",
+      "有酸素能力"
+    ],
+    "answerIndex": 0,
+    "explanation": "垂直跳びは短時間で最大の力を発揮する下肢の無酸素性パワーの指標です。立ち幅跳びも同様にパワーを評価します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-025",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "Tテストやプロアジリティ（5-10-5）が評価する体力要素はどれか。",
+    "choices": [
+      "筋肥大の程度",
+      "方向転換を伴うアジリティ（敏捷性）",
+      "静的柔軟性"
+    ],
+    "answerIndex": 1,
+    "explanation": "Tテストやプロアジリティは、加速・減速・方向転換の能力（アジリティ）を評価します。直線スプリントは加速能力・スピードの評価です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-026",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "体力レベルが低い中高年のクライアントに対する有酸素能力評価として最も適切なのはどれか。",
+    "choices": [
+      "1.5マイル（約2.4km）全力走テスト",
+      "最大努力のトレッドミル漸増負荷テスト（医師の監督なし）",
+      "ロックポート1マイル歩行テスト"
+    ],
+    "answerIndex": 2,
+    "explanation": "ロックポート（1マイル歩行）は低体力者・高齢者にも安全に実施できる推定法です。全力走や最大努力テストはリスクが高く、対象者の状態と監督体制を考慮して選択します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第10章 体力評価の選択と実施",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-027",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 3,
+    "question": "測定における「信頼性（reliability）」の説明として正しいのはどれか。",
+    "choices": [
+      "繰り返し測定したときに一貫した結果が得られるかどうか",
+      "測定したい能力を正しく測れているかどうか",
+      "測定にかかる時間が短いかどうか"
+    ],
+    "answerIndex": 0,
+    "explanation": "信頼性は再現性（一貫性）、妥当性（validity）は「測りたいものを測れているか」です。両方が備わって初めて評価結果を判断材料にできます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第10章 体力評価の選択と実施",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-028",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "あるテストの結果が「70パーセンタイル」であった場合の解釈として正しいのはどれか。",
+    "choices": [
+      "満点の70%の得点である",
+      "同じ基準集団の70%の人より良い成績である",
+      "70%の確率で合格である"
+    ],
+    "answerIndex": 1,
+    "explanation": "パーセンタイル順位は基準集団内での相対的な位置を示し、70パーセンタイルは同集団の70%より上位という意味です。基準値は年齢・性別ごとに参照します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-029",
+    "domain": "面談と評価",
+    "topic": "栄養の基礎",
+    "difficulty": 2,
+    "question": "炭水化物・タンパク質・脂質の1gあたりのエネルギー量の組み合わせとして正しいのはどれか。",
+    "choices": [
+      "炭水化物4kcal / タンパク質9kcal / 脂質7kcal",
+      "炭水化物9kcal / タンパク質4kcal / 脂質4kcal",
+      "炭水化物4kcal / タンパク質4kcal / 脂質9kcal"
+    ],
+    "answerIndex": 2,
+    "explanation": "炭水化物とタンパク質は1gあたり約4kcal、脂質は約9kcal、アルコールは約7kcalです。エネルギー計算の基礎として頻出です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第7章 栄養の概念と戦略",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-030",
+    "domain": "面談と評価",
+    "topic": "栄養の基礎",
+    "difficulty": 2,
+    "question": "レジスタンストレーニングを行う一般成人のタンパク質摂取量の目安として、一般に推奨される範囲はどれか。",
+    "choices": [
+      "体重1kgあたり1.2〜2.0g/日",
+      "体重1kgあたり0.2〜0.4g/日",
+      "体重1kgあたり5〜6g/日"
+    ],
+    "answerIndex": 0,
+    "explanation": "トレーニングを行う人では体重1kgあたり約1.2〜2.0g/日が一般的な目安とされます（一般成人の最低必要量は約0.8g/kg）。過剰摂取に明確な追加効果は示されていません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第7章 栄養の概念と戦略",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-031",
+    "domain": "面談と評価",
+    "topic": "栄養の基礎",
+    "difficulty": 1,
+    "question": "運動時の水分補給に関する指導として適切なのはどれか。",
+    "choices": [
+      "喉の渇きを感じてから初めて飲むよう指導する",
+      "運動前・中・後を通じてこまめに補給するよう指導する",
+      "運動中は一切水分を摂らないよう指導する"
+    ],
+    "answerIndex": 1,
+    "explanation": "喉の渇きは脱水がある程度進んでから生じるため、運動前・中・後を通じた計画的な補給が推奨されます。体重減少量を目安に補給量を調整する方法もあります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第7章 栄養の概念と戦略",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-032",
+    "domain": "面談と評価",
+    "topic": "栄養の基礎",
+    "difficulty": 2,
+    "question": "クライアントから「持病の食事療法の献立を作ってほしい」と依頼された場合、パーソナルトレーナーの対応として適切なのはどれか。",
+    "choices": [
+      "サプリメントで代替するよう指示する",
+      "自分の経験に基づいて詳細な治療用献立を作成する",
+      "一般的な健康的食習慣の情報提供にとどめ、管理栄養士や医師へ紹介する"
+    ],
+    "answerIndex": 2,
+    "explanation": "疾患に対する食事療法の処方は業務範囲外です。一般的な栄養教育は可能ですが、個別の治療的食事指導は管理栄養士・医師へ紹介します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第7章 栄養の概念と戦略",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-033",
+    "domain": "面談と評価",
+    "topic": "栄養の基礎",
+    "difficulty": 2,
+    "question": "安全で持続可能な減量ペースの一般的な目安はどれか。",
+    "choices": [
+      "週に0.5〜1kg程度",
+      "週に3〜5kg程度",
+      "1日に1kg程度"
+    ],
+    "answerIndex": 0,
+    "explanation": "週0.5〜1kg（1日あたり約500〜1000kcalのエネルギー不足）が、除脂肪量の損失を抑えつつ継続しやすいペースの目安です。急激な減量は除脂肪量減少やリバウンドを招きます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第19章 栄養・代謝面の課題があるクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-034",
+    "domain": "面談と評価",
+    "topic": "栄養の基礎",
+    "difficulty": 1,
+    "question": "体重1kgの脂肪を減らすために必要なエネルギー不足の概算値として最も近いのはどれか。",
+    "choices": [
+      "約700kcal",
+      "約7,000kcal",
+      "約2,000kcal"
+    ],
+    "answerIndex": 1,
+    "explanation": "脂肪組織1kgはおよそ7,000〜7,700kcalに相当します。1日500kcalの不足で週に約0.5kgの減少という目安の根拠になります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第19章 栄養・代謝面の課題があるクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-035",
+    "domain": "面談と評価",
+    "topic": "栄養の基礎",
+    "difficulty": 2,
+    "question": "運動直前の食事に関する一般的な助言として適切なのはどれか。",
+    "choices": [
+      "直前に高脂肪・高食物繊維の大量の食事を摂る",
+      "運動の3時間以内は水分も含め一切摂取しない",
+      "運動に近い時間帯は消化の良い炭水化物を中心に少量にする"
+    ],
+    "answerIndex": 2,
+    "explanation": "運動直前は消化に負担の少ない炭水化物中心・少量が基本です。高脂肪・高食物繊維の大量摂取は胃腸の不快感の原因になります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第7章 栄養の概念と戦略",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-036",
+    "domain": "面談と評価",
+    "topic": "初回面談・契約",
+    "difficulty": 1,
+    "question": "初回面談でラポール（信頼関係）を築くための行動として適切なのはどれか。",
+    "choices": [
+      "アイコンタクトを取り、開かれた質問で相手の話を傾聴する",
+      "自分の実績を一方的に話し続ける",
+      "クライアントの目標を否定して現実を突きつける"
+    ],
+    "answerIndex": 0,
+    "explanation": "傾聴・共感・開かれた質問はラポール形成の基本です。一方的な自己アピールや否定的な対応は信頼関係と継続率を損ないます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-037",
+    "domain": "面談と評価",
+    "topic": "初回面談・契約",
+    "difficulty": 2,
+    "question": "初回面談時に取り交わす書類として一般的に必要なものの組み合わせはどれか。",
+    "choices": [
+      "確定申告書と履歴書",
+      "健康歴・同意書・（必要に応じて）契約書",
+      "施設の設計図面と保険証券の写し"
+    ],
+    "answerIndex": 1,
+    "explanation": "健康歴／健康調査票、インフォームド・コンセント（および免責同意）、トレーナー・施設との契約・合意書などを整えます。書類は記録として保管します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-038",
+    "domain": "面談と評価",
+    "topic": "初回面談・契約",
+    "difficulty": 2,
+    "question": "初回面談でクライアントとトレーナーの「適合性（compatibility）」を確認する主な目的はどれか。",
+    "choices": [
+      "料金を引き上げる根拠にするため",
+      "契約を必ず成立させるため",
+      "指導スタイルや目標が合うかを確認し、必要なら他の専門家を紹介するため"
+    ],
+    "answerIndex": 2,
+    "explanation": "指導方針・時間帯・専門性が合致しない場合、無理に契約するより適切なトレーナーや専門家へ紹介する方が、クライアントの利益と長期的な信頼につながります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-039",
+    "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
+    "difficulty": 2,
+    "question": "安静時血圧を正しく測定する手順として適切なのはどれか。",
+    "choices": [
+      "背もたれのある椅子に座り5分程度安静にした後、上腕を心臓の高さに保って測定する",
+      "運動直後に立位で測定する",
+      "会話をしながら測定する"
+    ],
+    "answerIndex": 0,
+    "explanation": "座位で数分間安静にし、背中を支え、足を床につけ、上腕を心臓の高さに置いて測定します。直前の運動・カフェイン・喫煙・会話は測定値を上昇させます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-040",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 3,
+    "question": "40歳・安静時心拍数70拍/分のクライアントに、カルボーネン法で運動強度60%の目標心拍数を設定すると、最も近い値はどれか。（最大心拍数は220−年齢で推定）",
+    "choices": [
+      "約108拍/分",
+      "約136拍/分",
+      "約160拍/分"
+    ],
+    "answerIndex": 1,
+    "explanation": "推定最大心拍数＝220−40＝180。予備心拍数＝180−70＝110。目標心拍数＝110×0.6＋70＝136拍/分となります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第16章 有酸素トレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-041",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "柔軟性の評価について正しい記述はどれか。",
+    "choices": [
+      "柔軟性は加齢の影響を受けない",
+      "座位体前屈の結果は全身の柔軟性を正確に表す",
+      "柔軟性は関節ごとに異なるため、1つのテストで全身を代表できない"
+    ],
+    "answerIndex": 2,
+    "explanation": "柔軟性は関節特異的（部位ごとに異なる）です。1種類のテスト結果を全身に一般化することはできず、必要に応じて複数部位を評価します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-042",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 3,
+    "question": "皮下脂肪厚（スキンフォールド）法による体脂肪率推定の精度を高めるために重要なのはどれか。",
+    "choices": [
+      "決められた部位・手順を厳密に守り、同一測定者が実施する",
+      "測定部位を毎回変えて平均する",
+      "運動直後に測定する"
+    ],
+    "answerIndex": 0,
+    "explanation": "部位の特定、つまみ方、キャリパーの当て方、測定回数などプロトコルの標準化と測定者の熟練度が精度を左右します。測定者間の誤差も大きいため同一測定者が望ましいです。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第11章 体力評価のプロトコルと基準値",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-043",
+    "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
+    "difficulty": 2,
+    "question": "健康調査票で「安静時にも胸部の不快感がある」と申告があった場合の対応として適切なのはどれか。",
+    "choices": [
+      "軽い運動なら問題ないので予定どおり開始する",
+      "運動プログラムを開始せず、医師の評価を受けるよう勧める",
+      "本人が希望すれば高強度でも実施する"
+    ],
+    "answerIndex": 1,
+    "explanation": "安静時・労作時の胸部不快感は心血管疾患を示唆する主要徴候の一つです。運動開始前に医師の評価を受けるよう勧め、許可が出るまで開始を見合わせます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-044",
+    "domain": "面談と評価",
+    "topic": "メディカル歴・健康評価",
+    "difficulty": 1,
+    "question": "ライフスタイル質問票で把握する情報として適切でないものはどれか。",
+    "choices": [
+      "運動歴・傷害歴",
+      "睡眠・喫煙・飲酒などの生活習慣",
+      "クライアントの銀行口座の残高"
+    ],
+    "answerIndex": 2,
+    "explanation": "運動歴・傷害歴・職業・生活習慣・ストレス・時間的制約などプログラム設計に必要な情報を収集します。指導に無関係な私的情報の収集は不適切です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第9章 クライアントの面談と健康評価",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-045",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "再評価（フォローアップ測定）を行う際に守るべき原則はどれか。",
+    "choices": [
+      "初回と同じプロトコル・機器・条件で実施する",
+      "毎回違う種目に変えて総合的に評価する",
+      "クライアントの体調が良い日にだけ実施する"
+    ],
+    "answerIndex": 0,
+    "explanation": "変化を正しく比較するには、測定条件（種目・機器・時間帯・手順・測定者）をできる限り揃えることが不可欠です。条件が変わると差が変化なのか誤差なのか判断できません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第10章 体力評価の選択と実施",
+      "page": null
+    }
+  },
+  {
+    "id": "consult-046",
+    "domain": "面談と評価",
+    "topic": "体力評価",
+    "difficulty": 2,
+    "question": "体力測定を実施する主な目的として適切でないものはどれか。",
+    "choices": [
+      "プログラム設計の基礎データとベースラインを得る",
+      "クライアントを他の会員と比較して優劣をつける",
+      "経過を追って改善を可視化し、動機づけに活用する"
+    ],
+    "answerIndex": 1,
+    "explanation": "評価の目的は現状把握・プログラム設計・進捗確認・動機づけです。他者との比較で優劣をつけることは目的ではなく、動機を損なう恐れがあります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第10章 体力評価の選択と実施",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-016",
+    "domain": "エクササイズテクニック",
+    "topic": "マシン種目",
+    "difficulty": 2,
+    "question": "レジスタンスマシンのシート位置を調整する際の基本原則はどれか。",
+    "choices": [
+      "マシンの回転軸と動かす関節の軸を一致させる",
+      "できるだけ低い位置に固定する",
+      "身長にかかわらず全員同じ設定にする"
+    ],
+    "answerIndex": 0,
+    "explanation": "マシンの回転軸（支点）と対象関節の運動軸を合わせることで、狙った筋群に適切な抵抗がかかり関節への不要なストレスを避けられます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-017",
+    "domain": "エクササイズテクニック",
+    "topic": "マシン種目",
+    "difficulty": 1,
+    "question": "レッグプレスで避けるべき動作はどれか。",
+    "choices": [
+      "足をプレートに全面接地させる",
+      "動作の最後で膝を強くロック（過伸展）させる",
+      "腰と背部をパッドにつけたまま行う"
+    ],
+    "answerIndex": 1,
+    "explanation": "膝の完全なロックは関節への衝撃を高めます。また深く下ろしすぎて骨盤が後傾（腰が浮く）すると腰椎に負担がかかるため、可動域を管理します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-018",
+    "domain": "エクササイズテクニック",
+    "topic": "マシン種目",
+    "difficulty": 2,
+    "question": "マシントレーニングとフリーウェイトの比較として正しい記述はどれか。",
+    "choices": [
+      "フリーウェイトは初心者には絶対に使用できない",
+      "マシンの方が常に競技動作への転移が高い",
+      "マシンは安定性が高く動作の習得が容易だが、安定筋の関与は少ない"
+    ],
+    "answerIndex": 2,
+    "explanation": "マシンは軌道が固定され安全性・習得のしやすさに優れる一方、バランスや安定筋の動員はフリーウェイトに劣ります。目的と対象者に応じて使い分けます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-019",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "バーベルを握る「オルタネイテッドグリップ」の説明として正しいのはどれか。",
+    "choices": [
+      "片手は回内・もう片手は回外で握る",
+      "両手とも回外（アンダーハンド）で握る",
+      "親指をバーに回さずに握る"
+    ],
+    "answerIndex": 0,
+    "explanation": "オルタネイテッド（交互）グリップは片手回内・片手回外で握り、バーの回転を抑えます。高重量のデッドリフトで用いられます。なお親指を回さないフォールスグリップは危険とされます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-020",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "スポッティング（補助）の原則として適切でないものはどれか。",
+    "choices": [
+      "バーが顔・頭上・体幹上を通る種目では必ず補助につく",
+      "パワークリーンなど爆発的な挙上種目でも必ず補助につく",
+      "ダンベル種目では手首の近く（前腕）を支える"
+    ],
+    "answerIndex": 1,
+    "explanation": "クリーンやスナッチなどの爆発的種目はバーを速やかに手放して逃げるのが安全で、補助者がつくとかえって危険です。ダンベル種目は手首付近を支えます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-021",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "高重量のバックスクワットで、より安全性を高めるための対応として適切なのはどれか。",
+    "choices": [
+      "補助者は不要である",
+      "補助者は必ず1名だけにする",
+      "補助者を左右に2名配置する（またはパワーラックのセーフティを使う）"
+    ],
+    "answerIndex": 2,
+    "explanation": "高重量のバックスクワットでは、バー両端に1名ずつ（計2名）配置するか、パワーラックのセーフティバーを適切な高さに設定します。1名の場合は後方からの補助が基本です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-022",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 3,
+    "question": "ウェイトベルトの使用が推奨される場面として最も適切なのはどれか。",
+    "choices": [
+      "体幹に高い負荷がかかる高重量の種目（スクワットやデッドリフト等）の高強度セット",
+      "すべての種目・すべての強度で常時着用する",
+      "軽負荷のマシン種目"
+    ],
+    "answerIndex": 0,
+    "explanation": "ベルトは体幹に大きな負荷がかかる高強度のフリーウェイト種目で有用とされます。常時着用は体幹筋の関与を減らす可能性があるため、必要な場面に限定します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-023",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "ルーマニアンデッドリフト（RDL）の主要なポイントはどれか。",
+    "choices": [
+      "膝を大きく曲げてしゃがみ込む",
+      "膝を軽く曲げた状態を保ち、股関節を後方へ引く（ヒップヒンジ）",
+      "腰を丸めて可動域を最大にする"
+    ],
+    "answerIndex": 1,
+    "explanation": "RDLは膝を軽度屈曲で固定し、股関節の屈曲・伸展（ヒップヒンジ）でハムストリングス・殿筋を動員します。脊柱はニュートラルを保ちます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-024",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "パワークリーンのキャッチ姿勢として正しいのはどれか。",
+    "choices": [
+      "頭上でバーを受ける",
+      "肘を下げてバーを胸の上に落とす",
+      "手首を返して肘を高く前方に出し、鎖骨前面（ラックポジション）で受ける"
+    ],
+    "answerIndex": 2,
+    "explanation": "パワークリーンでは肘を素早く前方・上方へ回旋させ、鎖骨と肩前部でバーを受けます（ラックポジション）。頭上で受けるのはスナッチやジャークです。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-025",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "アップライトロウで肩のインピンジメント（挟み込み）リスクを高める要因はどれか。",
+    "choices": [
+      "肘を肩の高さより大きく引き上げ、極端に狭いグリップで行う",
+      "肩の高さ程度までに留める",
+      "やや広めのグリップで行う"
+    ],
+    "answerIndex": 0,
+    "explanation": "極端に狭いグリップで肘を肩より高く引き上げると、肩関節の内旋＋外転が強まりインピンジメントのリスクが高まります。可動域とグリップ幅を調整します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-026",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 1,
+    "question": "ステップアップやブルガリアンスクワットなど片脚種目の利点はどれか。",
+    "choices": [
+      "体幹の関与を完全になくせる",
+      "左右差の是正とバランス能力の向上に役立つ",
+      "最大重量を扱いやすい"
+    ],
+    "answerIndex": 1,
+    "explanation": "片脚（ユニラテラル）種目は左右差の把握・是正、バランスや安定性の向上に有効です。扱える重量は両脚種目より小さくなります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-027",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "バーベルの安全な取り扱いとして必須の対応はどれか。",
+    "choices": [
+      "使用後はその場に放置する",
+      "左右で異なる重量を装着する",
+      "プレートを装着したらカラー（留め具）で固定する"
+    ],
+    "answerIndex": 2,
+    "explanation": "カラーの装着はプレートのずれ・落下による傷害を防ぐ基本です。左右均等に装着し、使用後は所定の場所へ戻します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-028",
+    "domain": "エクササイズテクニック",
+    "topic": "柔軟性エクササイズ",
+    "difficulty": 2,
+    "question": "ウォームアップとして運動前に行う柔軟性エクササイズとして最も適切なのはどれか。",
+    "choices": [
+      "ダイナミックストレッチ（動的ストレッチ）",
+      "長時間の静的ストレッチ",
+      "反動を使ったバリスティックストレッチを初心者に実施する"
+    ],
+    "answerIndex": 0,
+    "explanation": "運動前は体温上昇と動作準備に適したダイナミックストレッチが推奨されます。長時間の静的ストレッチは直後のパワー・筋力を一時的に低下させる可能性があります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-029",
+    "domain": "エクササイズテクニック",
+    "topic": "柔軟性エクササイズ",
+    "difficulty": 2,
+    "question": "静的ストレッチの一般的な保持時間の目安はどれか。",
+    "choices": [
+      "1〜3秒",
+      "10〜30秒程度",
+      "5分以上"
+    ],
+    "answerIndex": 1,
+    "explanation": "静的ストレッチは軽い張りを感じる位置で10〜30秒程度保持し、部位ごとに数回繰り返すのが一般的な目安です。痛みを感じるまで伸ばしません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-030",
+    "domain": "エクササイズテクニック",
+    "topic": "柔軟性エクササイズ",
+    "difficulty": 3,
+    "question": "PNFストレッチの「ホールド・リラックス」の手順として正しいのはどれか。",
+    "choices": [
+      "冷却しながら伸ばす",
+      "反動をつけて繰り返し伸ばす",
+      "対象筋を伸張位で数秒間等尺性収縮させた後、弛緩させてさらに伸張する"
+    ],
+    "answerIndex": 2,
+    "explanation": "ホールド・リラックスは伸張位での等尺性収縮→弛緩→さらに伸張という手順で可動域を高めます。通常はパートナーの補助が必要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-031",
+    "domain": "エクササイズテクニック",
+    "topic": "柔軟性エクササイズ",
+    "difficulty": 2,
+    "question": "バリスティックストレッチについて正しい記述はどれか。",
+    "choices": [
+      "反動・弾みを用いるため、一般クライアントでは傷害リスクが相対的に高い",
+      "最も安全なため初心者に第一選択となる",
+      "静的ストレッチと同義である"
+    ],
+    "answerIndex": 0,
+    "explanation": "バリスティックは反動を使うため筋・腱への急激な伸張が加わり、一般のクライアントには推奨されにくい方法です。動的ストレッチは制御された可動域内での動作で、これとは区別されます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-032",
+    "domain": "エクササイズテクニック",
+    "topic": "自体重・スタビリティ",
+    "difficulty": 1,
+    "question": "自体重のプッシュアップの負荷を下げる（易しくする）方法として適切なのはどれか。",
+    "choices": [
+      "足を台に乗せて行う",
+      "手を高い台に置いて傾斜をつけて行う",
+      "片手で行う"
+    ],
+    "answerIndex": 1,
+    "explanation": "手を高い位置に置くインクライン型は上肢への負荷が下がります。逆に足を高くするデクライン型や片手は難度が上がります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-033",
+    "domain": "エクササイズテクニック",
+    "topic": "自体重・スタビリティ",
+    "difficulty": 2,
+    "question": "チンアップ（回外グリップ）とプルアップ（回内グリップ）の違いとして正しいのはどれか。",
+    "choices": [
+      "両者に筋動員の違いはない",
+      "プルアップは回外グリップで行う",
+      "チンアップは回外グリップで上腕二頭筋の関与が比較的大きい"
+    ],
+    "answerIndex": 2,
+    "explanation": "チンアップは手のひらが自分側（回外）で上腕二頭筋の関与が大きく、プルアップは手のひらが前方（回内）で広背筋の関与が相対的に大きくなります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-034",
+    "domain": "エクササイズテクニック",
+    "topic": "自体重・スタビリティ",
+    "difficulty": 2,
+    "question": "スタビリティボールを用いたエクササイズの主な目的はどれか。",
+    "choices": [
+      "不安定な支持面で体幹の安定性やバランスを促す",
+      "最大筋力を最短で高める",
+      "有酸素能力を最大化する"
+    ],
+    "answerIndex": 0,
+    "explanation": "不安定面での運動は体幹の安定筋の関与を高め、バランス・協調性の改善に用いられます。最大筋力の向上には安定した支持面での高負荷が適します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-035",
+    "domain": "エクササイズテクニック",
+    "topic": "自体重・スタビリティ",
+    "difficulty": 1,
+    "question": "サイドプランクで主に鍛えられるのはどれか。",
+    "choices": [
+      "大腿四頭筋",
+      "腹斜筋など体幹側面の筋群",
+      "上腕三頭筋のみ"
+    ],
+    "answerIndex": 1,
+    "explanation": "サイドプランクは腹斜筋・腰方形筋など体幹側面の安定性に働きます。骨盤が落ちないよう一直線を保つことが重要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-036",
+    "domain": "エクササイズテクニック",
+    "topic": "自体重・スタビリティ",
+    "difficulty": 2,
+    "question": "ヒップリフト（グルートブリッジ）で主働筋となるのはどれか。",
+    "choices": [
+      "前脛骨筋",
+      "広背筋",
+      "大殿筋・ハムストリングス"
+    ],
+    "answerIndex": 2,
+    "explanation": "股関節伸展動作であるヒップリフトは大殿筋とハムストリングスが主働筋です。腰を反らせず、股関節の伸展で持ち上げます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-037",
+    "domain": "エクササイズテクニック",
+    "topic": "パフォーマンス系種目",
+    "difficulty": 3,
+    "question": "デプスジャンプ（ドロップジャンプ）を安全に行うための一般的な条件はどれか。",
+    "choices": [
+      "十分な筋力と着地技術を前提とし、適切な箱の高さから開始する",
+      "初心者でも高い箱から始めてよい",
+      "箱は高いほど効果が高いので最大の高さを用いる"
+    ],
+    "answerIndex": 0,
+    "explanation": "デプスジャンプは強度が高く、下肢の筋力と正しい着地技術が前提です。箱の高さは能力に応じて設定し（過度に高くしない）、接地時間が長くなる高さは避けます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-038",
+    "domain": "エクササイズテクニック",
+    "topic": "パフォーマンス系種目",
+    "difficulty": 3,
+    "question": "プライオメトリクスにおける「償却相（アモチゼーション期）」の説明として正しいのはどれか。",
+    "choices": [
+      "運動後の回復期間",
+      "伸張性局面から短縮性局面へ移行する切り返しの時間",
+      "ウォームアップの時間"
+    ],
+    "answerIndex": 1,
+    "explanation": "伸張‐短縮サイクルは、伸張性（エキセントリック）局面→償却相→短縮性（コンセントリック）局面から成ります。償却相が短いほど弾性エネルギーを有効利用できます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-039",
+    "domain": "エクササイズテクニック",
+    "topic": "パフォーマンス系種目",
+    "difficulty": 2,
+    "question": "スプリント（加速局面）の一般的な技術ポイントとして適切なのはどれか。",
+    "choices": [
+      "上体を大きく反らせて走る",
+      "腕を体側で固定して走る",
+      "前傾姿勢から徐々に起こし、腕は肩関節を中心に前後へ大きく振る"
+    ],
+    "answerIndex": 2,
+    "explanation": "加速局面では前傾姿勢から徐々に上体を起こし、腕振りは肩を中心に前後方向へ行います。過度な上体の反りや腕の固定は推進力を損ないます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-040",
+    "domain": "エクササイズテクニック",
+    "topic": "パフォーマンス系種目",
+    "difficulty": 2,
+    "question": "メディシンボールを用いたスローイング種目の主な狙いはどれか。",
+    "choices": [
+      "全身の連動による爆発的なパワー発揮の練習",
+      "静的柔軟性の向上",
+      "最大筋力の測定"
+    ],
+    "answerIndex": 0,
+    "explanation": "メディシンボールの投擲系種目は、下肢から体幹・上肢へ力を伝える全身の連動と爆発的パワーの養成に用いられます。比較的低リスクで導入しやすいのが利点です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-041",
+    "domain": "エクササイズテクニック",
+    "topic": "有酸素マシン",
+    "difficulty": 2,
+    "question": "トレッドミル使用時の安全指導として適切なのはどれか。",
+    "choices": [
+      "ベルトが高速で動いている状態に飛び乗る",
+      "非常停止クリップ（安全キー）を身につけ、ベルトが停止した状態から乗る",
+      "常に手すりに強く体重を預けて歩く"
+    ],
+    "answerIndex": 1,
+    "explanation": "安全キーを装着し、ベルト停止時または低速から開始します。手すりへの過度な依存はエネルギー消費と姿勢に影響するため、慣れたら軽く添える程度にします。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第14章 有酸素性エクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-042",
+    "domain": "エクササイズテクニック",
+    "topic": "有酸素マシン",
+    "difficulty": 2,
+    "question": "固定式自転車（サイクルエルゴメータ）のシート高の目安はどれか。",
+    "choices": [
+      "ペダルが最下点のとき膝が完全に伸びきる高さ",
+      "膝が90度に曲がったままの高さ",
+      "ペダルが最下点のとき膝がわずかに屈曲（およそ25〜35度）する高さ"
+    ],
+    "answerIndex": 2,
+    "explanation": "最下点で膝がわずかに曲がる（約25〜35度）高さが目安です。高すぎると骨盤が左右に揺れ、低すぎると膝関節へのストレスが増します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第14章 有酸素性エクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-043",
+    "domain": "エクササイズテクニック",
+    "topic": "有酸素マシン",
+    "difficulty": 3,
+    "question": "ローイングエルゴメータのドライブ（駆動）局面の正しい順序はどれか。",
+    "choices": [
+      "脚 → 体幹 → 腕",
+      "腕 → 体幹 → 脚",
+      "体幹 → 腕 → 脚"
+    ],
+    "answerIndex": 0,
+    "explanation": "ドライブは脚の押し出し→体幹の後傾→腕の引きつけの順です。リカバリーはその逆（腕→体幹→脚）で戻ります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第14章 有酸素性エクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-044",
+    "domain": "エクササイズテクニック",
+    "topic": "有酸素マシン",
+    "difficulty": 2,
+    "question": "膝関節に不安があり衝撃を避けたいクライアントに適した有酸素マシンはどれか。",
+    "choices": [
+      "トレッドミルでの高強度ランニング",
+      "エリプティカルや固定式自転車などの低衝撃マシン",
+      "階段の飛び降りを含むドリル"
+    ],
+    "answerIndex": 1,
+    "explanation": "エリプティカル・サイクル・水中運動などは接地衝撃が小さく、関節への負担を抑えて有酸素運動が行えます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第14章 有酸素性エクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-045",
+    "domain": "エクササイズテクニック",
+    "topic": "マシン以外の有酸素",
+    "difficulty": 2,
+    "question": "水中運動（アクアエクササイズ）の利点として適切なのはどれか。",
+    "choices": [
+      "心拍数が陸上より必ず高くなる",
+      "水の抵抗がないため負荷が一定である",
+      "浮力により関節への荷重が軽減される"
+    ],
+    "answerIndex": 2,
+    "explanation": "浮力により関節への荷重が減り、肥満者・関節疾患・高齢者などに有用です。水の抵抗は運動負荷になり、同一運動での心拍数は陸上より低くなる傾向があります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第14章 有酸素性エクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-046",
+    "domain": "エクササイズテクニック",
+    "topic": "マシン以外の有酸素",
+    "difficulty": 1,
+    "question": "ウォーキング指導における適切な姿勢はどれか。",
+    "choices": [
+      "背筋を伸ばし視線は前方、腕を自然に振る",
+      "うつむいて足元だけを見る",
+      "腕を組んで歩く"
+    ],
+    "answerIndex": 0,
+    "explanation": "頭部を起こし視線は前方、体幹を安定させ、腕を自然に前後に振ります。歩幅を無理に広げすぎないことも重要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第14章 有酸素性エクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-047",
+    "domain": "エクササイズテクニック",
+    "topic": "オルタナティブ種目",
+    "difficulty": 2,
+    "question": "ケトルベルスイングの主要な動作パターンはどれか。",
+    "choices": [
+      "膝の屈伸を主体としたスクワット動作",
+      "股関節の屈曲・伸展（ヒップヒンジ）による爆発的な動作",
+      "肩の三角筋で持ち上げる動作"
+    ],
+    "answerIndex": 1,
+    "explanation": "スイングはヒップヒンジによる股関節の力強い伸展でケトルベルを振り上げます。腕で持ち上げたりスクワット動作にならないよう指導します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-048",
+    "domain": "エクササイズテクニック",
+    "topic": "オルタナティブ種目",
+    "difficulty": 2,
+    "question": "エラスティックバンド（チューブ）を用いたトレーニングの特徴はどれか。",
+    "choices": [
+      "抵抗は伸ばすほど小さくなる",
+      "可動域全体で抵抗が完全に一定である",
+      "伸張されるほど抵抗が大きくなる"
+    ],
+    "answerIndex": 2,
+    "explanation": "バンドは伸張量に応じて張力が増す可変抵抗です。安価で携帯性に優れる一方、負荷の定量化はウェイトより難しくなります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-049",
+    "domain": "エクササイズテクニック",
+    "topic": "オルタナティブ種目",
+    "difficulty": 2,
+    "question": "サスペンショントレーナー（自体重＋ストラップ）で負荷を高める最も簡便な方法はどれか。",
+    "choices": [
+      "足の位置を変えて体幹の角度を水平に近づける",
+      "ストラップを短くする",
+      "反動を大きく使う"
+    ],
+    "answerIndex": 0,
+    "explanation": "身体の角度を水平に近づけるほど自体重の負荷が増します。角度で漸進性を調整できるのがサスペンション種目の利点です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-050",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "動作中に「反動（チーティング）」を多用することの主な問題点はどれか。",
+    "choices": [
+      "常に効果が高まる",
+      "対象筋への刺激が減り、傷害リスクが高まる",
+      "可動域が必ず広がる"
+    ],
+    "answerIndex": 1,
+    "explanation": "反動を使うと標的筋の張力が下がり、腰部や関節への負担が増します。基本は制御された動作で、フォームを維持できる重量を選択します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-051",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "ダンベルベンチプレスをバーベルと比較した際の特徴はどれか。",
+    "choices": [
+      "補助はまったく不要である",
+      "安定性が高く最大重量を扱いやすい",
+      "可動域を大きく取りやすく、左右差の是正にも役立つ"
+    ],
+    "answerIndex": 2,
+    "explanation": "ダンベルは可動域を広く取りやすく左右独立して動かせる利点があります。一方で安定性が低く扱える重量は小さくなり、補助では手首付近を支えます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-052",
+    "domain": "エクササイズテクニック",
+    "topic": "マシン種目",
+    "difficulty": 2,
+    "question": "ケーブルマシンの利点として適切なのはどれか。",
+    "choices": [
+      "多様な角度・方向から一定の張力をかけられる",
+      "必ず自体重より軽い負荷しか扱えない",
+      "体幹の関与を完全に排除できる"
+    ],
+    "answerIndex": 0,
+    "explanation": "ケーブルは滑車の位置や立ち位置を変えることで多方向の抵抗を設定でき、可動域を通じて比較的一定の張力を保てます。回旋系や機能的動作にも応用できます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-053",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 3,
+    "question": "フロントスクワットがバックスクワットと比べて有利とされる点はどれか。",
+    "choices": [
+      "常により高重量を扱える",
+      "体幹をより直立に保ちやすく、腰椎へのせん断力が相対的に小さい",
+      "大腿四頭筋がまったく使われない"
+    ],
+    "answerIndex": 1,
+    "explanation": "バーが体の前方にあるフロントスクワットは体幹を直立に保つ必要があり、腰椎への負担が相対的に小さいとされます。一方で扱える重量はバックスクワットより小さくなります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-054",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 1,
+    "question": "レジスタンス種目における動作の一般的なテンポ指導として適切なのはどれか。",
+    "choices": [
+      "全局面をできるだけ速く行う",
+      "下降局面は重力に任せて落とす",
+      "挙上・下降とも制御された速度で行い、特に下降局面を急激に落とさない"
+    ],
+    "answerIndex": 2,
+    "explanation": "一般的な筋力・筋肥大目的では、挙上・下降とも制御された速度で行います。伸張性局面を重力任せに落とすと刺激が減り傷害リスクも高まります（パワー系種目は例外的に高速）。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-055",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 2,
+    "question": "オーバーヘッドプレスを座位（シーテッド）で行う場合の特徴はどれか。",
+    "choices": [
+      "背もたれで体幹が支持され、腰部への負担が相対的に小さい",
+      "立位より体幹の安定筋が多く動員される",
+      "肩関節の可動域が不要になる"
+    ],
+    "answerIndex": 0,
+    "explanation": "座位・背もたれありでは体幹が支持されるため腰部負担が減りますが、立位に比べ体幹安定筋の関与は小さくなります。目的に応じて選択します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-056",
+    "domain": "エクササイズテクニック",
+    "topic": "柔軟性エクササイズ",
+    "difficulty": 2,
+    "question": "静的ストレッチを行うタイミングとして最も適切なのはどれか。",
+    "choices": [
+      "何のウォームアップもしていない冷えた状態",
+      "ウォームアップ後や運動後など、体温が上がった状態",
+      "睡眠直後の起床時のみ"
+    ],
+    "answerIndex": 1,
+    "explanation": "筋温が上がった状態の方が安全かつ効果的に伸張できます。冷えた状態でのいきなりの強い伸張は避けます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-057",
+    "domain": "エクササイズテクニック",
+    "topic": "自体重・スタビリティ",
+    "difficulty": 2,
+    "question": "バードドッグ（対角の手脚を伸ばす種目）の目的として適切なのはどれか。",
+    "choices": [
+      "腰椎を大きく動かして可動域を高める",
+      "最大筋力を高める",
+      "体幹を安定させたまま四肢を動かす能力を養う"
+    ],
+    "answerIndex": 2,
+    "explanation": "バードドッグは脊柱をニュートラルに保ったまま四肢を動かす（体幹の抗回旋・安定性）能力を養う種目です。腰を反ったり骨盤が傾かないよう指導します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-058",
+    "domain": "エクササイズテクニック",
+    "topic": "マシン種目",
+    "difficulty": 2,
+    "question": "レッグエクステンションについて正しい記述はどれか。",
+    "choices": [
+      "膝関節の伸展による単関節種目で、大腿四頭筋を主に動員する",
+      "多関節種目でハムストリングスを主に動員する",
+      "股関節伸展の種目である"
+    ],
+    "answerIndex": 0,
+    "explanation": "レッグエクステンションは膝関節伸展の単関節（アイソレーション）種目で大腿四頭筋が主働筋です。ハムストリングスはレッグカールで動員されます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-059",
+    "domain": "エクササイズテクニック",
+    "topic": "フリーウェイト種目",
+    "difficulty": 1,
+    "question": "エクササイズ中にクライアントが正しいフォームを維持できなくなった場合の対応として適切なのはどれか。",
+    "choices": [
+      "回数を優先して続行させる",
+      "セットを中止または負荷を下げてフォームを再確認する",
+      "反動を使ってでも目標回数を達成させる"
+    ],
+    "answerIndex": 1,
+    "explanation": "フォームの破綻は傷害リスクの直接的な予兆です。セットを終了するか負荷・回数を調整し、正しい動作を再確認します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-060",
+    "domain": "エクササイズテクニック",
+    "topic": "有酸素マシン",
+    "difficulty": 2,
+    "question": "有酸素マシンのクールダウンとして適切なのはどれか。",
+    "choices": [
+      "最高強度のまま急に停止する",
+      "運動終了後すぐに座り込む",
+      "強度を徐々に下げて数分間続ける"
+    ],
+    "answerIndex": 2,
+    "explanation": "徐々に強度を下げるクールダウンは静脈還流を保ち、急停止による血液のプーリング（めまい・失神）を防ぎます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第14章 有酸素性エクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-061",
+    "domain": "エクササイズテクニック",
+    "topic": "オルタナティブ種目",
+    "difficulty": 2,
+    "question": "スレッド（そり）の押し・引きの特徴として正しいのはどれか。",
+    "choices": [
+      "伸張性収縮が少なく、筋痛が生じにくい傾向がある",
+      "伸張性収縮が主体で強い筋痛が生じやすい",
+      "有酸素的な要素はまったくない"
+    ],
+    "answerIndex": 0,
+    "explanation": "スレッドは短縮性収縮が主体で伸張性収縮が少ないため、遅発性筋肉痛が生じにくいとされます。強度設定により筋力・パワーからコンディショニングまで応用できます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第13章 レジスタンスエクササイズのテクニック",
+      "page": null
+    }
+  },
+  {
+    "id": "tech-062",
+    "domain": "エクササイズテクニック",
+    "topic": "パフォーマンス系種目",
+    "difficulty": 2,
+    "question": "ラダードリルやコーンドリルの主な目的はどれか。",
+    "choices": [
+      "最大筋力の向上",
+      "足の接地の素早さ・協調性・方向転換技術の向上",
+      "柔軟性の向上"
+    ],
+    "answerIndex": 1,
+    "explanation": "ラダー・コーンドリルはフットワークの素早さ、協調性、加減速や方向転換の技術習得に用いられます。最大筋力の向上が主目的ではありません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-016",
+    "domain": "プログラムデザイン",
+    "topic": "目標設定・動機づけ",
+    "difficulty": 2,
+    "question": "「結果目標（アウトカム目標）」ではなく「過程目標（プロセス目標）」の例はどれか。",
+    "choices": [
+      "3か月で体脂肪率を5%下げる",
+      "大会で優勝する",
+      "週3回のトレーニングを必ず実施する"
+    ],
+    "answerIndex": 2,
+    "explanation": "過程目標は自分でコントロールできる行動（実施回数・フォーム習得など）に焦点を当てます。結果目標だけでは達成の可否が他要因に左右され、動機を損ないやすくなります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第8章 運動心理学・目標設定・動機づけ",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-017",
+    "domain": "プログラムデザイン",
+    "topic": "目標設定・動機づけ",
+    "difficulty": 3,
+    "question": "自己効力感（セルフエフィカシー）を高める最も強力な情報源とされるのはどれか。",
+    "choices": [
+      "成功体験（達成の実体験）",
+      "他者からの言語的説得",
+      "生理的な興奮状態"
+    ],
+    "answerIndex": 0,
+    "explanation": "自己効力感の情報源は、成功体験・代理体験・言語的説得・生理的情動状態の4つで、なかでも実際の成功体験が最も影響が大きいとされます。小さな達成の積み重ねが有効です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第8章 運動心理学・目標設定・動機づけ",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-018",
+    "domain": "プログラムデザイン",
+    "topic": "目標設定・動機づけ",
+    "difficulty": 2,
+    "question": "運動の継続（アドヒアランス）を高める方策として適切でないものはどれか。",
+    "choices": [
+      "達成可能な短期目標を設定し、進捗を記録する",
+      "最初から高強度・長時間のプログラムを課す",
+      "社会的サポート（家族・グループ）を活用する"
+    ],
+    "answerIndex": 1,
+    "explanation": "初期から過大な負荷を課すと不快感や失敗体験につながり脱落率が上がります。短期目標・記録・社会的サポート・楽しさの要素が継続を支えます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第8章 運動心理学・目標設定・動機づけ",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-019",
+    "domain": "プログラムデザイン",
+    "topic": "目標設定・動機づけ",
+    "difficulty": 2,
+    "question": "内発的動機づけに基づく参加理由はどれか。",
+    "choices": [
+      "賞品をもらうために続けている",
+      "医師に叱られたくないから続けている",
+      "運動そのものが楽しいから続けている"
+    ],
+    "answerIndex": 2,
+    "explanation": "内発的動機づけは活動自体の楽しさ・充実感に由来し、長期継続と結びつきやすいとされます。外的報酬や罰の回避は外発的動機づけです。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第8章 運動心理学・目標設定・動機づけ",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-020",
+    "domain": "プログラムデザイン",
+    "topic": "目標設定・動機づけ",
+    "difficulty": 2,
+    "question": "しばらく運動を休んでしまったクライアントへの対応として適切なのはどれか。",
+    "choices": [
+      "再発（ラプス）は起こりうるものと捉え、再開の障壁を下げる具体策を一緒に考える",
+      "怠けたことを強く指摘して反省を促す",
+      "プログラムを以前より高強度にして取り戻させる"
+    ],
+    "answerIndex": 0,
+    "explanation": "一時的な中断（ラプス）は自然に起こります。責めるのではなく、原因の特定と再開しやすい小さな行動計画（if-thenプラン等）を作ることが再発予防になります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第8章 運動心理学・目標設定・動機づけ",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-021",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 3,
+    "question": "レジスタンストレーニングのプログラム変数として一般的に含まれないものはどれか。",
+    "choices": [
+      "種目の選択と配列",
+      "施設の年間売上高",
+      "強度・量・休息時間・頻度"
+    ],
+    "answerIndex": 1,
+    "explanation": "プログラム変数は、ニーズ分析に基づく種目選択・配列、頻度、強度（負荷）、量（セット×レップ）、休息時間、テンポ、進行です。経営指標は含まれません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-022",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 2,
+    "question": "「コア（主要）種目」と「補助種目」の区別として正しいのはどれか。",
+    "choices": [
+      "補助種目の方が必ず優先度が高い",
+      "コア種目は腹筋種目のことである",
+      "コア種目は大筋群を含む多関節種目、補助種目は小筋群中心の単関節種目"
+    ],
+    "answerIndex": 2,
+    "explanation": "コア（主要）種目は大筋群を動員する多関節種目で優先的に配置します。補助種目は小筋群・単関節種目で、後半に配置するのが一般的です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-023",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 3,
+    "question": "パワー系種目（クリーン等）を含むセッションでの種目配列として適切なのはどれか。",
+    "choices": [
+      "パワー系 → 多関節の筋力種目 → 単関節の補助種目",
+      "単関節の補助種目 → パワー系 → 多関節種目",
+      "順序は成果に影響しない"
+    ],
+    "answerIndex": 0,
+    "explanation": "技術的要求と神経系の要求が高いパワー系種目を最も疲労の少ない冒頭に配置し、次いで多関節の筋力種目、最後に単関節の補助種目とします。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-024",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 2,
+    "question": "トレーニング量（ボリューム負荷）の一般的な計算式はどれか。",
+    "choices": [
+      "重量 ÷ 反復回数",
+      "セット数 × 反復回数 × 重量",
+      "セット数 ＋ 反復回数"
+    ],
+    "answerIndex": 1,
+    "explanation": "ボリューム負荷＝セット数×反復回数×重量で、総仕事量の指標として進行管理に用います。単純な反復総数（セット×レップ）を量とする場合もあります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-025",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 2,
+    "question": "スプリットルーティン（分割法）の説明として正しいのはどれか。",
+    "choices": [
+      "1回のセッションで全身をまんべんなく行う方法",
+      "有酸素運動だけを分割して行う方法",
+      "身体部位や動作パターンごとに日を分けて行う方法"
+    ],
+    "answerIndex": 2,
+    "explanation": "分割法は上半身／下半身、プッシュ／プルなど日ごとに対象を分ける方法で、頻度が高い中〜上級者で採用されます。初心者は全身法が一般的です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-026",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 3,
+    "question": "線形（linear）ピリオダイゼーションの一般的な特徴はどれか。",
+    "choices": [
+      "期間の経過とともに量を減らし強度を高めていく",
+      "量と強度を毎回ランダムに変える",
+      "強度を常に一定に保つ"
+    ],
+    "answerIndex": 0,
+    "explanation": "線形ピリオダイゼーションは、高量・低強度から低量・高強度へ段階的に移行します。非線形（アンジュレーティング）は週内・日単位で量と強度を変動させます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-027",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 3,
+    "question": "ピリオダイゼーションにおける「マクロサイクル」の一般的な期間はどれか。",
+    "choices": [
+      "1週間程度",
+      "数か月〜1年程度",
+      "数週間程度"
+    ],
+    "answerIndex": 1,
+    "explanation": "マクロサイクルは数か月〜1年の大周期、メゾサイクルは数週間〜数か月、ミクロサイクルは1週間程度が一般的な区分です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-028",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 2,
+    "question": "RPE（自覚的運動強度）やRIR（余力反復数）を負荷設定に用いる利点はどれか。",
+    "choices": [
+      "常に%1RMより正確である",
+      "1RM測定が不要になるため測定自体が無意味になる",
+      "その日の体調に応じて強度を調整できる"
+    ],
+    "answerIndex": 2,
+    "explanation": "RPE/RIRは体調や疲労を反映して日々の負荷を微調整できます（自動調整）。%1RMは客観的な基準として有用で、両者は補完的に用います。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-029",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 2,
+    "question": "サーキットトレーニングの一般的な特徴はどれか。",
+    "choices": [
+      "短い休息で複数種目を連続実施し、筋持久力と心肺機能を同時に刺激する",
+      "1種目を長時間かけて行う",
+      "最大筋力の向上に最も適している"
+    ],
+    "answerIndex": 0,
+    "explanation": "サーキットは短い休息で複数種目を巡回し、時間効率よく筋持久力・体力を高めます。最大筋力の向上には高強度・長休息のプログラムが適します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-030",
+    "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
+    "difficulty": 2,
+    "question": "有酸素運動プログラムの「FITT」が示す要素の組み合わせはどれか。",
+    "choices": [
+      "体力・体重・時間・技術",
+      "頻度・強度・時間・種類",
+      "頻度・強度・体温・道具"
+    ],
+    "answerIndex": 1,
+    "explanation": "FITTはFrequency（頻度）・Intensity（強度）・Time（時間）・Type（種類）。近年はVolume（量）とProgression（漸進）を加えたFITT-VPも用いられます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第16章 有酸素トレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-031",
+    "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
+    "difficulty": 2,
+    "question": "「トークテスト」による強度判定の説明として正しいのはどれか。",
+    "choices": [
+      "歌えるほど楽な状態が高強度の目安である",
+      "まったく話せない状態が中強度の目安である",
+      "会話が続けられる程度なら概ね中強度の目安になる"
+    ],
+    "answerIndex": 2,
+    "explanation": "会話は続けられるが歌うのは難しい程度が中強度、数語しか話せない状態が高強度の簡易的な目安です。機器不要で実用的な方法です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第16章 有酸素トレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-032",
+    "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
+    "difficulty": 3,
+    "question": "1METの定義として正しいのはどれか。",
+    "choices": [
+      "安静時の酸素摂取量に相当し、約3.5mL/kg/分",
+      "最大酸素摂取量に相当する",
+      "1分間に1kcal消費する強度"
+    ],
+    "answerIndex": 0,
+    "explanation": "1MET＝安静時代謝量で、約3.5mL/kg/分の酸素摂取量に相当します。5METsの運動は安静時の約5倍の代謝率を意味します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第16章 有酸素トレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-033",
+    "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
+    "difficulty": 2,
+    "question": "高強度インターバルトレーニング（HIIT）の特徴として正しいのはどれか。",
+    "choices": [
+      "一定の低強度を長時間続ける",
+      "高強度の運動と回復を交互に繰り返す",
+      "常に最大努力を休みなく継続する"
+    ],
+    "answerIndex": 1,
+    "explanation": "HIITは高強度の運動区間と回復区間を繰り返す方法で、短時間で有酸素能力を高められます。一定強度を長時間継続するのはLSD（長時間持続走）です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第16章 有酸素トレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-034",
+    "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
+    "difficulty": 2,
+    "question": "ファルトレクトレーニングの説明として正しいのはどれか。",
+    "choices": [
+      "完全休息を挟む厳密な反復走",
+      "一定のペースで規定距離を走る方法",
+      "地形や気分に応じて強度を自由に変化させながら走る方法"
+    ],
+    "answerIndex": 2,
+    "explanation": "ファルトレク（スピードプレイ）は計画的・非計画的に強度を変化させながら連続して走る方法で、インターバルより自由度が高いのが特徴です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第16章 有酸素トレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-035",
+    "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
+    "difficulty": 2,
+    "question": "運動習慣のない中高年に有酸素運動を導入する際の初期設定として適切なのはどれか。",
+    "choices": [
+      "低〜中強度・短時間から開始し、まず頻度と時間を増やす",
+      "初回から高強度インターバルを実施する",
+      "毎日60分以上を必須とする"
+    ],
+    "answerIndex": 0,
+    "explanation": "初期は低〜中強度・短時間から始め、まず時間・頻度を漸増し、その後で強度を高めるのが安全な進め方です（漸進性の原則）。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第16章 有酸素トレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-036",
+    "domain": "プログラムデザイン",
+    "topic": "プライオメトリクス・スピード",
+    "difficulty": 3,
+    "question": "プライオメトリクスの量（ボリューム）を表す一般的な指標はどれか。",
+    "choices": [
+      "総挙上重量",
+      "セッションあたりの接地回数（コンタクト数）",
+      "走行距離"
+    ],
+    "answerIndex": 1,
+    "explanation": "プライオメトリクスの量は接地（フットコンタクト）回数で管理します。初心者は少ない接地数から始め、強度と量の両方を漸進させます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-037",
+    "domain": "プログラムデザイン",
+    "topic": "プライオメトリクス・スピード",
+    "difficulty": 3,
+    "question": "プライオメトリクスのセッション間隔として一般に推奨されるのはどれか。",
+    "choices": [
+      "毎日連続して行う",
+      "月1回程度でよい",
+      "48〜72時間程度あける"
+    ],
+    "answerIndex": 2,
+    "explanation": "高強度の伸張性負荷を伴うため、同一部位のプライオメトリクスは48〜72時間の回復間隔をとるのが一般的です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-038",
+    "domain": "プログラムデザイン",
+    "topic": "プライオメトリクス・スピード",
+    "difficulty": 2,
+    "question": "スピード・パワー系ドリルにおける休息設定の原則はどれか。",
+    "choices": [
+      "ほぼ完全回復させ、質の高い動作を維持できる休息をとる",
+      "疲労が蓄積した状態で行い持久力も同時に高める",
+      "休息はとらないほど効果的である"
+    ],
+    "answerIndex": 0,
+    "explanation": "スピード・パワーは動作の質が重要で、十分な休息（不完全回復では動作速度が落ちる）を確保します。疲労下での反復は技術の崩れと傷害につながります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第17章 プライオメトリクスとスピードのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-039",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 3,
+    "question": "最大努力で約10秒程度までの運動で主に用いられるエネルギー供給系はどれか。",
+    "choices": [
+      "解糖系",
+      "ホスファゲン機構（ATP-CP系）",
+      "酸化機構"
+    ],
+    "answerIndex": 1,
+    "explanation": "ごく短時間・最大強度ではホスファゲン機構が主体です。以降は解糖系（数十秒〜約2分）、さらに長時間では酸化機構が主となります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第3章 バイオエナジェティクス",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-040",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 3,
+    "question": "タイプI（遅筋）線維の特徴として正しいのはどれか。",
+    "choices": [
+      "収縮速度が速く疲労しやすい",
+      "無酸素性の解糖能力が最も高い",
+      "ミトコンドリアと毛細血管が豊富で疲労耐性が高い"
+    ],
+    "answerIndex": 2,
+    "explanation": "タイプI線維は酸化能力が高く疲労耐性に優れ、持久的活動に適します。タイプII線維は収縮速度と力発揮に優れる一方、疲労しやすい特徴があります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第1章 筋・神経・骨格系の構造と機能",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-041",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 3,
+    "question": "レジスタンストレーニング開始後の数週間で、筋力向上に最も寄与するのはどれか。",
+    "choices": [
+      "神経系の適応（動員・同期化の改善）",
+      "筋横断面積の著しい増加",
+      "骨密度の増加"
+    ],
+    "answerIndex": 0,
+    "explanation": "初期（およそ最初の数週間）は運動単位の動員・発火頻度・協調性など神経系の適応が主で、明らかな筋肥大はその後に現れます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第5章 レジスタンストレーニングへの反応と適応",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-042",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 3,
+    "question": "持久的トレーニングによる代表的な適応として正しいのはどれか。",
+    "choices": [
+      "毛細血管密度の低下",
+      "安静時心拍数の低下と1回拍出量の増加",
+      "ミトコンドリア数の減少"
+    ],
+    "answerIndex": 1,
+    "explanation": "持久的トレーニングでは1回拍出量の増加により安静時心拍数が低下し、毛細血管密度・ミトコンドリア数・酸化系酵素活性が増加します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第6章 有酸素持久力トレーニングへの反応と適応",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-043",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 3,
+    "question": "「乳酸性作業閾値（LT）」の説明として正しいのはどれか。",
+    "choices": [
+      "運動を開始した瞬間の強度",
+      "心拍数が最大に達する強度",
+      "血中乳酸濃度が急激に増加し始める運動強度"
+    ],
+    "answerIndex": 2,
+    "explanation": "乳酸性作業閾値は血中乳酸が急増し始める強度で、持久的パフォーマンスの重要な指標です。トレーニングによってより高い強度側へ移行します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第6章 有酸素持久力トレーニングへの反応と適応",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-044",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 2,
+    "question": "「可逆性（リバーシビリティ）の原則」の説明として正しいのはどれか。",
+    "choices": [
+      "トレーニングを中止すると得られた適応は徐々に失われる",
+      "一度得た適応は永続する",
+      "強度を上げれば必ず適応が続く"
+    ],
+    "answerIndex": 0,
+    "explanation": "「使わなければ失う」原則です。ディトレーニングにより筋力・持久力は低下しますが、頻度を保てば維持は比較的少ない量でも可能とされます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第5章 レジスタンストレーニングへの反応と適応",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-045",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 3,
+    "question": "EPOC（運動後過剰酸素消費）の説明として正しいのはどれか。",
+    "choices": [
+      "運動中に酸素摂取量が低下する現象",
+      "運動後も安静時より酸素摂取量が高い状態が続く現象",
+      "睡眠中に代謝が停止する現象"
+    ],
+    "answerIndex": 1,
+    "explanation": "EPOCは運動後の回復過程（体温・ホルモン・ATP再合成など）で酸素消費が高いまま続く現象で、高強度・長時間の運動ほど大きくなります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第3章 バイオエナジェティクス",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-046",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 2,
+    "question": "レジスタンストレーニングによる骨への効果として期待されるのはどれか。",
+    "choices": [
+      "骨密度が必ず低下する",
+      "骨には一切影響しない",
+      "力学的な負荷により骨密度の維持・向上が期待できる"
+    ],
+    "answerIndex": 2,
+    "explanation": "骨は力学的刺激に応答して適応します（ウォルフの法則）。荷重を伴う運動や高強度のレジスタンス運動は骨密度の維持・向上に寄与します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第5章 レジスタンストレーニングへの反応と適応",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-047",
+    "domain": "プログラムデザイン",
+    "topic": "トレーニング適応",
+    "difficulty": 3,
+    "question": "汎適応症候群（GAS）における3つの段階の順序として正しいのはどれか。",
+    "choices": [
+      "警告反応期 → 抵抗期 → 疲憊期",
+      "抵抗期 → 警告反応期 → 疲憊期",
+      "疲憊期 → 抵抗期 → 警告反応期"
+    ],
+    "answerIndex": 0,
+    "explanation": "GASはショック（警告反応）期→抵抗（適応）期→疲憊期の順に進みます。適切な負荷と回復により抵抗期での適応を得て、疲憊期＝オーバートレーニングを避けます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-048",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 2,
+    "question": "思春期前（プレアドレセント）の子どもに対するレジスタンストレーニングについて正しい記述はどれか。",
+    "choices": [
+      "成長板を必ず損傷するため禁忌である",
+      "適切な監督と技術指導のもとで安全に実施でき、健康上の利益がある",
+      "最大挙上（1RM）テストを積極的に行うべきである"
+    ],
+    "answerIndex": 1,
+    "explanation": "適切な指導・監督・漸進性のもとでは、子どものレジスタンストレーニングは安全で有益とされます。ただし最大挙上テストや過度な高負荷は推奨されず、技術習得を重視します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第18章 思春期前・高齢・妊娠中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-049",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 2,
+    "question": "高齢者のプログラム設計で優先度が高い要素はどれか。",
+    "choices": [
+      "最大挙上重量の更新",
+      "高強度プライオメトリクスの多用",
+      "筋力・バランス・機能的動作の維持による転倒予防"
+    ],
+    "answerIndex": 2,
+    "explanation": "高齢者では筋力（特に下肢）・バランス・機能的動作能力の維持が転倒予防とQOLに直結します。強度は個別に漸進させ、関節への衝撃に配慮します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第18章 思春期前・高齢・妊娠中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-050",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 3,
+    "question": "妊娠中の運動に関する一般的な注意点として適切なのはどれか。",
+    "choices": [
+      "妊娠中期以降は仰臥位（あお向け）で長時間行う種目を避ける",
+      "運動強度は妊娠前より必ず高める",
+      "水分補給は控える"
+    ],
+    "answerIndex": 0,
+    "explanation": "妊娠中期以降の長時間の仰臥位は大静脈圧迫により血流が低下する恐れがあり避けます。転倒リスクのある運動、暑熱環境、息こらえも避け、水分は十分に補給します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第18章 思春期前・高齢・妊娠中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-051",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 3,
+    "question": "1型糖尿病のクライアントが運動中に低血糖を起こした場合の初期対応として適切なのはどれか。",
+    "choices": [
+      "運動強度を上げて血糖を消費させる",
+      "運動を中止し、速やかに吸収される炭水化物を摂取させる",
+      "水だけを飲ませて運動を継続させる"
+    ],
+    "answerIndex": 1,
+    "explanation": "低血糖（発汗・震え・めまい・混乱など）では直ちに運動を中止し、ブドウ糖やジュースなど速やかに吸収される糖質を与えます。改善しない場合は救急要請します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第19章 栄養・代謝面の課題があるクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-052",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 2,
+    "question": "高血圧のクライアントのレジスタンストレーニングで避けるべきものはどれか。",
+    "choices": [
+      "中強度・高反復での全身運動",
+      "十分なウォームアップとクールダウン",
+      "息こらえ（バルサルバ法）を伴う高強度種目"
+    ],
+    "answerIndex": 2,
+    "explanation": "バルサルバ法は血圧を急上昇させるため高血圧では避けます。中強度・呼吸を止めない・長い等尺性保持を避けるなどの配慮が必要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第20章 心血管・呼吸器系の疾患があるクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-053",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 2,
+    "question": "運動誘発性喘息のあるクライアントへの配慮として適切なのはどれか。",
+    "choices": [
+      "十分なウォームアップを行い、冷たく乾燥した空気を避ける",
+      "吸入器は持参させない",
+      "ウォームアップを省略して急に高強度で開始する"
+    ],
+    "answerIndex": 0,
+    "explanation": "十分なウォームアップは症状の軽減に有効です。冷乾燥した空気や大気汚染下での運動は避け、処方された吸入薬を携帯させ、発作時は運動を中止します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第20章 心血管・呼吸器系の疾患があるクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-054",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 2,
+    "question": "骨粗鬆症のクライアントに対して一般に避けるべき動作はどれか。",
+    "choices": [
+      "荷重をかける立位でのレジスタンス運動",
+      "脊柱の強い屈曲・回旋を伴う動作",
+      "バランストレーニング"
+    ],
+    "answerIndex": 1,
+    "explanation": "骨粗鬆症では脊柱の強い屈曲・回旋が椎体骨折のリスクとなるため避けます。荷重運動やレジスタンス運動、転倒予防のバランス練習は有益です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第21章 整形外科的問題・傷害・リハビリ中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-055",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 2,
+    "question": "関節炎（変形性関節症）のクライアントへの運動指導として適切なのはどれか。",
+    "choices": [
+      "疼痛が強い急性期でも高強度で継続する",
+      "関節を一切動かさない",
+      "低衝撃の有酸素運動と可動域運動を中心に、症状に応じて調整する"
+    ],
+    "answerIndex": 2,
+    "explanation": "水中運動・サイクリングなど低衝撃の有酸素運動、可動域運動、周囲筋の強化が有効です。疼痛が強い時期は強度・量を調整し、無理に継続しません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第21章 整形外科的問題・傷害・リハビリ中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-056",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 3,
+    "question": "腰痛の既往があるクライアントのプログラムで優先すべきなのはどれか。",
+    "choices": [
+      "体幹の安定性を高め、脊柱をニュートラルに保つ動作の習得",
+      "反復的な高速の体幹屈曲運動",
+      "重量を最優先した高負荷デッドリフト"
+    ],
+    "answerIndex": 0,
+    "explanation": "体幹の安定性（抗伸展・抗回旋）と脊柱ニュートラルの維持、ヒップヒンジの習得を優先します。反復的な脊柱屈曲や、技術が未熟なままの高負荷は避けます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第21章 整形外科的問題・傷害・リハビリ中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-057",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 3,
+    "question": "多発性硬化症（MS）のクライアントへの運動指導で特に配慮すべきことはどれか。",
+    "choices": [
+      "できるだけ高温の環境で行う",
+      "暑熱環境や体温上昇により症状が悪化しうるため、涼しい環境で行う",
+      "水分を制限する"
+    ],
+    "answerIndex": 1,
+    "explanation": "MSでは体温上昇により一時的に症状が悪化することがあります（ウートフ現象）。涼しい環境・水分補給・十分な休息を確保し、疲労の程度に応じて調整します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第22章 脊髄損傷・多発性硬化症・てんかん・脳性麻痺のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-058",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 3,
+    "question": "脊髄損傷者に生じうる「自律神経過反射」の対応として適切なのはどれか。",
+    "choices": [
+      "仰臥位で寝かせて放置する",
+      "そのまま運動を継続する",
+      "運動を中止し、上体を起こして原因（尿閉・締め付け等）を確認し医療の助けを求める"
+    ],
+    "answerIndex": 2,
+    "explanation": "自律神経過反射は血圧の急上昇・頭痛・発汗などを伴う緊急性の高い状態です。運動を中止し座位にして血圧を下げ、誘因を取り除き医療機関に連絡します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第22章 脊髄損傷・多発性硬化症・てんかん・脳性麻痺のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-059",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 2,
+    "question": "肥満のクライアントに対する運動プログラムの初期設定として適切なのはどれか。",
+    "choices": [
+      "関節への負担が少ない低衝撃種目から開始し、時間・頻度を優先して増やす",
+      "初回からランニングとジャンプを中心にする",
+      "食事制限のみを指導して運動は行わない"
+    ],
+    "answerIndex": 0,
+    "explanation": "体重による関節負担を考慮し、歩行・自転車・水中運動など低衝撃種目から開始します。まず継続と総運動量の確保を優先し、徐々に強度を高めます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第19章 栄養・代謝面の課題があるクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-060",
+    "domain": "プログラムデザイン",
+    "topic": "特別な対象者",
+    "difficulty": 3,
+    "question": "競技者に対するレジスタンストレーニングの設計で重要な考え方はどれか。",
+    "choices": [
+      "すべての競技で同一のプログラムを用いる",
+      "競技の動作様式・エネルギー機構・傷害好発部位を分析して設計する（ニーズ分析）",
+      "シーズン中もオフシーズンと同じ量を維持する"
+    ],
+    "answerIndex": 1,
+    "explanation": "競技特性（動作パターン、主要なエネルギー機構、傷害好発部位）を分析し、シーズンの局面に応じて量と強度を調整します（ピリオダイゼーション）。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第23章 競技者へのレジスタンストレーニング",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-061",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 2,
+    "question": "ウォームアップの構成として一般的に推奨される順序はどれか。",
+    "choices": [
+      "いきなり本番セットから開始する",
+      "静的ストレッチ → 最大挙上 → 有酸素運動",
+      "全身的な軽い有酸素運動 → 動的ストレッチ → 種目特異的な軽い準備セット"
+    ],
+    "answerIndex": 2,
+    "explanation": "一般的ウォームアップ（体温上昇）→動的ストレッチ→専門的ウォームアップ（軽い負荷での該当種目）という流れが推奨されます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第12章 柔軟性・ウォームアップと自体重・スタビリティボール",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-062",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 3,
+    "question": "同一セッションで有酸素運動と筋力トレーニングを行う場合、筋力向上を主目的とするときの一般的な順序はどれか。",
+    "choices": [
+      "レジスタンストレーニングを先に行う",
+      "長時間の有酸素運動を先に行う",
+      "順序による違いはない"
+    ],
+    "answerIndex": 0,
+    "explanation": "目的とする能力を疲労の少ない状態で先に行うのが原則です。筋力・パワーが主目的ならレジスタンスを先に、持久力が主目的なら有酸素を先に配置します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-063",
+    "domain": "プログラムデザイン",
+    "topic": "レジスタンスプログラム設計",
+    "difficulty": 2,
+    "question": "トレーニング効果が停滞（プラトー）した場合の対応として適切でないものはどれか。",
+    "choices": [
+      "強度・量・種目・休息など変数を見直して変化を加える",
+      "毎日限界まで追い込む量に増やす",
+      "回復（睡眠・栄養・休養日）の状況を確認する"
+    ],
+    "answerIndex": 1,
+    "explanation": "停滞時はプログラム変数の変化や回復状況の見直しが基本です。無条件に量を増やすとオーバートレーニングに陥り、かえって成果が落ちます。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "prog-064",
+    "domain": "プログラムデザイン",
+    "topic": "有酸素プログラム設計",
+    "difficulty": 2,
+    "question": "筋力トレーニング後の回復を促す方法として適切なのはどれか。",
+    "choices": [
+      "水分と食事を制限する",
+      "休養日を一切設けない",
+      "十分な睡眠・栄養・計画的な休養日を確保する"
+    ],
+    "answerIndex": 2,
+    "explanation": "適応はトレーニングそのものではなく回復期に生じます。睡眠・栄養（十分なエネルギーとタンパク質）・休養日の確保が成果と傷害予防の前提です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第15章 レジスタンストレーニングのプログラムデザイン",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-016",
+    "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
+    "difficulty": 3,
+    "question": "法的な過失（ネグリジェンス）が成立するために一般に必要とされる要素に含まれないものはどれか。",
+    "choices": [
+      "トレーナーが特定の団体に所属していること",
+      "違反と損害との因果関係、および実際の損害の発生",
+      "注意義務の存在と、その義務の違反"
+    ],
+    "answerIndex": 0,
+    "explanation": "過失は一般に「義務の存在」「義務違反」「因果関係」「損害」の4要素で判断されます。所属団体の有無は要件ではありません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第25章 パーソナルトレーナーの専門的・法的・倫理的責任",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-017",
+    "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
+    "difficulty": 3,
+    "question": "免責同意書（waiver）とインフォームド・コンセントの関係として正しい記述はどれか。",
+    "choices": [
+      "免責同意書があれば、いかなる過失も免責される",
+      "免責同意書はリスク管理の一手段だが、重大な過失まで免責するとは限らない",
+      "インフォームド・コンセントは同意書があれば不要である"
+    ],
+    "answerIndex": 1,
+    "explanation": "同意書・免責書はリスク管理に有効ですが万能ではなく、重大・故意の過失は免責されない場合があります。適切な指導と記録こそが最大の防御です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第25章 パーソナルトレーナーの専門的・法的・倫理的責任",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-018",
+    "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
+    "difficulty": 2,
+    "question": "認定資格の維持に関して一般に求められるものはどれか。",
+    "choices": [
+      "特定のサプリメントの販売実績",
+      "毎年の実技試験の再受験",
+      "継続教育（CEU）の取得とCPR/AED認定の維持"
+    ],
+    "answerIndex": 2,
+    "explanation": "多くの認定では、定められた期間内の継続教育単位（CEU）取得と有効なCPR/AED認定の維持が更新条件です。最新の知識の維持は専門職の責務です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第25章 パーソナルトレーナーの専門的・法的・倫理的責任",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-019",
+    "domain": "安全性・法的",
+    "topic": "専門職・法的・倫理",
+    "difficulty": 2,
+    "question": "クライアントとの専門的関係の維持に関して適切なのはどれか。",
+    "choices": [
+      "適切な専門的境界を保ち、利益相反や不適切な関係を避ける",
+      "個人的な関係を積極的に築くほど良い",
+      "他の専門職の領域にも積極的に踏み込む"
+    ],
+    "answerIndex": 0,
+    "explanation": "専門職としての境界の維持、守秘義務、業務範囲の遵守、利益相反の回避は倫理綱領の中心です。必要に応じて他の専門職へ紹介します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第25章 パーソナルトレーナーの専門的・法的・倫理的責任",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-020",
+    "domain": "安全性・法的",
+    "topic": "施設・器具の安全",
+    "difficulty": 2,
+    "question": "フリーウェイトエリアのレイアウトで確保すべき条件はどれか。",
+    "choices": [
+      "できるだけ多くの器具を詰めて配置する",
+      "ラック間・ベンチ間に十分な間隔と通路を確保する",
+      "鏡の前だけを広く空ける"
+    ],
+    "answerIndex": 1,
+    "explanation": "器具間の適切な間隔（安全な作業スペース）と通路の確保が、接触事故や避難の妨げを防ぎます。監視しやすい見通しの確保も重要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第24章 施設・器具のレイアウトと管理",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-021",
+    "domain": "安全性・法的",
+    "topic": "施設・器具の安全",
+    "difficulty": 2,
+    "question": "トレーニング施設の衛生管理として適切なのはどれか。",
+    "choices": [
+      "清掃は年1回で十分である",
+      "汗の付着は自然乾燥に任せる",
+      "器具の清拭・消毒を定期的に行い、利用者にも使用後の清拭を促す"
+    ],
+    "answerIndex": 2,
+    "explanation": "接触面の定期的な清拭・消毒と利用者への協力依頼は感染予防の基本です。清掃記録を残すこともリスク管理につながります。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第24章 施設・器具のレイアウトと管理",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-022",
+    "domain": "安全性・法的",
+    "topic": "施設・器具の安全",
+    "difficulty": 2,
+    "question": "トレーニング環境の温度・湿度・換気について適切なのはどれか。",
+    "choices": [
+      "適切な室温と換気を確保し、高温多湿を避ける",
+      "発汗を促すため高温多湿を維持する",
+      "換気は不要である"
+    ],
+    "answerIndex": 0,
+    "explanation": "高温多湿は熱中症のリスクを高めます。適切な室温・湿度・換気の確保と、環境に応じた強度調整・水分補給が必要です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第24章 施設・器具のレイアウトと管理",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-023",
+    "domain": "安全性・法的",
+    "topic": "緊急時対応",
+    "difficulty": 2,
+    "question": "熱射病（重症の熱中症）を疑う徴候として最も重要なのはどれか。",
+    "choices": [
+      "軽い筋けいれんのみ",
+      "高体温に加え意識障害（錯乱・反応低下）がみられる",
+      "軽度の発汗"
+    ],
+    "answerIndex": 1,
+    "explanation": "高体温＋中枢神経症状（錯乱・意識障害）は熱射病を疑う緊急事態です。直ちに救急要請し、冷却（体表冷却・涼所への移動）を開始します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第24章 施設・器具のレイアウトと管理",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-024",
+    "domain": "安全性・法的",
+    "topic": "緊急時対応",
+    "difficulty": 2,
+    "question": "反応がなく正常な呼吸もない成人を発見した場合の対応として適切なのはどれか。",
+    "choices": [
+      "座らせて休ませる",
+      "水を飲ませて様子を見る",
+      "直ちに救急要請とAEDの手配を行い、胸骨圧迫を開始する"
+    ],
+    "answerIndex": 2,
+    "explanation": "反応なし・正常呼吸なしは心停止を疑います。応援要請（119番・AED手配）と速やかな胸骨圧迫の開始が救命率を大きく左右します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第25章 パーソナルトレーナーの専門的・法的・倫理的責任",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-025",
+    "domain": "安全性・法的",
+    "topic": "緊急時対応",
+    "difficulty": 2,
+    "question": "けいれん発作（てんかん発作）が起きた際の対応として適切なのはどれか。",
+    "choices": [
+      "周囲の危険物を取り除き、身体を無理に押さえつけない",
+      "口の中に物を入れて舌を押さえる",
+      "身体を強く押さえて動きを止める"
+    ],
+    "answerIndex": 0,
+    "explanation": "周囲の安全確保と観察が基本で、身体の抑制や口内への挿入は行いません。発作が長引く・繰り返す・意識が戻らない場合は救急要請します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第22章 脊髄損傷・多発性硬化症・てんかん・脳性麻痺のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-026",
+    "domain": "安全性・法的",
+    "topic": "安全手順",
+    "difficulty": 2,
+    "question": "急性の筋・腱・靭帯損傷に対する初期対応の一般的な原則はどれか。",
+    "choices": [
+      "直ちに温熱とストレッチを行う",
+      "安静・冷却・圧迫・挙上を行い、必要に応じて医療機関へ紹介する",
+      "痛みを我慢して運動を継続する"
+    ],
+    "answerIndex": 1,
+    "explanation": "急性期は安静・冷却・圧迫・挙上（RICE）が基本で、診断・治療は医療の領域です。トレーナーは応急対応と紹介を行い、診断は行いません。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第21章 整形外科的問題・傷害・リハビリ中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-027",
+    "domain": "安全性・法的",
+    "topic": "安全手順",
+    "difficulty": 2,
+    "question": "捻挫（スプレイン）と肉離れ（ストレイン）の違いとして正しいのはどれか。",
+    "choices": [
+      "両者は同じ意味である",
+      "捻挫は筋の損傷、肉離れは靭帯の損傷",
+      "捻挫は靭帯の損傷、肉離れは筋・腱の損傷"
+    ],
+    "answerIndex": 2,
+    "explanation": "スプレイン（捻挫）は靭帯、ストレイン（肉離れ）は筋・腱の損傷を指します。いずれも重症度に応じて医療機関への紹介を判断します。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第21章 整形外科的問題・傷害・リハビリ中のクライアント",
+      "page": null
+    }
+  },
+  {
+    "id": "safety-028",
+    "domain": "安全性・法的",
+    "topic": "緊急時対応",
+    "difficulty": 2,
+    "question": "施設内で事故が発生した後に必ず行うべきことはどれか。",
+    "choices": [
+      "発生状況・対応・時刻などを記録したインシデントレポートを作成・保管する",
+      "記録を残さず口頭で共有するだけにする",
+      "関係者に口外しないよう指示して終える"
+    ],
+    "answerIndex": 0,
+    "explanation": "客観的な事実（日時・状況・対応・証人）を記録した報告書の作成と保管は、再発防止と法的な備えの両面で不可欠です。",
+    "imageUrl": null,
+    "videoUrl": null,
+    "reference": {
+      "edition": "第3版",
+      "chapter": "第25章 パーソナルトレーナーの専門的・法的・倫理的責任",
+      "page": null
+    }
   }
 ]
