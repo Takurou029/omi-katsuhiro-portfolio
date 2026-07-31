@@ -3,49 +3,42 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useProgress } from "@/lib/store";
-import { QUESTIONS } from "@/lib/questions";
+import { QUESTIONS, getQuestionsByDomain, questionCountByDomain } from "@/lib/questions";
 import { selectQuestions, wrongNoteIds } from "@/lib/leitner";
-import { domainProficiency } from "@/lib/stats";
+import { DOMAINS } from "@/lib/config";
+import { levelFromXp, masteredCount } from "@/lib/progression";
 import {
   displayStreak,
   isStreakProtected,
   toDateKey,
   answeredOn,
 } from "@/lib/streak";
-import { Card, Meter } from "@/components/ui";
-import { Heatmap } from "@/components/Heatmap";
-import { ProgressionCard } from "@/components/ProgressionCard";
-import { Disclaimer } from "@/components/Disclaimer";
 import { QuizRunner } from "@/components/QuizRunner";
-import {
-  FlameIcon,
-  PlayIcon,
-  CheckCircleIcon,
-  BookIcon,
-  NoteIcon,
-  TargetIcon,
-  ArrowRightIcon,
-  ShieldIcon,
-} from "@/components/icons";
+import { FlameIcon, PlayIcon, CheckCircleIcon, ShieldIcon } from "@/components/icons";
 import type { Question } from "@/lib/types";
+
+/** 分野をワンタップで始めるときの出題数。 */
+const QUICK_START_COUNT = 10;
 
 export default function HomePage() {
   const { state, hydrated, updateSettings } = useProgress();
   const [session, setSession] = useState<Question[] | null>(null);
+  const [sessionTitle, setSessionTitle] = useState("今日のノルマ");
+  const [sessionMode, setSessionMode] = useState<"daily" | "practice">("daily");
   const [sessionKey, setSessionKey] = useState(0);
+  const [restart, setRestart] = useState<(() => void) | null>(null);
 
   const todayKey = toDateKey(new Date());
   const streak = displayStreak(state.streak, todayKey);
   const todayCount = answeredOn(state.answers, todayKey);
   const goal = state.settings.dailyGoal;
-  const proficiency = useMemo(
-    () => domainProficiency(state.answers),
-    [state.answers],
-  );
+  const counts = useMemo(() => questionCountByDomain(), []);
   const wrongCount = useMemo(
     () => wrongNoteIds(state.cards).length,
     [state.cards],
   );
+  const level = levelFromXp(state.answers.length);
+  const mastered = masteredCount(state.cards);
 
   const daysLeft = useMemo(() => {
     if (!state.settings.examDate) return null;
@@ -54,10 +47,29 @@ export default function HomePage() {
     return Math.ceil((exam.getTime() - today.getTime()) / 86400000);
   }, [state.settings.examDate, todayKey]);
 
+  /** 今日のノルマを開始する。 */
   const startDaily = () => {
-    const qs = selectQuestions(QUESTIONS, state.cards, goal);
-    setSession(qs);
-    setSessionKey((k) => k + 1);
+    const run = () => {
+      setSession(selectQuestions(QUESTIONS, state.cards, goal));
+      setSessionKey((k) => k + 1);
+    };
+    setSessionTitle("今日のノルマ");
+    setSessionMode("daily");
+    setRestart(() => run);
+    run();
+  };
+
+  /** 分野（またはミックス）をワンタップで開始する。 */
+  const startDomain = (domainName: string | null, label: string) => {
+    const run = () => {
+      const pool = domainName ? getQuestionsByDomain(domainName) : QUESTIONS;
+      setSession(selectQuestions(pool, state.cards, QUICK_START_COUNT));
+      setSessionKey((k) => k + 1);
+    };
+    setSessionTitle(label);
+    setSessionMode("practice");
+    setRestart(() => run);
+    run();
   };
 
   if (session) {
@@ -65,381 +77,253 @@ export default function HomePage() {
       <QuizRunner
         key={sessionKey}
         questions={session}
-        mode="daily"
-        title="今日のノルマ"
+        mode={sessionMode}
+        title={sessionTitle}
         onExit={() => setSession(null)}
-        onOneMore={startDaily}
+        onOneMore={restart ?? undefined}
       />
     );
   }
 
-  if (!hydrated) {
-    return <HomeSkeleton />;
-  }
+  if (!hydrated) return <HomeSkeleton />;
 
   const goalDone = todayCount >= goal;
-  // ストリークが途切れた直後（過去に学習歴があるのに現在0）は励ましの文言に。
-  const hadHistory = state.answers.length > 0;
-  const streakBroken = streak === 0 && hadHistory;
-  // 昨日休んだが保護で繋がっている状態（今日やれば消費してチェーン継続）。
   const protectedNow = isStreakProtected(state.streak, todayKey);
-  const firstRun = state.answers.length === 0;
-  // リマインダー提案：学習が始まった人にだけ、一度だけ出す。
   const showReminderNudge =
-    !firstRun &&
+    state.answers.length > 0 &&
     !state.settings.reminderConfigured &&
     !state.settings.reminderPromptDismissed;
 
   return (
-    <div className="animate-pop-in px-4 lg:px-8">
-      {/* ヒーロー：ストリーク＋今日のノルマ（習慣化の核） */}
-      <section className="mt-6 grid gap-4 lg:grid-cols-[1fr_1.2fr]">
-        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-lime-50 p-6 shadow-sm dark:border-slate-800 dark:from-slate-900 dark:to-slate-900/40">
-          <p className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-400">
-            <FlameIcon
-              className={`h-4 w-4 ${streak > 0 ? "text-orange-500" : "text-slate-300 dark:text-slate-600"}`}
-            />
-            Streak / 連続学習
-          </p>
-          <div className="mt-2 flex items-end gap-2">
-            <span
-              className={`counter-number text-7xl font-black leading-none ${
-                streak > 0 ? "text-lime-600 dark:text-accent" : "text-slate-300 dark:text-slate-600"
-              }`}
-            >
-              {streak}
-            </span>
-            <span className="mb-1.5 text-2xl font-black text-slate-400">日</span>
-          </div>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            {protectedNow
-              ? "昨日はおやすみ保護でつながっています。今日やれば連続記録はそのまま続きます。"
-              : streakBroken
-                ? "今日の1セットで再スタートしましょう。継続は今日から数え直せます。"
-                : streak > 0
-                  ? todayCount === 0
-                    ? `今日の分を終えると ${streak + 1} 日連続になります。`
-                    : goalDone
-                      ? "今日の分は完了。いい流れです。"
-                      : `あと ${goal - todayCount} 問で今日のノルマ達成です。`
-                  : "最初の1日を今日にしましょう。"}
-          </p>
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
-            {state.streak.freezes > 0 && (
+    <div className="animate-pop-in mx-auto w-full max-w-3xl px-4 lg:px-8">
+      {/* 進捗：連続日数・レベル・本番まで を1枚に集約 */}
+      <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+          <div>
+            <p className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-400">
+              <FlameIcon
+                className={`h-3.5 w-3.5 ${
+                  streak > 0
+                    ? "text-orange-500"
+                    : "text-slate-300 dark:text-slate-600"
+                }`}
+              />
+              連続学習
+            </p>
+            <p className="mt-0.5 flex items-baseline gap-1.5">
               <span
-                className="flex items-center gap-1 font-bold text-sky-600 dark:text-sky-400"
-                title="1日休んでも連続記録が途切れない保険です。7日続けるごとに1回もらえます（最大2回）。"
+                className={`counter-number text-5xl font-black leading-none ${
+                  streak > 0
+                    ? "text-lime-600 dark:text-accent"
+                    : "text-slate-300 dark:text-slate-600"
+                }`}
               >
-                <ShieldIcon className="h-3.5 w-3.5" />
-                おやすみ保護 {state.streak.freezes}回分
-                {protectedNow
-                  ? "（今日つなぐと1回分使います）"
-                  : "＝1日休んでも記録が続く保険"}
+                {streak}
               </span>
-            )}
-            {state.streak.longest > streak && state.streak.longest >= 2 && (
-              <span>最長記録 {state.streak.longest} 日</span>
-            )}
+              <span className="text-lg font-black text-slate-400">日</span>
+            </p>
           </div>
-          <p className="mt-3 border-t border-slate-100 pt-3 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
-            {daysLeft !== null ? (
-              daysLeft >= 0 ? (
-                <>
-                  本番まであと{" "}
-                  <span className="counter-number text-lg font-black text-slate-900 dark:text-white">
-                    {daysLeft}
-                  </span>{" "}
-                  日
-                </>
-              ) : (
-                <span>
-                  試験日を過ぎています（
-                  <Link href="/settings" className="underline">
-                    設定で更新
-                  </Link>
-                  ）
-                </span>
-              )
+
+          <div className="text-right">
+            {daysLeft !== null && daysLeft >= 0 ? (
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                本番まで{" "}
+                <span className="counter-number text-2xl font-black text-slate-900 dark:text-white">
+                  {daysLeft}
+                </span>{" "}
+                日
+              </p>
             ) : (
-              <>
-                試験日は未設定（
-                <Link href="/settings" className="underline">
-                  設定する
-                </Link>
-                ）
-              </>
+              <Link
+                href="/settings"
+                className="text-sm font-bold text-lime-700 underline dark:text-accent"
+              >
+                試験日を設定する
+              </Link>
             )}
-          </p>
+            <p className="mt-1 text-xs text-slate-400">
+              累計 {state.answers.length}問 ・ 定着 {mastered}/{QUESTIONS.length}
+            </p>
+          </div>
         </div>
 
-        {/* 今日のノルマ CTA */}
-        <button
-          onClick={startDaily}
-          className={`group flex flex-col justify-between rounded-2xl p-6 text-left shadow-md transition active:scale-[0.99] ${
-            goalDone
-              ? "bg-emerald-500 text-white"
-              : "bg-accent text-slate-900 hover:bg-accent-soft"
-          }`}
-        >
-          <div className="flex w-full items-start justify-between">
-            <div>
-              <p className="flex items-center gap-2 text-xl font-black lg:text-2xl">
-                {goalDone ? (
-                  <>
-                    <CheckCircleIcon className="h-6 w-6" />
-                    今日のノルマ達成
-                  </>
-                ) : (
-                  <>今日の{goal}問をやる</>
-                )}
-              </p>
-              <p className="mt-1 text-sm font-medium opacity-80">
-                {goalDone
-                  ? "もう1セット積むと、明日がさらに楽になります"
-                  : streakBroken
-                    ? "3分で終わります。まずはここから再開"
-                    : "ワンタップで開始。まずは最低ノルマだけ"}
-              </p>
-            </div>
-            <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-black/10 transition group-hover:scale-110">
-              <PlayIcon className="h-6 w-6" />
+        {/* レベル進捗 */}
+        <div className="mt-4">
+          <div className="mb-1 flex items-baseline justify-between text-xs">
+            <span className="font-bold">Lv.{level.level}</span>
+            <span className="text-slate-400">
+              次のレベルまであと {level.remaining} 問
             </span>
           </div>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+            <div
+              className="h-full rounded-full bg-accent-strong transition-[width] duration-500"
+              style={{ width: `${Math.round(level.progress * 100)}%` }}
+            />
+          </div>
+        </div>
 
-          {/* 開始前の不安を下げる情報チップ（所要時間・復習待ち・今日の進み） */}
-          <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold">
-            <span className="rounded-full bg-black/10 px-3 py-1.5">
-              所要 約{Math.max(1, goal)}分
-            </span>
-            <span className="rounded-full bg-black/10 px-3 py-1.5">
-              苦手な問題から自動で出題
-            </span>
-            {wrongCount > 0 && (
-              <span className="rounded-full bg-black/10 px-3 py-1.5">
-                復習待ち {wrongCount}問
-              </span>
-            )}
-          </div>
-
-          <div className="mt-5 flex w-full items-center gap-2 text-xs font-bold opacity-90">
-            <div className="h-2 flex-1 overflow-hidden rounded-full bg-black/15">
-              <div
-                className="h-full rounded-full bg-black/60 transition-[width] duration-500"
-                style={{ width: `${Math.min(100, (todayCount / goal) * 100)}%` }}
-              />
-            </div>
-            <span className="tabular-nums">
-              {Math.min(todayCount, goal)}/{goal}
-            </span>
-          </div>
-        </button>
+        {protectedNow && (
+          <p className="mt-3 flex items-center gap-1.5 text-xs font-bold text-sky-600 dark:text-sky-400">
+            <ShieldIcon className="h-4 w-4 flex-none" />
+            昨日はおやすみ保護でつながっています。今日やれば記録は続きます。
+          </p>
+        )}
       </section>
 
-      {/* リマインダー提案（一度だけ）：開くのを忘れない仕組みづくりへ誘導 */}
-      {showReminderNudge && (
-        <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-4 dark:border-sky-500/30 dark:bg-sky-500/10 sm:flex-row sm:items-center">
-          <p className="flex-1 text-sm leading-relaxed text-sky-900 dark:text-sky-200">
-            <span className="font-bold">続けるコツは「開くのを忘れないこと」。</span>
-            <br className="sm:hidden" />
-            毎日決まった時刻に呼び戻してくれるリマインダーを、カレンダーに登録できます。
-          </p>
-          <div className="flex flex-none gap-2">
-            <Link
-              href="/settings"
-              className="rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-sky-700"
-            >
-              設定でつくる
-            </Link>
-            <button
-              onClick={() =>
-                updateSettings({ reminderPromptDismissed: true })
-              }
-              className="rounded-xl px-4 py-2.5 text-sm font-bold text-sky-700 hover:bg-sky-100 dark:text-sky-300 dark:hover:bg-sky-500/20"
-            >
-              あとで
-            </button>
+      {/* 今日のノルマ：最短で学習に入る導線 */}
+      <button
+        onClick={startDaily}
+        className={`mt-4 flex w-full items-center justify-between rounded-2xl px-6 py-5 text-left shadow-md transition active:scale-[0.99] ${
+          goalDone
+            ? "bg-emerald-500 text-white"
+            : "bg-accent text-slate-900 hover:bg-accent-soft"
+        }`}
+      >
+        <span>
+          <span className="flex items-center gap-2 text-xl font-black lg:text-2xl">
+            {goalDone && <CheckCircleIcon className="h-6 w-6" />}
+            {goalDone ? "今日のノルマ達成" : `今日の${goal}問をやる`}
+          </span>
+          <span className="mt-0.5 block text-sm font-medium opacity-80">
+            {goalDone
+              ? "もう1セット積むと、明日がさらに楽になります"
+              : `約${Math.max(1, goal)}分・苦手な問題から出題されます`}
+          </span>
+        </span>
+        <span className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-black/10">
+          <PlayIcon className="h-6 w-6" />
+        </span>
+      </button>
+
+      {/* 今日の進み具合（ノルマ未達のときだけ） */}
+      {!goalDone && todayCount > 0 && (
+        <div className="mt-2 flex items-center gap-2 px-1 text-xs font-bold text-slate-500">
+          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+            <div
+              className="h-full rounded-full bg-accent-strong"
+              style={{ width: `${Math.min(100, (todayCount / goal) * 100)}%` }}
+            />
           </div>
+          <span className="tabular-nums">
+            {todayCount}/{goal}
+          </span>
         </div>
       )}
 
-      {/* 2カラム：積み上げ＋ヒートマップ / 到達度＋アクション */}
-      <section className="mt-4 grid gap-4 lg:grid-cols-2">
-        <div className="space-y-4">
-          {firstRun ? (
-            // 初回はまだ見せるデータがないため、空のグラフの代わりに
-            // 「何がどう積み上がるか」を先に伝える。
-            <Card>
-              <h2 className="text-sm font-bold">このアプリの使い方</h2>
-              <ol className="mt-3 space-y-3">
-                {[
-                  {
-                    step: "1",
-                    title: "今日の3問をやる（約3分）",
-                    desc: "上の緑のボタンから。正解も不正解も、解くだけで積み上がります。",
-                  },
-                  {
-                    step: "2",
-                    title: "間違えても大丈夫",
-                    desc: "間違えた問題ほど後日くり返し出題され、自然に覚えられます。",
-                  },
-                  {
-                    step: "3",
-                    title: "明日もう一度開く",
-                    desc: "連続日数・レベル・学習の記録が積み上がります。1日休んでも「おやすみ保護」が記録を守ってくれます（7日続けるごとに1回もらえる）。",
-                  },
-                ].map((s) => (
-                  <li key={s.step} className="flex gap-3">
-                    <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-accent font-black text-slate-900">
-                      {s.step}
-                    </span>
-                    <span>
-                      <span className="block text-sm font-bold">{s.title}</span>
-                      <span className="block text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-                        {s.desc}
-                      </span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </Card>
-          ) : (
-            <>
-              <ProgressionCard answers={state.answers} cards={state.cards} />
-              <Card>
-                <h2 className="mb-3 text-sm font-bold">学習の記録</h2>
-                <Heatmap answers={state.answers} />
-              </Card>
-            </>
-          )}
-        </div>
-
-        <div className="space-y-4">
-          {!firstRun && (
-          <Card>
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="flex items-center gap-1.5 text-sm font-bold">
-                <TargetIcon className="h-4 w-4 text-accent-strong" />
-                分野別 到達度（正答率）
-              </h2>
-              <Link
-                href="/stats"
-                className="text-xs font-bold text-lime-700 hover:underline dark:text-accent"
-              >
-                統計を見る
-              </Link>
-            </div>
-            <div className="space-y-3">
-              {proficiency.map((p) => (
-                <Meter
-                  key={p.domain}
-                  value={p.rate}
-                  color={p.color}
-                  label={p.shortName}
-                  rightLabel={
-                    p.answered > 0
-                      ? `${Math.round(p.rate * 100)}%（${p.answered}問）`
-                      : "未挑戦"
-                  }
-                />
-              ))}
-            </div>
-          </Card>
-          )}
-
-          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-            <ActionLink
-              href="/practice"
-              icon={<BookIcon className="h-5 w-5" />}
-              title="練習モード"
-              desc="分野を選んで弱点を潰す"
+      {/* 分野を選んですぐ開始 */}
+      <section className="mt-6">
+        <h2 className="mb-2 text-sm font-bold">
+          分野を選んで始める
+          <span className="ml-2 font-medium text-slate-400">
+            各{QUICK_START_COUNT}問・苦手を優先
+          </span>
+        </h2>
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+          <QuickStart
+            label="全分野ミックス"
+            count={QUESTIONS.length}
+            onClick={() => startDomain(null, "全分野ミックス")}
+            className="col-span-2 sm:col-span-3"
+          />
+          {DOMAINS.map((d) => (
+            <QuickStart
+              key={d.id}
+              label={d.shortName}
+              count={counts[d.name] ?? 0}
+              color={d.color}
+              onClick={() => startDomain(d.name, d.shortName)}
             />
-            <ActionLink
-              href="/mock"
-              icon={<NoteIcon className="h-5 w-5" />}
-              title="模試モード"
-              desc="本番形式・制限時間つき"
-            />
-            <ActionLink
-              href="/review"
-              icon={<ArrowRightIcon className="h-5 w-5" />}
-              title="間違いノート"
-              desc={
-                wrongCount > 0
-                  ? `${wrongCount}問が復習待ち`
-                  : "誤答が自動で貯まる"
-              }
-              highlight={wrongCount > 0}
-              className="sm:col-span-2"
-            />
-          </div>
-
-          <Disclaimer />
-          <div className="pb-2 text-center">
+          ))}
+          {wrongCount > 0 && (
             <Link
-              href="/about"
-              className="text-xs font-medium text-slate-400 underline"
+              href="/review"
+              className="flex items-center justify-center rounded-2xl border-2 border-amber-300 bg-amber-50 px-4 py-4 text-center text-sm font-bold text-amber-800 transition hover:bg-amber-100 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-300"
             >
-              このアプリについて・免責事項
+              間違いノート {wrongCount}問
             </Link>
-          </div>
+          )}
         </div>
       </section>
+
+      {/* リマインダー提案（1回だけ・1行） */}
+      {showReminderNudge && (
+        <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-sky-50 px-4 py-3 text-sm text-sky-900 dark:bg-sky-500/10 dark:text-sky-200">
+          <span className="flex-1">続けるコツは「開くのを忘れないこと」。</span>
+          <Link
+            href="/settings"
+            className="font-bold underline underline-offset-2"
+          >
+            リマインダーを作る
+          </Link>
+          <button
+            onClick={() => updateSettings({ reminderPromptDismissed: true })}
+            className="text-sky-700/70 dark:text-sky-300/70"
+          >
+            あとで
+          </button>
+        </div>
+      )}
+
+      {/* 詳細メニューは控えめに */}
+      <nav className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-slate-100 pt-5 text-sm font-bold text-slate-500 dark:border-slate-800">
+        <Link href="/practice" className="hover:text-slate-900 dark:hover:text-white">
+          練習の詳細設定
+        </Link>
+        <Link href="/mock" className="hover:text-slate-900 dark:hover:text-white">
+          模試モード
+        </Link>
+        <Link href="/stats" className="hover:text-slate-900 dark:hover:text-white">
+          統計・振り返り
+        </Link>
+      </nav>
+
+      <p className="mb-2 mt-4 text-center text-[11px] leading-relaxed text-slate-400">
+        収録問題はオリジナルの学習用です。最終確認は公式テキスト第3版で行ってください。
+        <Link href="/about" className="ml-1 underline">
+          詳細・免責事項
+        </Link>
+      </p>
     </div>
   );
 }
 
-function ActionLink({
-  href,
-  icon,
-  title,
-  desc,
-  highlight = false,
+function QuickStart({
+  label,
+  count,
+  color,
+  onClick,
   className = "",
 }: {
-  href: string;
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  highlight?: boolean;
+  label: string;
+  count: number;
+  color?: string;
+  onClick: () => void;
   className?: string;
 }) {
   return (
-    <Link
-      href={href}
-      className={`flex items-center gap-3 rounded-2xl border p-4 transition hover:border-accent-strong ${
-        highlight
-          ? "border-amber-300 bg-amber-50 dark:border-amber-500/40 dark:bg-amber-500/10"
-          : "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/60"
-      } ${className}`}
+    <button
+      onClick={onClick}
+      className={`flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-4 text-center transition hover:border-accent-strong hover:bg-accent/10 active:scale-[0.99] dark:border-slate-800 dark:bg-slate-900/60 ${className}`}
     >
-      <span
-        className={`flex h-10 w-10 flex-none items-center justify-center rounded-xl ${
-          highlight
-            ? "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300"
-            : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
-        }`}
-      >
-        {icon}
-      </span>
-      <span className="min-w-0">
-        <span className="block text-sm font-bold">{title}</span>
-        <span className="block truncate text-xs text-slate-400">{desc}</span>
-      </span>
-    </Link>
+      {color && (
+        <span
+          className="h-2.5 w-2.5 flex-none rounded-full"
+          style={{ backgroundColor: color }}
+        />
+      )}
+      <span className="text-sm font-bold">{label}</span>
+      <span className="text-xs text-slate-400">{count}問</span>
+    </button>
   );
 }
 
 function HomeSkeleton() {
   return (
-    <div className="animate-pulse space-y-4 p-4 pt-10 lg:px-8">
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="h-48 rounded-2xl bg-slate-100 dark:bg-slate-800" />
-        <div className="h-48 rounded-2xl bg-slate-100 dark:bg-slate-800" />
-      </div>
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="h-72 rounded-2xl bg-slate-100 dark:bg-slate-800" />
-        <div className="h-72 rounded-2xl bg-slate-100 dark:bg-slate-800" />
-      </div>
+    <div className="mx-auto w-full max-w-3xl animate-pulse space-y-4 p-4 pt-10 lg:px-8">
+      <div className="h-40 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+      <div className="h-24 rounded-2xl bg-slate-100 dark:bg-slate-800" />
+      <div className="h-32 rounded-2xl bg-slate-100 dark:bg-slate-800" />
     </div>
   );
 }

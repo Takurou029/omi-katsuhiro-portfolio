@@ -70,31 +70,18 @@ export function SideNav() {
         </ul>
       </nav>
 
-      {hydrated && (
-        <div className="space-y-2 rounded-2xl border border-slate-200 bg-white p-4 text-sm dark:border-slate-800 dark:bg-slate-900">
-          <p className="flex items-center gap-1.5 font-bold">
-            <FlameIcon
-              className={`h-4 w-4 ${streak > 0 ? "text-orange-500" : "text-slate-300 dark:text-slate-600"}`}
-            />
-            連続 {streak} 日
-          </p>
-          {daysLeft !== null && daysLeft >= 0 ? (
-            <p className="text-slate-500 dark:text-slate-400">
-              本番まで{" "}
-              <span className="font-black text-slate-900 dark:text-white">
-                {daysLeft}
-              </span>{" "}
-              日
-            </p>
-          ) : (
-            <Link
-              href="/settings"
-              className="block text-xs font-bold text-lime-700 underline dark:text-accent"
-            >
-              試験日を設定する
-            </Link>
+      {/* ホーム以外では、現在地を見失わないよう最小限の進捗だけ添える
+          （ホームは上部に進捗カードがあるため重複を避けて非表示） */}
+      {hydrated && current !== "/" && (
+        <p className="flex items-center gap-1.5 px-2 text-sm font-bold text-slate-500 dark:text-slate-400">
+          <FlameIcon
+            className={`h-4 w-4 ${streak > 0 ? "text-orange-500" : "text-slate-300 dark:text-slate-600"}`}
+          />
+          連続 {streak} 日
+          {daysLeft !== null && daysLeft >= 0 && (
+            <span className="ml-auto font-medium">本番まで {daysLeft} 日</span>
           )}
-        </div>
+        </p>
       )}
     </aside>
   );

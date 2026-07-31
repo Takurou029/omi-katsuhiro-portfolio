@@ -14,6 +14,7 @@ import { QUESTIONS } from "@/lib/questions";
 import { NUM_BOXES } from "@/lib/config";
 import { PageHeader, Card, Meter, StatTile } from "@/components/ui";
 import { Heatmap } from "@/components/Heatmap";
+import { ProgressionCard } from "@/components/ProgressionCard";
 
 export default function StatsPage() {
   const { state, hydrated } = useProgress();
@@ -85,9 +86,12 @@ export default function StatsPage() {
             <StatTile value={studyDays} label="学習日数" />
           </div>
 
+          <div className="lg:col-span-2">
+            <ProgressionCard answers={state.answers} cards={state.cards} />
+          </div>
+
           <Card className="lg:col-span-2">
             <h2 className="mb-3 text-sm font-bold">学習の記録（ヒートマップ）</h2>
-            {/* ホームと同じ期間（14週）に統一して混乱を避ける */}
             <Heatmap answers={state.answers} />
           </Card>
 
